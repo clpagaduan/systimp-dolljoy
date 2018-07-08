@@ -9,9 +9,9 @@ $message=NULL;
 $flag=0;
 
 if (isset($_POST['submit'])){
-    
+
     $empties=0;
-    
+
     $EmpType=2;
 
  if (empty($_POST['EmpFName'])){
@@ -42,38 +42,38 @@ if (empty($_POST['EmpContactNo'])){
      $empties++;
  }
  else if(!preg_match('/^[0-9]*$/',$_POST['EmpContactNo'])){
-  $cn='<font color="red">*Invalid employee contact number!</font>'; 
+  $cn='<font color="red">*Invalid employee contact number!</font>';
   $empties++;
  }
  else{
    $EmpContactNo=$_POST['EmpContactNo'];
- }   
-    
+ }
+
 if (empty($_POST['EmpEmailAdd'])){
   $EmpEmailAdd=FALSE;
   $ea='<font color="red">*This is a required field!</font>';
      $empties++;
  }else{
    $EmpEmailAdd=$_POST['EmpEmailAdd'];
- }   
-    
-    
+ }
+
+
 if ($empties>0){
   $message.="<div class='alert alert-danger'><span aria-hidden='true'><b><center>Incomplete input. Please fill out fields marked with *</center></span></div>";
-}      
+}
  else{
-     
+
      $total=$total2=0;
     $existing="SELECT EmployeeID AS employee FROM `employeeaccount` WHERE EmployeeUsername='$EmpUsername'";
 
      $resultemp=mysqli_query($dbc,$existing);
      $total= $resultemp->num_rows;
-     
+
     $existing2="SELECT CompanyID AS client FROM `clientaccount` WHERE CRepUsername='$EmpUsername'";
 
      $resultcli=mysqli_query($dbc,$existing2);
      $total2= $resultcli->num_rows;
-     
+
      $total=$total+$total2;
 
         if ($total > 0){
@@ -82,30 +82,30 @@ if ($empties>0){
         }
         else{
                 echo "<div class=\"alert alert-success\" align=\"center\">
-  Successfully Added!    
+  Successfully Added!
 </div>";
             $EmpPassword= bin2hex(openssl_random_pseudo_bytes(5));
             $query="INSERT INTO `employeeaccount` (`EmployeeID`, `employeeType`, `EmployeeFirstName`, `EmployeeLastName`, `EmployeeContactNo`, `EmployeeEmailAdd`, `EmployeeUsername`, `EmployeePassword`) VALUES (NULL, '$EmpType', '$EmpFName', '$EmpLName', '$EmpContactNo', '$EmpEmailAdd', '$EmpUsername', PASSWORD('$EmpPassword'));";
-  
-  
+
+
               mysqli_query($dbc,$query);
 
-                
+
 
               $message.= "<div class='alert alert-success'><span aria-hidden='true'><b><font color='black'><center>The account of ".$EmpFName." ".$EmpLName." has been activated</center></font></span></div>";
-                
-            
-              
+
+
+
             $flag=1;
-  
+
     }
- }   
- 
-    
+ }
+
+
 if(!isset($message) && empty($message)){
     $flag=1;
 }
- 
+
 
 }/*End of main Submit conditional*/
 
@@ -144,7 +144,7 @@ if(!isset($message) && empty($message)){
 <body>
 
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                            
+
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -276,10 +276,10 @@ if(!isset($message) && empty($message)){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="ti-link"></i>
+                              <p>Website</p>
+                              <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -308,11 +308,11 @@ if(!isset($message) && empty($message)){
                             <div class="header">
                                 <p class="category">Enter employee details to add an employee account</p>
                                 <p class="category"><b>NOTE:</b> All fields are REQUIRED</p>
-                            </div>    
+                            </div>
                             <div class="content table-responsive table-full-width">
-                           
+
                                  <br>
-          
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Employee first name *</b></label>
                                     <input class="form-control" type="text" placeholder="Employee First Name" name="EmpFName" size="20" style="placeholder-color:black" maxlength="30" value="<?php if (isset($_POST['EmpFName']) && !$flag) echo $_POST['EmpFName']; ?>"/> <?php echo $fn;?>
@@ -333,16 +333,16 @@ if(!isset($message) && empty($message)){
                                     <label>&nbsp;&nbsp;<b>Username *</b></label>
                                     <input class="form-control" type="text" placeholder="Username" name="EmpUsername" size="20" maxlength="30" value="<?php if (isset($_POST['EmpUsername']) && !$flag) echo $_POST['EmpUsername']; ?>"/> <?php echo $un;?>
                                 </div>
-                                    
+
                                 <!-- Change this to a button or input when using this as a form -->
                                 <br>&nbsp;
                                 <input class="btn btn-sm btn-success btn-fill" type="button" value="Add employee account " data-toggle="modal" data-target="#exampleModal">
                                 <br><br>
-                                    
-                            
-                                
+
+
+
                             </div>
-                            
+
                         </div>
                     </div>
 

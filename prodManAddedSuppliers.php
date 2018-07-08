@@ -165,10 +165,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="ti-link"></i>
+                              <p>Website</p>
+                              <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -197,56 +197,56 @@
                             <div class="header">
                                 <form action="prodManAddSuppliers.php" method="post">
                                 <br><br>
-                            
+
                             <?php
-                            
-                            
+
+
                             if (empty($_POST['supplier']) || empty($_POST['semail']) || empty($_POST['num']) || empty($_POST['SRFN']) || empty($_POST['SRLN'])) {
                                 echo "<center><font color='red'>Incomplete input.
                                 <br>Please click BACK to try again.</center>";
                             }
-                                
-                            
-                            if (!empty($_POST['supplier']) && !empty($_POST['semail']) && !empty($_POST['num']) && !empty($_POST['SRFN']) && !empty($_POST['SRLN'])) {  
+
+
+                            if (!empty($_POST['supplier']) && !empty($_POST['semail']) && !empty($_POST['num']) && !empty($_POST['SRFN']) && !empty($_POST['SRLN'])) {
                                 require_once('../mysql_connect.php');
-                                $supplier = $_POST['supplier'];    
+                                $supplier = $_POST['supplier'];
                                 $type = $_POST['type'];
                                 $country = $_POST['country'];
                                 $email = $_POST['semail'];
                                 $num = $_POST['num'];
                                 $fn = $_POST['SRFN'];
                                 $ln = $_POST['SRLN'];
-                                
+
                                 $existing="SELECT COUNT(*) AS number FROM `suppliers` WHERE SupplierName='$supplier' && SupplierCountry='$country' && SupplyType='$type' && SupplierRepFirstName='$fn' && SupplierRepLastName='$ln' && SupplierEmail='$email' && SupplierContactNum='$num'";
-                                
+
                                 $result1=mysqli_query($dbc,$existing);
 
                                 while($row=mysqli_fetch_array($result1,MYSQLI_ASSOC)){
                                     $number="{$row['number']}";
-                                    
+
                                     if ($number > 0){
                                         echo "<center><font color='red'>Supplier already exists.</center>";
-                                        
+
                                     }
                                     else{
                                         $query="insert into `suppliers` (SupplierID, SupplierName, SupplierCountry, SupplyType, SupplierRepFirstName, SupplierRepLastName, SupplierEmail, SupplierContactNum) values (NULL,'{$supplier}', '{$country}','{$type}', '{$fn}','{$ln}', '{$email}','{$num}')";
-                                
+
                                         $result=mysqli_query($dbc,$query);
 
                                         echo "<center>
                                         <h3><b>NEW SUPPLIER ADDED!</b></h3>
-                                        
+
                                         <h5>
                                         Supplier: $supplier<br>
                                         Country: $country <br>
                                         Type: $type<br>
-                                        
+
                                         </h5></center>";
 
                                     }
                                 }
-                                
-                                }                            
+
+                                }
 
                                 ?>
                             <br>
@@ -254,9 +254,9 @@
                             <center><a href="prodManAddSuppliers.php"><input type="submit" value="BACK" class="btn btn-sm btn-default btn-fill"></a></center>
                                 </form>
                                 </form>
-                            </div>    
+                            </div>
                             <div class="content table-responsive table-full-width">
-                                
+
                                 <div class="form-group">
                                 </div>
                                 <div class="form-group">
@@ -266,8 +266,8 @@
                                 <!-- Change this to a button or input when using this as a form -->
                                 <br>&nbsp;
                                 <br><br>
-                            
-                                
+
+
                             </div>
                         </div>
                     </div>

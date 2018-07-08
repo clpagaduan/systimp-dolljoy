@@ -48,7 +48,7 @@ th {
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
-  
+
 
     	<div class="sidebar-wrapper">
             <div class="logo">
@@ -173,10 +173,10 @@ th {
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -199,7 +199,7 @@ th {
 
         <div class="content">
 
-        <!-- SEARCH FORM --> 
+        <!-- SEARCH FORM -->
             <form class="form-horizontal" method = "post" action = "<?php echo $_SERVER['PHP_SELF']?>">
 
 
@@ -207,33 +207,33 @@ th {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                           
+
                             <div class="header">
-                                
-                                
+
+
                             <p class="category">   Select a button to view a specific account table </p>
             <button type = "submit" name = "clientAccs" class = "btn btn-info">Client Accounts</button>
             <button type = "submit" name = "employeeAccs" class = "btn btn-info">Employee Accounts</button>
-                                
-                               
+
+
                             <br><br>
 
-             
-        <!-- SEARCH BAR & SUBMIT BUTTON --> 
-        
-            
+
+        <!-- SEARCH BAR & SUBMIT BUTTON -->
+
+
                               </div> <!-- end div header -->
-                   
+
                     <br>
                                 <div class="content table-responsive table-full-width">
                                 <table id="myTable" class="table table-hover">
                                     <thead>
-                                  <?php  
-    
+                                  <?php
+
                                     if (isset($_POST['clientAccs']))
-    
+
                                     { echo"
-                                    
+
                                     <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchAcc\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
                                     <tr>
                                         <th onclick=\"sortTable(0)\"><p class=\"category\"><b>COMPANY</b></p></th>
@@ -244,66 +244,66 @@ th {
                                         <th onclick=\"sortTable(5)\"><p class=\"category\"> <b>E-MAIL</b></p></th>
                                     </tr>
                                     </thead>";
-                                    }    
+                                    }
                                         elseif (isset($_POST['employeeAccs']))
-    
+
                                     { echo"
-                                    
-                                    
-                                    <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchAcc\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> 
+
+
+                                    <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchAcc\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\">
                                     <tr>
                                         <th onclick=\"sortTable(0)\"><p class=\"category\"><b>USERNAME</b></p></th>
-                                    
+
                                         <th onclick=\"sortTable(1)\"><p class=\"category\"><b>FIRST NAME</b></p></th>
                                         <th onclick=\"sortTable(2)\"><p class=\"category\"><b>LAST NAME</b></p></th>
                                         <th onclick=\"sortTable(3)\"><p class=\"category\"><b>CONTACT</b></p></th>
                                         <th onclick=\"sortTable(4)\"><p class=\"category\"><b>E-MAIL</b></p></th>
-                                        
+
                                         <th onclick=\"sortTable(4)\"><p class=\"category\"><b>TYPE</b></p></th>
-                                   
+
                                     </tr>
                                     </thead>";
-                                    }  
+                                    }
                                 ?>
-                                    
+
 <?php
 
-    
 
-$query = "SELECT * from ClientAccount WHERE AccountStatus = 'Activated'"; 
-                  
- if (isset($_POST['employeeAccs']))  
- {  
+
+$query = "SELECT * from ClientAccount WHERE AccountStatus = 'Activated'";
+
+ if (isset($_POST['employeeAccs']))
+ {
      echo "<center><p class=\"category\"><b>You are viewing all employee accounts.</b></p></center>";
 
-     
+
     $query = "SELECT * from EmployeeAccount";
  }   elseif (isset($_POST['clientAccs']))
 
- {  
+ {
      echo "<center><p class=\"category\"><b>You are viewing activated client accounts. </b></p>
-     
+
             <p class=\"category\"><b>Click on a name to view its account details</b></p>
                             </center>";
      $query = "SELECT * from ClientAccount WHERE AccountStatus = 'Activated'";
-     
-     
+
+
  }
-        
-                  
+
+
 $result=mysqli_query($dbc,$query);
-                  
-              
-                
+
+
+
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-    
-    
-    
+
+
+
 
 
     if (isset($_POST['clientAccs'])) {
          $id=$row['CName'];
-                echo 
+                echo
                 "
                 <tbody>
                 <tr>
@@ -319,8 +319,8 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 <td><b>{$row['CRepContactNo']}</b></td>
 
                 <td><b>{$row['CRepEmailAdd']}</b></td>
-                
-                
+
+
                 <td>
 
 
@@ -329,19 +329,19 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 "; //end echo
 
         } //  end if Client Accs
-    
+
     elseif (isset($_POST['employeeAccs'])) {
-        
+
             $id=$row['EmployeeUsername'];
              echo "
 
               <td><b>{$row['EmployeeUsername']}</b></td>
-              
+
                 <td><b>{$row['EmployeeFirstName']}</b></td>
                 <td><b>{$row['EmployeeLastName']}</b></td>
                 <td><b>{$row['EmployeeContactNo']}</b></td>
                 <td><b>{$row['EmployeeEmailAdd']}</b></td>
-                
+
                 <td><b>{$row['employeeType']}</b></td>
                 <td>
 
@@ -351,15 +351,15 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 "; // end echo
             } // end if EmployeeAccs
         } // end while MYSQLI
-                  
-echo "</table>"; 
-                                    
-                                    
-                ?> 
 
-<!-- end php -->  
+echo "</table>";
+
+
+                ?>
+
+<!-- end php -->
 <br><br>
-</div> 
+</div>
 </div>
 </div>
                 </div>
@@ -386,7 +386,7 @@ function sortTable(n) {
   table = document.getElementById("myTable");
   switching = true;
   //Set the sorting direction to ascending:
-  dir = "asc"; 
+  dir = "asc";
   /*Make a loop that will continue until
   no switching has been done:*/
   while (switching) {
@@ -424,7 +424,7 @@ function sortTable(n) {
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
       //Each time a switch is done, increase this count by 1:
-      switchcount ++;      
+      switchcount ++;
     } else {
       /*If no switching has been done AND the direction is "asc",
       set the direction to "desc" and run the while loop again.*/
@@ -435,9 +435,9 @@ function sortTable(n) {
     }
   }
 }
-    
+
     function search() {
-        // Declare variables 
+        // Declare variables
         var input, filter, table, tr, td, i;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();

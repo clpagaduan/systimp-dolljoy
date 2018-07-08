@@ -1,58 +1,58 @@
 <!doctype html>
 <?php
-                            
+
                      session_start();
 
-require_once('../mysql_connect.php');       
+require_once('../mysql_connect.php');
                             if (empty($_POST['supplier']) || empty($_POST['semail']) || empty($_POST['num']) || empty($_POST['SRFN']) || empty($_POST['SRLN'])) {
                                 echo "<div class='alert alert-danger'><center><font color='white'>Incomplete input.
                                 <br>Please click BACK to try again.</center></font></div>";
                             }
-                                
-                            
-                            if (isset($_POST['supplier']) && !empty($_POST['semail']) && !empty($_POST['num']) && !empty($_POST['SRFN']) && !empty($_POST['SRLN'])) {  
-                         
-                                $supplier = $_POST['supplier'];    
+
+
+                            if (isset($_POST['supplier']) && !empty($_POST['semail']) && !empty($_POST['num']) && !empty($_POST['SRFN']) && !empty($_POST['SRLN'])) {
+
+                                $supplier = $_POST['supplier'];
                                 $type = $_POST['type'];
                                 $country = $_POST['country'];
                                 $email = $_POST['semail'];
                                 $num = $_POST['num'];
                                 $fn = $_POST['SRFN'];
                                 $ln = $_POST['SRLN'];
-                                
+
                                 $existing="SELECT COUNT(*) AS number FROM `suppliers` WHERE SupplierName='$supplier' && SupplierCountry='$country' && SupplyType='$type' && SupplierRepFirstName='$fn' && SupplierRepLastName='$ln' && SupplierEmail='$email' && SupplierContactNum='$num'";
-                                
+
                                 $result1=mysqli_query($dbc,$existing);
 
                                 while($row=mysqli_fetch_array($result1,MYSQLI_ASSOC)){
                                     $number="{$row['number']}";
-                             
+
                                     if ($number > 0){
                                         echo "<div class='alert alert-danger'><center><font color='white'>Supplier already exists.</center></font></div>";
-                                        
+
                                     }
                                     else{
-                                   
+
                                         $query="insert into `suppliers` ( SupplierName, SupplierCountry, SupplyType, SupplierRepFirstName, SupplierRepLastName, SupplierEmail, SupplierContactNum) values ('{$supplier}', '{$country}','{$type}', '{$fn}','{$ln}', '{$email}','{$num}')";
-                                        
+
                                         echo "SELECT COUNT(*) AS number FROM `suppliers`";
-                                   
+
                                         mysqli_query($dbc,$query);
 
                                         echo "<div class=\"alert alert-success\" align=\"center\">
                                         <h3><b>NEW SUPPLIER ADDED!</b></h3>
-                                        
+
                                         <h5>
                                         Supplier: $supplier<br>
                                         Country: $country <br>
                                         Type: $type<br>
-                                        
+
                                         </h5></div>";
 
                                     }
                                 }
-                                
-                                }                            
+
+                                }
 
                                 ?>
 <html lang="en">
@@ -217,10 +217,10 @@ require_once('../mysql_connect.php');
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="ti-link"></i>
+                              <p>Website</p>
+                              <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -250,23 +250,23 @@ require_once('../mysql_connect.php');
                                 <p class="category">Enter supplier details to add another supplier to order from</p>
                                 <p class="category"><b>NOTE:</b> All fields are REQUIRED</p>
                                 <br>
-                            </div>    
-                             <div class="content table-responsive table-full-width">   
-                          
-                                    
+                            </div>
+                             <div class="content table-responsive table-full-width">
+
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Supplier name: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                                     <input class="form-control" type='text' name='supplier' placeholder="Supplier name">
                                 </div>
-                                    
+
                                 <br>
-                                
-                                <?php   
+
+                                <?php
                                 require_once('../mysql_connect.php');
-                                
+
                                 ?>
-                                    
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Supply type: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -274,8 +274,8 @@ require_once('../mysql_connect.php');
                                 <option value="Vinyl">Vinyl</option>
                                 <option value="Hair">Hair</option>
                                 </select></div><br>
-                                
-                                
+
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Supplier country: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;
@@ -531,7 +531,7 @@ require_once('../mysql_connect.php');
                                 </div>
                                 <br>
 
-                                
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Supplier E-mail: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -547,26 +547,26 @@ require_once('../mysql_connect.php');
                                 </div>
                                 <br>
 
-                                
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Contact Person's First Name: </b></label>
                                 <input class="form-control" type='text' name='SRFN' placeholder="Contact Person's First Name">
                                 </div>
                                 <br>
 
-                                
+
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;Contact Person's Last Name:</label>
                                 <input class="form-control" type='text' name='SRLN' placeholder="Contact Person's Last Name"><br>
                                 </div>
-                                
+
                                 <input type='button' value='Add Supplier' class='btn btn-sm btn-success btn-fill' data-toggle="modal" data-target="#exampleModal">
                                 </div>
 
-                                
-                            </div>    
+
+                            </div>
                             <div class="content table-responsive table-full-width">
-                                
+
                                 <div class="form-group">
                                 </div>
                                 <div class="form-group">
@@ -574,7 +574,7 @@ require_once('../mysql_connect.php');
                                 <div class="form-group">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                
+
                             </div>
                     </div>
 

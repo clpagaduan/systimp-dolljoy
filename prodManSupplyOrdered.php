@@ -165,10 +165,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -198,34 +198,34 @@
                                 <form action="prodManSupplyOrders.php" method="post">
                                 <br><br>
                             <?php
-                            
-                            
+
+
                             if (empty($_POST['dsc']) || empty($_POST['qty'])) {
                                 echo "<center><font color='red'><h3><b>Incomplete input.</b>
                                 <br>Please click BACK to try again.</h3></center>";
                             }
-                                
-                            
-                            if ((!empty($_POST['dsc'] && $_POST['qty']))) {  
+
+
+                            if ((!empty($_POST['dsc'] && $_POST['qty']))) {
                                 require_once('../mysql_connect.php');
-                                $dsc = $_POST['dsc'];    
+                                $dsc = $_POST['dsc'];
                                 $qty = $_POST['qty'];
                                 $date = date('Y/m/d');
                                 $supplierID = $_POST['suppliers'];
 
                                 $query="insert into Supplies (SupplyID, DateOrdered, DateReceived, SupplyDescription, SupplyQuantity, SupplierID) values (NULL,'{$date}',NULL,'{$dsc}','{$qty}','{$supplierID}')";
-                                
+
                                 $result=mysqli_query($dbc,$query);
 
                                 $query2="SELECT SupplierName, SupplyType from Suppliers WHERE SupplierID=$supplierID";
-                                
+
                                 $result2=mysqli_query($dbc,$query2);
-                                
+
                                 while ($row=mysqli_fetch_array($result2)){
                                     $supplytype=$row['SupplyType'];
                                     $supplier=$row['SupplierName'];
                                 }
-                                
+
                                 if ($qty > 1){
                                 echo "<center><h3>Order of <b>".$qty." kilograms of $dsc $supplytype </b>sent to $supplier!</h3></center>";
                                 }
@@ -234,7 +234,7 @@
                                 }
 
 
-                                }                            
+                                }
 
                                 ?>
                             <br>
@@ -242,9 +242,9 @@
                             <center><a href="prodManSupplyOrders.php"><input type="submit" value="BACK" class="btn btn-sm btn-default btn-fill"></a></center>
                                 </form>
                                 </form>
-                            </div>    
+                            </div>
                             <div class="content table-responsive table-full-width">
-                                
+
                                 <div class="form-group">
                                 </div>
                                 <div class="form-group">
@@ -254,8 +254,8 @@
                                 <!-- Change this to a button or input when using this as a form -->
                                 <br>&nbsp;
                                 <br><br>
-                            
-                                
+
+
                             </div>
                         </div>
                     </div>

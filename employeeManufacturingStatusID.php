@@ -91,10 +91,10 @@ if (!empty($sql))
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -125,7 +125,7 @@ if (!empty($sql))
                             </div>
                             <br>
                                 <div class="content table-responsive table-full-width">
-                                
+
                                 <?php
 
 require_once('../mysql_connect.php');
@@ -141,32 +141,32 @@ echo '<font size="2pt">
 
 
 </tr>';
-$queryproduct="SELECT OProductID 
-               FROM Orders 
+$queryproduct="SELECT OProductID
+               FROM Orders
                WHERE OrderID=$orderID";
 $resultproduct = mysqli_query($dbc, $queryproduct);
 if ($row=mysqli_fetch_array($resultproduct)){
     $productID = $row['OProductID'];
 }
 
-                            
-                                $query40 = "SELECT p.ProductID, 
-                                                  av.ValueName as 'valname', 
-                                                  av.ValueImage as 'valimage', 
-                                                  a.AttributeName as 'attname', 
-                                                  pd.ProductName as 'prodname', 
+
+                                $query40 = "SELECT p.ProductID,
+                                                  av.ValueName as 'valname',
+                                                  av.ValueImage as 'valimage',
+                                                  a.AttributeName as 'attname',
+                                                  pd.ProductName as 'prodname',
                                                   pd.ProductType as 'prodtype',
-                                                  pd.ProductImage as 'prodImage' 
-                                           FROM Product_has_Attribute p 
-                                           JOIN AttributeValues av on p.AttributeValueID = av.ValueID 
-                                           JOIN Attribute a        on av.AttributeTypeID = a.AttributeID 
-                                           JOIN Product pd         on pd.ProductID = p.ProductID 
-                                           WHERE p.ProductID = $productID 
+                                                  pd.ProductImage as 'prodImage'
+                                           FROM Product_has_Attribute p
+                                           JOIN AttributeValues av on p.AttributeValueID = av.ValueID
+                                           JOIN Attribute a        on av.AttributeTypeID = a.AttributeID
+                                           JOIN Product pd         on pd.ProductID = p.ProductID
+                                           WHERE p.ProductID = $productID
                                            ORDER BY a.AttributeName desc";
-                                    
+
                                 $result50=mysqli_query($dbc,$query40);
 
-                                
+
                                 echo "<h5><center><b>Doll specifications</b></h5>";
 
                                 while ($row5=mysqli_fetch_array($result50)){
@@ -178,10 +178,10 @@ if ($row=mysqli_fetch_array($resultproduct)){
                                     <td width=\"10%\"><div align=\"center\">$category</div></td>
 
                                     <td width=\"10%\"><div align=\"center\">$value</div></td>";
-                                
- 
-                            
-                            
+
+
+
+
 
 
 ?>
@@ -195,10 +195,10 @@ if ($row=mysqli_fetch_array($resultproduct)){
     <h5><center><b>Reference Image</b></center></h5>
 <?php
   if ($display) {
-    
+
   }
   else{
-  
+
   }
 ?>
 <td width=50%><div align=center><img src=<?php  echo '"data:image/jpeg;base64,'.base64_encode( $display ).'" '; ?></div></td>
@@ -209,7 +209,7 @@ if ($row=mysqli_fetch_array($resultproduct)){
 </table>
 
 
-                                  
+
                         <br><br>
 
                         <h5><b>Order details</b></h5>
@@ -234,7 +234,7 @@ echo '<font size="2pt">
 </tr>';
 if (isset($_GET['id'])){
     $id = $_GET['id'];
-    $query = "SELECT *, FORMAT(OTotalAmount, 2) AS tamt, FORMAT(OPrice, 2) AS prc,      FORMAT(OQuantity, 0) AS qty 
+    $query = "SELECT *, FORMAT(OTotalAmount, 2) AS tamt, FORMAT(OPrice, 2) AS prc,      FORMAT(OQuantity, 0) AS qty
               FROM   Orders WHERE orderID = '".$id."'; ";
     $result=mysqli_query($dbc,$query);
     $row = mysqli_fetch_array($result);

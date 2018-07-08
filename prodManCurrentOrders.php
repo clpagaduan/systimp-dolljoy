@@ -1,14 +1,14 @@
 <!doctype html>
-<?php 
+<?php
 
     require_once('../mysql_connect.php');
     if(isset($_POST['approve'])){
         $id = $_POST['approve'];
-        $query = "UPDATE Orders 
-                  SET OrderStatus = 'Approved', 
-                      ManufacturingStatus = 'Pending', 
-                      OPaymentStatus = 'Unpaid', 
-                      OShipmentStatus = 'Not shipped' 
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Approved',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
 
                   WHERE OrderID = '{$id}' ";
 
@@ -18,11 +18,11 @@
 
 if(isset($_POST['reject'])){
         $id = $_POST['reject'];
-        $query = "UPDATE Orders 
-                  SET OrderStatus = 'Rejected', 
-                      ManufacturingStatus = 'Pending', 
-                      OPaymentStatus = 'Unpaid', 
-                      OShipmentStatus = 'Not shipped' 
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Rejected',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
 
                   WHERE OrderID = '{$id}' ";
 
@@ -191,10 +191,10 @@ if(isset($_POST['reject'])){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="ti-link"></i>
+                              <p>Website</p>
+                              <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -226,7 +226,7 @@ if(isset($_POST['reject'])){
                             <br><br>
 
                                 <div class="content table-responsive table-full-width">
-                                
+
                                 <table class="table table-hover">
                                     <thead>
                                         <th><p class="category"><b>ORDER #</b></p></th>
@@ -285,18 +285,18 @@ echo "
 }
 
 ?>
-</table>                  
+</table>
 
     <center>
     <label>
-        <?php 
+        <?php
             if(isset($message)){
                 echo $message;
             }
         ?>
-            
+
     </label>
-    </center>  
+    </center>
                         <br><br>
 
                             </div>

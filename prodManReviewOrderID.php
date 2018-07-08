@@ -203,10 +203,10 @@ if (!empty($sql)){
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                                      <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                              <i class="ti-link"></i>
+                            <p>Website</p>
+                            <b class="caret"></b> -->
                               </a>
                                         <ul class="dropdown-menu">
                                             <li><a href="websiteHome.php">Homepage</a></li>

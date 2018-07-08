@@ -167,10 +167,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -200,7 +200,7 @@
                                 <p class="category"><b>Select a date range for completed doll orders to be displayed.</b></p>
                                 <br><br>
                             </div>
-                            
+
                             <div class="content table-responsive table-full-width">
                                 <form action="prodManGeneratedSalesReport.php" method="POST">
                                 <div class="col-md-5">
@@ -226,7 +226,7 @@
 
                                 </form>
                                 <table class="table table-hover">
-                                   
+
                                 </table>
                             </div>
                         </div>

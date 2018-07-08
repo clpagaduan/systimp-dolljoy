@@ -17,14 +17,14 @@ if (isset($_POST['submit'])){
 
 
 
-        
+
           $productType="PreMade";
           $dollName=$_POST['dollName'];
           //$dollImage=$_POST['dollImage'];
           $dollDescription=$_POST['dollDescription'];
           $dollGender=$_POST['dollGender'];
           $dollSize=$_POST['dollSize'];
-           
+
 
            //choice1
        if(!isset($_FILES['dollImage']) || $_FILES['dollImage']['error'] == UPLOAD_ERR_NO_FILE) {
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])){
 
 
       if(!isset($message)){
-    
+
 
           $query="INSERT INTO Product       (ProductType,
                                              ProductName,
@@ -85,7 +85,7 @@ if (isset($_POST['submit'])){
 
           $result3=mysqli_query($dbc,$queryCount);
 
-          while ($row5 = mysqli_fetch_array($result3)) { 
+          while ($row5 = mysqli_fetch_array($result3)) {
 
             $attribute=$_POST[$row5[1]];
 
@@ -288,10 +288,10 @@ if (isset($_POST['submit'])){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="ti-link"></i>
+                              <p>Website</p>
+                              <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -376,9 +376,9 @@ if (isset($_POST['submit'])){
 
                     </script>
 
-                    
 
-<?php 
+
+<?php
 
                             $query = "SELECT  *
                                       FROM    Attribute";
@@ -386,7 +386,7 @@ if (isset($_POST['submit'])){
 
 
                             //Loop for attribute name
-                            while ($row = mysqli_fetch_array($result)) { 
+                            while ($row = mysqli_fetch_array($result)) {
 
 ?>
 
@@ -412,7 +412,7 @@ if (isset($_POST['submit'])){
                           </head>
                           <body>
 
-                            <?php 
+                            <?php
                             //loop for attribute values ex. Wavy,Straight,Curly hair, Green Hair,Black hair
                             //radio buttons
                             $query2 = "SELECT  *
@@ -427,9 +427,9 @@ if (isset($_POST['submit'])){
 
 
 
-                            <?php 
+                            <?php
                             //loop for attribute values ex. Wavy,Straight,Curly hair, Green Hair,Black hair
-                              while ($row2 = mysqli_fetch_array($result2)) { 
+                              while ($row2 = mysqli_fetch_array($result2)) {
                                 //echo $row2["ValueName"];
 
                             ?>
@@ -459,9 +459,9 @@ if (isset($_POST['submit'])){
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>&nbsp;&nbsp;<b>Doll Description</b></label>
-                          <textarea type="text" name="dollDescription" class="form-control" placeholder="Description" required></textarea> 
+                          <textarea type="text" name="dollDescription" class="form-control" placeholder="Description" required></textarea>
                         </div>
-                          
+
                         <button type="submit" class="btn btn-info btn-fill pull-right" Name="submit">CREATE DOLL</button>
 
                       </div>

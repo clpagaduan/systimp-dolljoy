@@ -170,10 +170,10 @@ if (!empty($sql)){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -205,7 +205,7 @@ if (!empty($sql)){
                             <br><br>
 
                                 <div class="content table-responsive table-full-width">
-                                
+
                                 <table class="table table-hover">
                                     <thead>
                                         <th><p class="category"><b>ORDER #</b></p></th>
@@ -215,7 +215,7 @@ if (!empty($sql)){
                                         <th><p class="category"><b>TOTAL AMOUNT</b></p></th>
                                         <th><p class="category"><b>DATE ORDERED</b></p></th>
                                         <th><p class="category"><b>DATE REQUIRED</b></p></th>
-                                        
+
                                     </thead>
 <?php
 
@@ -227,14 +227,14 @@ $numRows = mysqli_num_rows($result);
     if($numRows ==0){
         $message="No orders to show";
     }
-    
+
 
 
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
 
-echo 
+echo
 "
 <tbody>
 <tr>
@@ -253,7 +253,7 @@ echo
 </form></td>
 ";
 ?>
-    <?php 
+    <?php
 echo "
 
 </div></td>
@@ -265,12 +265,12 @@ echo "
 
     <center>
     <label>
-        <?php 
+        <?php
             if(isset($message)){
                 echo $message;
             }
         ?>
-            
+
     </label>
     </center>
 

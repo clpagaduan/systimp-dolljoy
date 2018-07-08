@@ -60,10 +60,10 @@ if (isset($_POST['update'])){
     }
 }
 
-if (isset($_POST['accept'])){    
+if (isset($_POST['accept'])){
     $sql = "UPDATE ClientAccount SET AccountStatus = 'Accepted' WHERE CName = \"{$id}\" ";
     header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/activateAccounts.php");
-                
+
 }
 else if (isset($_POST['reject'])){
     $sql = "UPDATE ClientAccount SET AccountStatus = 'Rejected' WHERE CName = \"{$id}\" ";
@@ -240,10 +240,10 @@ if (!empty($sql)){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -271,7 +271,7 @@ if (!empty($sql)){
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Account: <b><?php echo $id; ?></b> </h4>
-                            </div>   
+                            </div>
                                 <div class="content table-responsive table-full-width">
                                 <table class="table table-hover">
                                     <thead>
@@ -280,7 +280,7 @@ if (!empty($sql)){
                                         <th><p class="category"><b>CONTACT NUMBER</b></p></th>
                                         <th><p class="category"><b>E-MAIL</b></p></th>
                                     </thead>
-                                    
+
 <?php
 
 require_once('../mysql_connect.php');
@@ -291,8 +291,8 @@ if (isset($_GET['id'])){
               FROM   ClientAccount WHERE CName = \"".$id."\"; ";
     $result=mysqli_query($dbc,$query);
     $row = mysqli_fetch_array($result);
-    
-echo 
+
+echo
 "
 <tbody>
 <tr>
@@ -312,7 +312,7 @@ echo
 echo '</table>';
 
 ?>
-                                  
+
                         <br>
 
                         <!--<h5>Representative details</h5>-->
@@ -341,7 +341,7 @@ if (isset($_GET['id'])){
 
 
 
-    echo 
+    echo
     "
     <tr>
     <td><b>{$row['CRepFirstName']} {$row['CRepLastName']}</div></b></td>
@@ -375,8 +375,8 @@ echo '</table>';
 <br><br><br>
 
 
-        </div>                                    
-                                    
+        </div>
+
                             </div>
                         </div>
                     </div>

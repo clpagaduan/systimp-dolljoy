@@ -103,10 +103,10 @@ if (!empty($sql))
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="ti-link"></i>
+                <p>Website</p>
+                <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -137,16 +137,16 @@ if (!empty($sql))
                             </div>
                             <br>
                                 <div class="content table-responsive table-full-width">
-                                
+
                                 <table class="table table-hover">
                                     <thead>
                                         <th><p class="category"><b>ORDER #</b></p></th>
                                         <th><p class="category"><b>COMPANY</b></p></th>
                                         <th><p class="category"><b>QUANTITY</b></p></th>
                                         <th><p class="category"><b>DATE ORDERED</b></p></th>
-                                        <th><p class="category"><b>DATE REQUIRED</b></p></th>        
+                                        <th><p class="category"><b>DATE REQUIRED</b></p></th>
                                     </thead>
-                                    
+
                                 <?php
 
 //START
@@ -154,7 +154,7 @@ $query="SELECT *, C.CName from Orders O join ClientAccount C on O.OCompanyID=C.C
 $result=mysqli_query($dbc,$query);
 
 $numRows = mysqli_num_rows($result);
-                                    
+
 //END
 $query2="SELECT *, C.CName from Orders O join ClientAccount C on O.OCompanyID=C.CompanyID WHERE ManufacturingStatus='In Progress' AND CompanyID = OCompanyID";
 $result2=mysqli_query($dbc,$query2);
@@ -163,13 +163,13 @@ $numRows2 = mysqli_num_rows($result2);
     if($numRows ==0 && $numRows2 == 0){
         $message="No orders to show";
     }
-    
+
 //END
 while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
 
-echo 
+echo
 "
 <tbody>
 <tr>
@@ -188,15 +188,15 @@ echo
                             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
                             </form></td></tr>
 ";
-    
+
 }
-                                    
+
 //START
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
 
-echo 
+echo
 "
 <tr>
 
@@ -215,7 +215,7 @@ echo
                             </form></td></tr>
 ";
 ?>
-    <?php 
+    <?php
 }?>
 
 
@@ -224,12 +224,12 @@ echo
 
     <center>
     <label>
-        <?php 
+        <?php
             if(isset($message)){
                 echo $message;
             }
         ?>
-            
+
     </label>
     </center>
 

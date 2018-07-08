@@ -165,10 +165,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="ti-link"></i>
-									<p>Website</p>
-									<b class="caret"></b>
+                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <i class="ti-link"></i>
+                              <p>Website</p>
+                              <b class="caret"></b> -->
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -192,30 +192,30 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    
+
                     <div class="col-md-12">
                         <div class="card">
                             <p class="category">
                                 <b>
-                                <br>    
-                                &nbsp;&nbsp;&nbsp;    
+                                <br>
+                                &nbsp;&nbsp;&nbsp;
                                 <?php
                                 date_default_timezone_set('Asia/Manila');
                                 echo "<b>As of ".date('m/d/Y h:i A', time())."</b>";
                                 ?>
-                                </b>    
+                                </b>
                                 </p>
                             <center>
                             <div class="header">
                                 <h3 class="title"><b>DOLLJOY<br></b></h3>
                                 <h4 class="title"><b>GENERATED SALES REPORT</b></h4>
                             </div>
-                            
+
                                 <div class="content table-responsive table-full-width">
-                                
+
                                 <table class="table table-hover">
                                 <?php
-                            
+
                             //User didn't input start and end date
                             if (empty($_POST['startDate']) && empty($_POST['endDate'])) {
                                 echo "
@@ -225,16 +225,16 @@
 
                                 <div class='content'>
                                     <div class='row'>
-                                
+
                                 <center><font color='red'>Incomplete input.
                                 <br>You forgot to choose a start and end date.
                                 <br>Please click Back to try again.</center>";
                                 echo '<br><br>
                                 <strong><center><b>------ END OF REPORT ------</b></center></strong>';
                             }
-                            //Start date is after end date or no end date was provided   
+                            //Start date is after end date or no end date was provided
                             if ($_POST['startDate'] > $_POST['endDate']) {
-                                
+
                                 //User didn't input end date
                                 if (!empty($_POST['startDate'] && empty($_POST['endDate']))){
                                 echo "
@@ -244,14 +244,14 @@
 
                                 <div class='content'>
                                     <div class='row'>
-                                    
+
                                     <center><font color='red'>Invalid input.
                                 <br>You forgot to set an end date.
                                 <br>Please click Back to try again.</center>";
                                 echo '<br><br>
                                 <strong><center><b>------ END OF REPORT ------</b></center></strong>';
                                 }
-                                
+
                                 //Start date is after end date
                                 else{
                                 echo "
@@ -261,7 +261,7 @@
 
                                 <div class='content'>
                                     <div class='row'>
-                                    
+
                                     <center><font color='red'>Invalid input.
                                 <br>Start Date cannot be after End Date.
                                 <br>Please click Back to try again.</center>";
@@ -269,7 +269,7 @@
                                 <strong><center><b>------ END OF REPORT ------</b></center></strong>';
                                 }
                             }
-                                
+
                                 //User didn't input start date
                                 if (!empty($_POST['endDate'] && empty($_POST['startDate']))){
                                 echo "
@@ -279,16 +279,16 @@
 
                                 <div class='content'>
                                     <div class='row'>
-                                    
+
                                     <center><font color='red'>Invalid input.
                                 <br>You forgot to set a start date.
                                 <br>Please click Back to try again.</center>";
                                 echo '<br><br>
                                 <strong><center><b>------ END OF REPORT ------</b></center></strong>';
                                 }
-                            
+
                             //User inputted start and end date where start date is before end date
-                            if ((!empty($_POST['startDate'] && $_POST['endDate'])) && ($_POST['startDate'] < $_POST['endDate'])) {  
+                            if ((!empty($_POST['startDate'] && $_POST['endDate'])) && ($_POST['startDate'] < $_POST['endDate'])) {
                                 require_once('../mysql_connect.php');
                                 $sD = $_POST["startDate"];
                                 $eD = $_POST["endDate"];
@@ -296,8 +296,8 @@
                                 $_SESSION['end']=$eD;
                                 $formats = date_format(date_create($sD), 'F d, Y');
                                 $formate = date_format(date_create($eD), 'F d, Y');
-                                
-                                
+
+
                                 $existing="SELECT COUNT(*) AS sales FROM `orders` WHERE OPaymentDate between '$sD' AND '$eD'";
 
                                 $result1=mysqli_query($dbc,$existing);
@@ -319,7 +319,7 @@
                                             echo '<br><br>
                                             <strong><center><b>------ END OF REPORT ------</b></center></strong>';
                                     }
-                                
+
                                     else{
                                         echo '
 
