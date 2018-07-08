@@ -1,4 +1,60 @@
 <!doctype html>
+<?php
+                            
+                     session_start();
+
+require_once('../mysql_connect.php');       
+                            if (empty($_POST['supplier']) || empty($_POST['semail']) || empty($_POST['num']) || empty($_POST['SRFN']) || empty($_POST['SRLN'])) {
+                                echo "<div class='alert alert-danger'><center><font color='white'>Incomplete input.
+                                <br>Please click BACK to try again.</center></font></div>";
+                            }
+                                
+                            
+                            if (isset($_POST['supplier']) && !empty($_POST['semail']) && !empty($_POST['num']) && !empty($_POST['SRFN']) && !empty($_POST['SRLN'])) {  
+                         
+                                $supplier = $_POST['supplier'];    
+                                $type = $_POST['type'];
+                                $country = $_POST['country'];
+                                $email = $_POST['semail'];
+                                $num = $_POST['num'];
+                                $fn = $_POST['SRFN'];
+                                $ln = $_POST['SRLN'];
+                                
+                                $existing="SELECT COUNT(*) AS number FROM `suppliers` WHERE SupplierName='$supplier' && SupplierCountry='$country' && SupplyType='$type' && SupplierRepFirstName='$fn' && SupplierRepLastName='$ln' && SupplierEmail='$email' && SupplierContactNum='$num'";
+                                
+                                $result1=mysqli_query($dbc,$existing);
+
+                                while($row=mysqli_fetch_array($result1,MYSQLI_ASSOC)){
+                                    $number="{$row['number']}";
+                             
+                                    if ($number > 0){
+                                        echo "<div class='alert alert-danger'><center><font color='white'>Supplier already exists.</center></font></div>";
+                                        
+                                    }
+                                    else{
+                                   
+                                        $query="insert into `suppliers` ( SupplierName, SupplierCountry, SupplyType, SupplierRepFirstName, SupplierRepLastName, SupplierEmail, SupplierContactNum) values ('{$supplier}', '{$country}','{$type}', '{$fn}','{$ln}', '{$email}','{$num}')";
+                                        
+                                        echo "SELECT COUNT(*) AS number FROM `suppliers`";
+                                   
+                                        mysqli_query($dbc,$query);
+
+                                        echo "<div class=\"alert alert-success\" align=\"center\">
+                                        <h3><b>NEW SUPPLIER ADDED!</b></h3>
+                                        
+                                        <h5>
+                                        Supplier: $supplier<br>
+                                        Country: $country <br>
+                                        Type: $type<br>
+                                        
+                                        </h5></div>";
+
+                                    }
+                                }
+                                
+                                }                            
+
+                                ?>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -29,7 +85,7 @@
 
 </head>
 <body>
-
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -196,7 +252,7 @@
                                 <br>
                             </div>    
                              <div class="content table-responsive table-full-width">   
-                                <form action="prodManAddedSuppliers.php" method="post">
+                          
                                     
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Supplier name: </b></label>
@@ -504,9 +560,9 @@
                                 <input class="form-control" type='text' name='SRLN' placeholder="Contact Person's Last Name"><br>
                                 </div>
                                 
-                                <input type='submit' value='Add Supplier' class='btn btn-sm btn-success btn-fill'>
+                                <input type='button' value='Add Supplier' class='btn btn-sm btn-success btn-fill' data-toggle="modal" data-target="#exampleModal">
                                 </div>
-                                </form>
+
                                 
                             </div>    
                             <div class="content table-responsive table-full-width">
@@ -539,8 +595,26 @@
 
     </div>
 </div>
+                                <div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Supplier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body"> Confirm Added Supplier?
+      </div>
+      <div class="modal-footer">
+        <button type="submit" name ="submit"  class="btn btn-secondary">accept</button>
+            <button type="button"  class="btn btn-primary" data-dismiss="modal">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
+                                </form>
 </body>
 
     <!--   Core JS Files   -->
