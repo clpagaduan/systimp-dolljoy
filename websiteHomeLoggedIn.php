@@ -4,7 +4,7 @@ Design by TEMPLATED
 http://templated.co
 Released for free under the Creative Commons Attribution License
 
-Name       : PlainLeaf 
+Name       : PlainLeaf
 Description: A two-column, fixed-width design with dark color scheme.
 Version    : 1.0
 Released   : 20130902
@@ -22,7 +22,7 @@ Released   : 20130902
 <link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-    
+
 </head>
 <body>
 <div id="header" class="container">
@@ -31,7 +31,7 @@ Released   : 20130902
 	</div>
 	<div id="menu">
 		<ul>
-			<li class="active"><a href="websiteHome.php" accesskey="1" title="">Homepage</a></li>
+			<li class="active"><a href="websiteHomeLoggedIn.php" accesskey="1" title="">Homepage</a></li>
             <li><a href="websiteGalleryLoggedIn.php" accesskey="5" title="">Gallery</a></li>
 			<li><a href="websiteServicesLoggedIn.php" accesskey="5" title="">Services</a></li>
 			<li><a href="#" accesskey="7" title="">Contact Us</a></li>
@@ -68,17 +68,17 @@ Released   : 20130902
 		</div>
         <p>Early 2007, Dolljoy Factory and Museum was conceptualized and started opening its doors to educational tours with the intent of showcasing the innate talent of the Filipinos in designing and creating dolls. As far as having a simulated factory on how the dolls were made from very first step.</p>
 	</div>
-    
+
     <div id="featured" class="container">
         <div class="align-left">
         <br>
-		<img src="images/aladdin.jpg" style="width:350px" />	
+		<img src="images/aladdin.jpg" style="width:350px" />
         </div>
 	<div class="align-left"></div>
 	<div class="blog-thumb">
-        
+
        <br>
-        
+
         <h3><font color="#68B3C8"><b>How can I order a customized doll?</b></font></h3>
 
        <p>To order a customized doll you must first create an account, and we will provide you with a username and password to access our order form. </p>
@@ -94,7 +94,7 @@ Released   : 20130902
         <h3><font color="#99D649"><b>Can I order a doll from your gallery, and still have it customized to my liking?</b></font></h3>
 
        <p>Yes, you may choose and order from our pre-existing dolls and still have the option to modify them further.</p>
-        
+
         <br>
 
         <h3><font color="#B190D4"><b>How can I pay for my order?</b></font></h3>
@@ -106,7 +106,7 @@ Released   : 20130902
 </div>
 
 </div>
-    
+
 
 
 <div id="copyright" class="container">
