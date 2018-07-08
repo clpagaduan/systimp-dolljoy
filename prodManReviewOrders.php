@@ -242,7 +242,7 @@ echo
 <td><b><a href=\"prodManReviewOrderID.php?id=$id \">{$row['OrderID']}</a></b></td>
 <td><b>{$row['CName']}</b></td>
 <td><b>{$row['OQuantity']}</b></td>
-<td><b>{$row['OPrice']}</b></td>
+<td><b>{$row['Oprice']}</b></td>
 <td><b>{$row['OTotalAmount']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
