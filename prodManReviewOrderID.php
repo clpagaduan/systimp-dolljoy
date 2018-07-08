@@ -6,11 +6,11 @@ $sql = "";
 
  if(isset($_POST['approve'])){
         $id = $_POST['approve'];
-        $query = "UPDATE Orders 
-                  SET OrderStatus = 'Approved', 
-                      ManufacturingStatus = 'Pending', 
-                      OPaymentStatus = 'Unpaid', 
-                      OShipmentStatus = 'Not shipped' 
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Approved',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
 
                   WHERE OrderID = '{$id}' ";
 
@@ -28,7 +28,7 @@ if (!empty($sql)){
 }
 
 
-  
+
 ?>
 
 <!doctype html>
@@ -69,9 +69,9 @@ if (!empty($sql)){
     </head>
 
     <body>
-        
+
           <form action="prodManCurrentOrders.php" method="post">
-           
+
             <div class="wrapper">
                 <div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -245,50 +245,109 @@ require_once('../mysql_connect.php');
 
 if(isset($_POST['approve'])){
         $id = $_POST['approve'];
-        $query = "UPDATE Orders 
-                  SET OrderStatus = 'Approved', 
-                      ManufacturingStatus = 'Pending', 
-                      OPaymentStatus = 'Unpaid', 
-                      OShipmentStatus = 'Not shipped' 
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Approved',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
 
                   WHERE OrderID = '{$id}' ";
 
         mysqli_query($dbc, $query);
     }
 
+echo "<h5><center>Doll specifications</center></h5>";
 echo '<font size="2pt">
 <table width="80%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
 
 <tr>
+<td width="10%"><div align="center"><b>Product ID</div></b></td>
+<td width="10%"><div align="center"><b>Product Name</div></b></td>
+<td width="10%"><div align="center"><b>Quantity</div></b></td>
 <td width="10%"><div align="center"><b>Type</div></b></td>
 <td width="10%"><div align="center"><b>Description</div></b></td>
 <td width="10%"><div align="center"><b>Image</div></b></td>
 
 
 </tr>';
-$queryproduct="SELECT OProductID 
-               FROM Orders 
+
+$query = "SELECT * FROM ordersrefs WHERE OrderID = $orderID";
+$result = mysqli_query($dbc, $query);
+
+$count = 0;
+
+while ($row = mysqli_fetch_array($result)){
+    echo '<tr>';
+
+    $productID = $row['ProductID'];
+    $quantity = $row['quantity'];
+
+    $query2 = "SELECT ProductName FROM product WHERE ProductID = $productID";
+    $result2 = mysqli_query($dbc, $query2);
+    if ($row2 = mysqli_fetch_array($result2)){
+      $productName = $row2['ProductName'];
+    }
+
+    //if ($count==0)
+    //{
+      echo '<td rowspan="5" align="center">'.$productID.'</td>
+            <td rowspan="5" align="center">'.$productName.'</td>
+            <td rowspan="5" align="center">'.$quantity.'</td>';
+      $count++;
+    //}
+
+    $gender = $row['gender'];
+    $hair = $row['prefHair'];
+    $skin = $row['prefSkin'];
+    $eye = $row['prefEye'];
+    $size = $row['prefSize'];
+
+    $query3 = "SELECT * FROM attribute";
+    $result3 = mysqli_query($dbc, $query3);
+
+    while ($row3 = mysqli_fetch_array($result3)){
+        echo '<td  align="center">'.$row3['AttributeName'].'</td>';
+
+        $attrid = $row3['AttributeID'];
+
+        $query4 = "SELECT ValueName, ValueImage FROM attributevalues WHERE (ValueName = '{$gender}' OR ValueName = '{$hair}' OR ValueName = '{$skin}' OR ValueName = '{$eye}' OR ValueName = '{$size}') AND AttributeTypeID = $attrid";
+        $result4 = mysqli_query($dbc, $query4);
+
+        if ($row4 = mysqli_fetch_array($result4)){
+          $image = $row4['ValueImage'];
+          echo '<td align="center">'.$row4['ValueName'].'</td>
+                <td align="center">';
+          echo '<img src="data:image/jpeg;base64,'.base64_encode( $image ).'"/>';
+          echo '</td></tr>';
+        }
+    }
+}
+
+echo "</table></br></br>";
+/*
+$queryproduct="SELECT ProductID
+               FROM ordersrefs
                WHERE OrderID=$orderID";
 $resultproduct = mysqli_query($dbc, $queryproduct);
 if ($row=mysqli_fetch_array($resultproduct)){
-    $productID = $row['OProductID'];
+    $productID = $row['ProductID'];
 }
 
-                            
-                                $query40 = "SELECT p.ProductID, 
-                                                  av.ValueName as 'valname', 
-                                                  av.ValueImage as 'valimage', 
-                                                  a.AttributeName as 'attname', 
-                                                  pd.ProductName as 'prodname', 
+
+                                $query40 = "SELECT p.ProductID,
+                                                  av.ValueName as 'valname',
+                                                  av.ValueImage as 'valimage',
+                                                  a.AttributeName as 'attname',
+                                                  pd.ProductName as 'prodname',
                                                   pd.ProductType as 'prodtype',
-                                                  pd.ProductImage as 'prodImage' 
-                                           FROM Product_has_Attribute p 
-                                           JOIN AttributeValues av on p.AttributeValueID = av.ValueID 
-                                           JOIN Attribute a        on av.AttributeTypeID = a.AttributeID 
-                                           JOIN Product pd         on pd.ProductID = p.ProductID 
-                                           WHERE p.ProductID = $productID 
+                                                  pd.ProductImage as 'prodImage'
+                                           FROM Product_has_Attribute p
+                                           JOIN AttributeValues av on p.AttributeValueID = av.ValueID
+                                           JOIN Attribute a        on av.AttributeTypeID = a.AttributeID
+                                           JOIN Product pd         on pd.ProductID = p.ProductID
+                                           WHERE p.ProductID = $productID
                                            ORDER BY a.AttributeName desc";
-                                    
+
                                 $result50=mysqli_query($dbc,$query40);
 
                                 echo "<h5><center>Doll specifications</center></h5>";
@@ -302,10 +361,10 @@ if ($row=mysqli_fetch_array($resultproduct)){
                                     <td width=\"10%\"><div align=\"center\">$category</div></td>
 
                                     <td width=\"10%\"><div align=\"center\">$value</div></td>";
-                                
- 
-                            
-                            
+
+
+
+
 
 
 ?>
@@ -317,31 +376,43 @@ if ($row=mysqli_fetch_array($resultproduct)){
 }
                                 echo "</table>
                                 <br><br>";
+*/
 ?>
-                                                        <h5>
-                                                            <center>Reference Image</center></h5>
-                                                        <?php
-  if ($display) {
-    
-  }
-  else{
-  
-  }
-?>
-                                                            <td width=50%>
-                                                                <div align=center><img src=<?php echo '"data:image/jpeg;base64,'.base64_encode( $display ). '" '; ?></div>
-                                                            </td>
-                                                            </tr>
-                                                            <?php
+                                                        <h5><center>Reference Images</center></h5>
+<?php
+$query = "SELECT * FROM ordersrefs WHERE OrderID = $orderID";
+$result = mysqli_query($dbc, $query);
 
+echo '<font size="2pt">
+<table width="80%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">';
+
+while ($row = mysqli_fetch_array($result)){
+
+    $productID = $row['ProductID'];
+
+    $query2 = "SELECT ProductName, ProductImage FROM product WHERE ProductID = $productID";
+    $result2 = mysqli_query($dbc, $query2);
+
+    if ($row2 = mysqli_fetch_array($result2)){
+      $productName = $row2['ProductName'];
+      $image = $row2['ProductImage'];
+
+      echo '<tr>
+            <td align="center" width="40%">'.$productName.'</td>
+            <td align="center">';
+      echo '<img src="data:image/jpeg;base64,'.base64_encode( $image ).'"/>';
+      echo '</td></tr>';
+    }
+}
 ?>
+
                                             </table>
 
 
 
                                             <br><br>
 
-                                            <h5>Order details</h5>
+                                            <h5><center>Order details</center></h5>
 
                                             <?php
 
@@ -354,7 +425,6 @@ echo '<font size="2pt">
 <tr>
 <td width="10%"><div align="center"><b>Company</div></b></td>
 <td width="10%"><div align="center"><b>Quantity</div></b></td>
-<td width="10%"><div align="center"><b>Price</div></b></td>
 <td width="10%"><div align="center"><b>Total</div></b></td>
 <td width="10%"><div align="center"><b>Date Ordered</div></b></td>
 <td width="10%"><div align="center"><b>Date Required</div></b></td>
@@ -381,8 +451,6 @@ if (isset($_GET['id'])){
 
     <td width=\"10%\"><div align=\"center\">{$row['OQuantity']}</div></td>
 
-    <td width=\"10%\"><div align=\"center\">{$row['OPrice']}</div></td>
-
     <td width=\"10%\"><div align=\"center\">{$row['OTotalAmount']}</div></td>
 
     <td width=\"10%\"><div align=\"center\">{$row['OOrderedDate']}</div></td>
@@ -408,7 +476,7 @@ $result=mysqli_query($dbc,$query);
 
 $id=$row['OrderID'];
 
-echo 
+echo
 "
 
 <button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">APPROVE</button>
@@ -418,8 +486,8 @@ echo
 ?>
 
 
-                                                    <?php 
-echo 
+                                                    <?php
+echo
 "
 <button data-toggle=\"modal\" data-target=\"#exampleModal1\" type = \"button\" class=\"btn btn-danger btn-fill pull-left\" value=\"".$id."\">REJECT</button>
 <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
@@ -429,7 +497,7 @@ echo
 </tr>"; ?>
 
 
-                                                    <a href="prodManReviewOrders.php"><button type="submit" class="btn btn-default btn-fill pull-right">Back to Review</button></a>
+                                                    <a href="prodManReviewOrders.php"><button class="btn btn-default btn-fill pull-right">Back to Review</button></a>
 
 
                                                     <br><br><br>
@@ -471,8 +539,8 @@ echo
                         </div>
                         <div class="modal-footer">
 
-                            
-                            
+
+
                            <?php
 
 
@@ -482,16 +550,16 @@ $result=mysqli_query($dbc,$query);
 
 $id=$row['OrderID'];
 
-echo 
+echo
 "
 
 <button type = \"submit\" name = \"approve\" class=\"btn btn-secondary\" value=\"".$id."\">Confirm</button>
 <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
 
 ";
-?> 
-                    
-                           
+?>
+
+
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -510,9 +578,9 @@ echo
                         <div class="modal-body"> Confirm Order Rejection?
                         </div>
                         <div class="modal-footer">
-                       
-                            
-                            
+
+
+
                               <?php
 
 
@@ -522,15 +590,15 @@ $result=mysqli_query($dbc,$query);
 
 $id=$row['OrderID'];
 
-echo 
+echo
 "
 
 <button type = \"submit\" name = \"reject\" class=\"btn btn-secondary\" value=\"".$id."\">Confirm</button>
 <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
 
 ";
-?> 
-                            
+?>
+
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
