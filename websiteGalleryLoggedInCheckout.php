@@ -36,97 +36,7 @@ Released   : 20130902
 
 </head>
 <body>
-    <?php
 
-
-
-//$shoppingCart = array();
-
-    if (isset($_POST['placeOrder'])){
-//        echo "placeOrder!!!";
-        $getDate = $_POST['requiredDate'];
-
-        $sTotal = $_POST['totalqty'];
-        $sSum = $_POST['totalsum'];
-
-//        echo ($sTotal);
-//        echo ($sSum);
-//
-//        echo ($getDate);
-//
-//        echo $username;
-        $userIDQuery = "SELECT CompanyID from clientaccount WHERE CRepUsername = '$username'";
-
-        $result = mysqli_query($dbc, $userIDQuery);
-        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-        $userID = $row['CompanyID'];
-
-//        echo($userID);
-//        THIS IS WHERE IT ENDS
-        $query = "INSERT INTO appdev.orders (OCompanyID, OProductID, OQuantity, OTotalAmount, OOrderedDate, ORequiredDate, OrderStatus, OPaymentStatus, OShipmentStatus, ManufacturingStatus) VALUES ( '{$userID}', NULL, '{$sTotal}', '{$sSum}', DATE(NOW()), '{$getDate}', 'Pending', 'Unpaid', 'Not Shipped', 'Pending')";
-        $result = mysqli_query($dbc, $query);
-
-        $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
-        $result2=mysqli_query($dbc,$query);
-        $numRows = mysqli_num_rows($result2);
-
-        while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
-            $bye = $row['cartID'];
-            $pID = $row['productID'];
-            $qty = $row['quantity'];
-            $gender = $row['productGender'];
-            $hair = $row['prefHair'];
-            $skin = $row['prefSkin'];
-            $eye = $row['prefEye'];
-            $size = $row['prefSize'];
-
-            $query = "INSERT INTO appdev.ordersrefs (OrderID, ProductID, quantity, gender, prefHair, prefSkin, prefEye, prefSize) VALUES ((SELECT OrderID FROM appdev.orders WHERE OCompanyID = '{$userID}' ORDER BY OrderID DESC LIMIT 1), '{$pID}' , '{$qty}', '{$gender}', '{$hair}', '{$skin}', '{$eye}', '{$size}')";
-            $result = mysqli_query($dbc, $query);
-
-            $delquery = "DELETE FROM appdev.cart WHERE cartID = '{$bye}'";
-            $delresult = mysqli_query($dbc, $delquery);
-        }
-
-        header("location: websiteGalleryLoggedIn.php");
-
-    }
-
-if (isset($_POST['remove'])){
-    require_once('../mysql_connect.php');
-    echo "remove!";
-    $cID = $_POST['cartID'];
-    $xID = $_POST['sID'];
-
-    echo ($cID);
-    echo ($xID);
-    $query = "DELETE from appdev.cart WHERE cartID = '{$cID}'";
-    $result = mysqli_query($dbc, $query);
-}
-
-if (isset($_POST['add'])){
-    require_once('../mysql_connect.php');
-//    $chosenID = $_POST['sID'];
-//    $qty = $_POST['qty'];
-//
-//    echo ('Product ID: ');
-//    echo ($chosenID);
-//    echo ('Qty:');
-//    echo ($qty);
-
-    if (!empty($_POST['sID'])){
-        $xID = $_POST['sID'];
-        $xQty = $_POST['qty'];
-        echo ('sID: ');
-        echo ($xID);
-        echo '<br> Qty: ';
-        echo ($xQty);
-
-    }
-    $query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
-
-        $result = mysqli_query($dbc, $query);
-}
-?>
 <div id="header" class="container">
 	<div id="logo">
         <h1><a href="websiteHome.php"><font color="#68B3C8">DOLLJOY</font></a></h1>
@@ -155,6 +65,113 @@ if (isset($_POST['add'])){
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+<?php
+
+
+
+//$shoppingCart = array();
+$message = null;
+if (isset($_POST['placeOrder'])){
+//        echo "placeOrder!!!";
+    $getDate = $_POST['requiredDate'];
+
+    date_default_timezone_set('Asia/Manila');
+    $today = date("Y-m-d");
+
+    if ($getDate < $today)
+    {
+      $message="<div class='alert alert-danger'><span aria-hidden='true'><b><center>The date you entered is invalid.<br>Please enter a later date.</center></span></div>";
+    }
+
+    if (isset($message)){
+     echo '<font color="blue">'.$message. '</font>';
+    }
+
+    else {
+
+    $sTotal = $_POST['totalqty'];
+    $sSum = $_POST['totalsum'];
+
+//        echo ($sTotal);
+//        echo ($sSum);
+//
+//        echo ($getDate);
+//
+//        echo $username;
+    $userIDQuery = "SELECT CompanyID from clientaccount WHERE CRepUsername = '$username'";
+
+    $result = mysqli_query($dbc, $userIDQuery);
+    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    $userID = $row['CompanyID'];
+
+//        echo($userID);
+//        THIS IS WHERE IT ENDS
+    $query = "INSERT INTO appdev.orders (OCompanyID, OProductID, OQuantity, OTotalAmount, OOrderedDate, ORequiredDate, OrderStatus, OPaymentStatus, OShipmentStatus, ManufacturingStatus) VALUES ( '{$userID}', NULL, '{$sTotal}', '{$sSum}', DATE(NOW()), '{$getDate}', 'Pending', 'Unpaid', 'Not Shipped', 'Pending')";
+    $result = mysqli_query($dbc, $query);
+
+    $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
+    $result2=mysqli_query($dbc,$query);
+    $numRows = mysqli_num_rows($result2);
+
+    while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
+        $bye = $row['cartID'];
+        $pID = $row['productID'];
+        $qty = $row['quantity'];
+        $gender = $row['productGender'];
+        $hair = $row['prefHair'];
+        $skin = $row['prefSkin'];
+        $eye = $row['prefEye'];
+        $size = $row['prefSize'];
+
+        $query = "INSERT INTO appdev.ordersrefs (OrderID, ProductID, quantity, gender, prefHair, prefSkin, prefEye, prefSize) VALUES ((SELECT OrderID FROM appdev.orders WHERE OCompanyID = '{$userID}' ORDER BY OrderID DESC LIMIT 1), '{$pID}' , '{$qty}', '{$gender}', '{$hair}', '{$skin}', '{$eye}', '{$size}')";
+        $result = mysqli_query($dbc, $query);
+
+        $delquery = "DELETE FROM appdev.cart WHERE cartID = '{$bye}'";
+        $delresult = mysqli_query($dbc, $delquery);
+    }
+
+    header("location: websiteGalleryLoggedIn.php");
+
+}
+
+if (isset($_POST['remove'])){
+require_once('../mysql_connect.php');
+echo "remove!";
+$cID = $_POST['cartID'];
+$xID = $_POST['sID'];
+
+echo ($cID);
+echo ($xID);
+$query = "DELETE from appdev.cart WHERE cartID = '{$cID}'";
+$result = mysqli_query($dbc, $query);
+}
+
+if (isset($_POST['add'])){
+require_once('../mysql_connect.php');
+//    $chosenID = $_POST['sID'];
+//    $qty = $_POST['qty'];
+//
+//    echo ('Product ID: ');
+//    echo ($chosenID);
+//    echo ('Qty:');
+//    echo ($qty);
+
+if (!empty($_POST['sID'])){
+    $xID = $_POST['sID'];
+    $xQty = $_POST['qty'];
+    echo ('sID: ');
+    echo ($xID);
+    echo '<br> Qty: ';
+    echo ($xQty);
+
+}
+$query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
+
+    $result = mysqli_query($dbc, $query);
+}
+}
+
+?>
 
 <div class="content">
     <center><h3><b>Checkout</b></h3></center>
