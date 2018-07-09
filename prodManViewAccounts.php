@@ -259,7 +259,6 @@ th {
                                         <th onclick=\"sortTable(3)\"><p class=\"category\"><b>CONTACT</b></p></th>
                                         <th onclick=\"sortTable(4)\"><p class=\"category\"><b>E-MAIL</b></p></th>
                                         
-                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><b>TYPE</b></p></th>
                                    
                                     </tr>
                                     </thead>";
@@ -342,7 +341,6 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 <td><b>{$row['EmployeeContactNo']}</b></td>
                 <td><b>{$row['EmployeeEmailAdd']}</b></td>
                 
-                <td><b>{$row['employeeType']}</b></td>
                 <td>
 
 
