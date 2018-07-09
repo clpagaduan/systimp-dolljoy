@@ -194,9 +194,27 @@ Released   : 20130902
 <!--                      <h3>HOME</h3>-->
                       <p>Select Hair Colour</p>
                         <form>
+                            <?php
+//                                require_once('../mysql_connect.php');
+//                                $queryHair = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=1;";
+//                                $resultHair = mysqli_query($dbc,$queryHair);
+//
+//                                echo "<select class='form-control' name='hairStyle'>";
+//
+//                                while ($Row = mysqli_fetch_array($resultHair)){
+//                                echo "<div class='form-group'>
+//                                <option value='".$Row['ValueName']."'}>{$Row['ValueName']}</option></div>";
+//                                }
+//                                echo "</select>";
+//
+//                                echo "</div>";
+
+                            ?>
+<!--
                         <div class="radio">
                           <label><input type="radio" name="optradio">Option 1</label>
                         </div>
+-->
                       </form>
                     </div>
                     <div id="eye" class="tab-pane fade">
@@ -229,8 +247,10 @@ Released   : 20130902
                       </div>
                   </div>
                     
+<!--
                     <h1> henlo</h1>
                     <h1> henlo</h1>
+-->
 
                     <!--<div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
                         <table class="table table-hover" >
