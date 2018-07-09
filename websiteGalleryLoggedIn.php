@@ -117,7 +117,7 @@ Released   : 20130902
         <div class="container-fluid" >
             <div class="row" style="display:flex">
                 
-                <div class="col-">
+                <div class="col-md-4">
                     <div class="col-">
                         <h4>Step 1: Select a doll!</h4>
 <!--                        SCROLLBAR FOR THE PREMADE DOLLS-->
@@ -182,6 +182,7 @@ Released   : 20130902
                     </div>
                     
 <!--                    TABS FOR THE DOLLS-->
+                    <h4>Step 2: Customize your doll!</h4>
                   <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#hair">Hair</a></li>
                     <li><a data-toggle="tab" href="#eye">Eye Color</a></li>
@@ -192,7 +193,7 @@ Released   : 20130902
                   <div class="tab-content">
                     <div id="hair" class="tab-pane fade in active">
 <!--                      <h3>HOME</h3>-->
-                      <p>Select Hair Colour</p>
+<!--                      <p>Select Hair Colour</p>-->
                         <form>
                             <?php
 //                                require_once('../mysql_connect.php');
@@ -210,38 +211,39 @@ Released   : 20130902
 //                                echo "</div>";
 
                             ?>
-<!--
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>
--->
+                        <div class="radio"><label><input type="radio" name="optradio">Curly         </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Straight      </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Dreadlocks    </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Wavy          </label></div>
                       </form>
                     </div>
                     <div id="eye" class="tab-pane fade">
 <!--                      <h3>Menu 1</h3>-->
-                        <p>Select Eye Colour</p>
+<!--                        <p>Select Eye Colour</p>-->
                         <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>                    
+                        <div class="radio"><label><input type="radio" name="optradio">Black         </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Brown         </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Blue          </label></div>                   
                       </form>                    
                     </div>
                     <div id="skin" class="tab-pane fade">
 <!--                      <h3>Menu 2</h3>-->
                         <p>Select Skin Colour</p>
                         <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>
+                        <div class="radio"><label><input type="radio" name="optradio">Light         </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Fair          </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Tan           </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Dark          </label></div>
                       </form>                    
                     </div>
                     <div id="outfit" class="tab-pane fade">
 <!--                      <h3>Menu 3</h3>-->
                         <p>Select Outfit</p>
                         <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>
+                        <div class="radio"><label><input type="radio" name="optradio">Formal        </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Athletic      </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Street Casual </label></div>
+                        <div class="radio"><label><input type="radio" name="optradio">Swimwear      </label></div>
                         
                       </form>                    
                       </div>
@@ -291,16 +293,19 @@ Released   : 20130902
                         
                         </div>  -->                  
                     </div>
-                <div class="col-">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-7">
                        
-
-                                <div class="container table-responsive" style = "width:800px;">
+                                
+                                <div class="container table-responsive" style = "width:700px;">
+                                    <h4>Shopping Cart</h4>
                                 <table class="table table-hover">
                                     <thead>
-                                        <th><p class="category">Product ID</p></th>
+<!--                                        <th><p class="category">Product ID</p></th>-->
                                         <th><p class="category">Doll Name</p></th>
                                         <th><p class="category">Specifications</p></th>
-                                        <th><p class="category">Description</p></th>
+<!--                                        <th><p class="category">Description</p></th>-->
 <!--                                        <th><p class="category">Photo</p></th>-->
                                         <th><p class="category">Quantity</p></th>
                                     </thead>
@@ -335,10 +340,10 @@ Released   : 20130902
                                             '
                                             <form action="websiteGalleryLoggedIn.php" method="post">
                                             <tr>
-                                            <td>'.$id.'</td>
+                                            
                                             <td>'.$name.'</td>
                                             <td>'.$specs.'</td>
-                                            <td>'.$desc.'</td>
+                                            
                                             <td>'.$qty.'</td>
 
                                             <input type = "hidden" name = "cartID" value = "'.$caID.'">
@@ -371,8 +376,11 @@ Released   : 20130902
                         
                     </div>
             </div>
-            <div class="row">
-                <h5>This should be row 2</h5>
+            <div class="row" style="display:flex">
+                <div class="col-md-6">
+<!--                <h5>This should be row 2</h5>-->
+                </div>
+                <div class="col-md-6">
                 <a href='websiteGalleryLoggedInCheckout.php'><button type='submit' class='btn btn-success btn-fill pull-right'>Proceed to Checkout</button></a>
             </div>
         </div>
