@@ -10,9 +10,7 @@ $nada=$user=NULL;
 
 //button is pressed
 if (isset($_POST['activate'])){
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
     
     //no empty fields
     if (!empty($_POST['user'])){
@@ -43,29 +41,25 @@ if (isset($_POST['activate'])){
     echo "<div class=\"alert alert-success\" align=\"center\">
   Successfully Activated!    
 </div>";
->>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
-=======
->>>>>>> 42bbe39b60825572b9540b8b10e7e5a345bebac4
+
 
                     $CName=$_POST['CName'];
                     $CompanyID=$_POST['CompanyID'];
-                    $CRepUsername= bin2hex(openssl_random_pseudo_bytes(5));
-                    $query="UPDATE `appdev`.`clientaccount`
-                            SET `CRepUsername`=('".$CRepUsername."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
-    
+//                    $CRepUsername= bin2hex(openssl_random_pseudo_bytes(5));
+                    
                     $CRepPassword= bin2hex(openssl_random_pseudo_bytes(5));
-<<<<<<< HEAD
-<<<<<<< HEAD
                     $query="UPDATE `appdev`.`clientaccount`
-                            SET `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
-=======
-                    $query="UPDATE `appdev`.`clientaccount` 
-                            SET `CRepUsername`='".$CRepUsername."', `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
->>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
-=======
-                    $query="UPDATE `appdev`.`clientaccount`
-                            SET `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
->>>>>>> 42bbe39b60825572b9540b8b10e7e5a345bebac4
+                            SET `CRepUsername`=('".$CRepUsername."'), `CRepPassword`=PASSWORD('".$CRepPassword."'),
+                            `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+    
+                    
+
+//                    $query="UPDATE `appdev`.`clientaccount`
+//                            SET `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+//                    $query="UPDATE `appdev`.`clientaccount` 
+//                            SET `CRepUsername`='".$CRepUsername."', `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+//                    $query="UPDATE `appdev`.`clientaccount`
+//                            SET `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
                     mysqli_query($dbc,$query);
 
                     $query2="SELECT * FROM clientaccount WHERE CompanyID=$CompanyID";
@@ -93,55 +87,36 @@ if (isset($_POST['activate'])){
 //                }
 
                     $message="<div class='alert alert-success'><span aria-hidden='true'><b><center>Account has been successfully activated!</center></span></div>";
-<<<<<<< HEAD
-<<<<<<< HEAD
 
                     //echo($CRepPassword);
 
-=======
                     
                     echo($CRepPassword);
                     
->>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
-=======
 
                     //echo($CRepPassword);
 
->>>>>>> 42bbe39b60825572b9540b8b10e7e5a345bebac4
                     $queryaudit="INSERT INTO `accountaudittrail`(`AATCompanyID`, `TimeStamp`, `Description`, `Editor`) VALUES ($CompanyID, CURRENT_TIMESTAMP, 'Activated account of $CRepUsername','$editor')";
 
 
                     $result=mysqli_query($dbc,$queryaudit);
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
                     
                 
             }
         
->>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
-=======
 
->>>>>>> 42bbe39b60825572b9540b8b10e7e5a345bebac4
     }
     else{
             $user="<font color='red'>*</font>";
 
         $message="<div class='alert alert-danger'><span aria-hidden='true'><b><center>Please fill out fields marked with *</center></span></div>";
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
-=======
 }
 	
->>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
-=======
 
-
->>>>>>> 42bbe39b60825572b9540b8b10e7e5a345bebac4
 
 
 ?>
@@ -373,14 +348,10 @@ $numRows = mysqli_num_rows($result);
 	<td><b>' .$row['CRepFirstName'].' '.$row['CRepLastName']. '</b></td>
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 	
 	<td align ="left"><input type="text" name="user" size="20" maxlength="30" value=""/></td>
->>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
-=======
->>>>>>> 42bbe39b60825572b9540b8b10e7e5a345bebac4
+
 	<input type = "hidden" name = "CName" value= "'.$CName.'">
 	<input type = "hidden" name = "CompanyID" value= "'.$id.'">
 
