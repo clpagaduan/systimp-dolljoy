@@ -99,171 +99,21 @@ Released   : 20130902
 
 <!-- START OF LOGIN FORM -->
 
-<!--
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
--->
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
     <!------ Include the above in your HEAD tag ---------->
 
-    <h1><b>Doll Catalog</b></h1>
+    <center><h3><b>Doll Catalog</b></h3></center>
 
     <div class="content">
-        <div class="container-fluid" >
+        <div class="container" >
             <div class="row" style="display:flex">
-                
-                <div class="col-md-4">
-                    <div class="col-">
-                        <h4>Step 1: Select a doll!</h4>
-<!--                        SCROLLBAR FOR THE PREMADE DOLLS-->
-                        <div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
+                <div class="col-">
+<!--                    <div class="scrollmenu">-->
+                    <div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
                         <table class="table table-hover" >
-                            <?php 
-                            require_once('../mysql_connect.php');
-                            $query="SELECT * FROM appdev.product";
-                            $result=mysqli_query($dbc,$query);
-                            $count=0;
-
-                            while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                $id = $row['ProductID'];
-                                $itemName =$row['ProductName'];
-                                $image= $row['ProductImage'];
-                                $desc = $row['ProductDescription'];
-                                $image2 = '<img src="data:image/jpeg;base64,'.base64_encode($image).'"style="width:30px;height:30px"/>';
-                            echo'
-                                <td><div class=card style="border:1px white; width:50px">
-                                <center>'.$image2.'</center>
-                                <h7 class="card-title" align="center">'.$itemName.'</h7>
-
-
-                                <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View</a>
-
-                                </div></td>
-                                ';
-                                
-//                                echo'
-//                                <td><div class=card style="border:1px white; width:50px">
-//                                <center>'.$image2.'</center>
-//                                <h4 class="card-title" align="center">'.$id.' - '.$itemName.'</h4>
-//
-//                                <p class="card-text" align="center">'.$desc.'</p>
-//
-//                                <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View Details</a>
-//
-//                                </div></td>
-//                                ';
-
-
-                                $count++;
-
-                                if($count=3){
-
-                                $count=0;
-                                }
-                            }
-                            
-                            ?>
-                        </table>
-                        
-                        </div> 
-                        <h1>&nbsp;</h1>
-<!--
-                    <h1>henlo</h1>
-                       <div class="col-">
-                    <h1>henlo</h1>
-                        
-                    </div> 
--->
-                    </div>
-                    
-<!--                    TABS FOR THE DOLLS-->
-                    <h4>Step 2: Customize your doll!</h4>
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#hair">Hair</a></li>
-                    <li><a data-toggle="tab" href="#eye">Eye Color</a></li>
-                    <li><a data-toggle="tab" href="#skin">Skin Color</a></li>
-                    <li><a data-toggle="tab" href="#outfit">Outfit</a></li>
-                  </ul>
-
-                  <div class="tab-content">
-                    <div id="hair" class="tab-pane fade in active">
-<!--                      <h3>HOME</h3>-->
-<!--                      <p>Select Hair Colour</p>-->
-                        <form>
                             <?php
-//                                require_once('../mysql_connect.php');
-//                                $queryHair = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=1;";
-//                                $resultHair = mysqli_query($dbc,$queryHair);
-//
-//                                echo "<select class='form-control' name='hairStyle'>";
-//
-//                                while ($Row = mysqli_fetch_array($resultHair)){
-//                                echo "<div class='form-group'>
-//                                <option value='".$Row['ValueName']."'}>{$Row['ValueName']}</option></div>";
-//                                }
-//                                echo "</select>";
-//
-//                                echo "</div>";
-
-                            ?>
-                        <div class="radio"><label><input type="radio" name="optradio">Curly         </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Straight      </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Dreadlocks    </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Wavy          </label></div>
-                      </form>
-                    </div>
-                    <div id="eye" class="tab-pane fade">
-<!--                      <h3>Menu 1</h3>-->
-<!--                        <p>Select Eye Colour</p>-->
-                        <form>
-                        <div class="radio"><label><input type="radio" name="optradio">Black         </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Brown         </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Blue          </label></div>                   
-                      </form>                    
-                    </div>
-                    <div id="skin" class="tab-pane fade">
-<!--                      <h3>Menu 2</h3>-->
-                        <p>Select Skin Colour</p>
-                        <form>
-                        <div class="radio"><label><input type="radio" name="optradio">Light         </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Fair          </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Tan           </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Dark          </label></div>
-                      </form>                    
-                    </div>
-                    <div id="outfit" class="tab-pane fade">
-<!--                      <h3>Menu 3</h3>-->
-                        <p>Select Outfit</p>
-                        <form>
-                        <div class="radio"><label><input type="radio" name="optradio">Formal        </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Athletic      </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Street Casual </label></div>
-                        <div class="radio"><label><input type="radio" name="optradio">Swimwear      </label></div>
-                        
-                      </form>                    
-                      </div>
-                  </div>
-                    <h1>&nbsp;</h1>
-                    <h4>Step 3: Select Quantity!</h4>
-                    <div class="row" style="display:flex">
-                        <h7>&nbsp; &nbsp; Quantity &nbsp; </h7>
-                    <input type="number" class="form-control border-input" min="1" style="width: 5em;" value=1>
-                        <h7>&nbsp;&nbsp;</h7>
-                    <input type='submit' name='add' class='btn btn-success btn-fill' value='Add to Cart'/>
-                    </div>
-<!--
-                    <h1> henlo</h1>
-                    <h1> henlo</h1>
--->
-
-                    <!--<div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
-                        <table class="table table-hover" >
-                            <?php /*
                             require_once('../mysql_connect.php');
                             $query="SELECT * FROM appdev.product";
                             $result=mysqli_query($dbc,$query);
@@ -294,25 +144,22 @@ Released   : 20130902
                                 $count=0;
                                 }
                             }
-                            */
+
                             ?>
                         </table>
                         
-                        </div>  -->                  
+                        </div>                    
                     </div>
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-7">
+                <div class="col-">
                        
-                                
-                                <div class="container table-responsive" style = "width:700px;">
-                                    <h4>Shopping Cart</h4>
+
+                                <div class="container table-responsive" style = "width:800px;">
                                 <table class="table table-hover">
                                     <thead>
-<!--                                        <th><p class="category">Product ID</p></th>-->
+                                        <th><p class="category">Product ID</p></th>
                                         <th><p class="category">Doll Name</p></th>
                                         <th><p class="category">Specifications</p></th>
-<!--                                        <th><p class="category">Description</p></th>-->
+                                        <th><p class="category">Description</p></th>
 <!--                                        <th><p class="category">Photo</p></th>-->
                                         <th><p class="category">Quantity</p></th>
                                     </thead>
@@ -347,10 +194,10 @@ Released   : 20130902
                                             '
                                             <form action="websiteGalleryLoggedIn.php" method="post">
                                             <tr>
-                                            
+                                            <td>'.$id.'</td>
                                             <td>'.$name.'</td>
                                             <td>'.$specs.'</td>
-                                            
+                                            <td>'.$desc.'</td>
                                             <td>'.$qty.'</td>
 
                                             <input type = "hidden" name = "cartID" value = "'.$caID.'">
@@ -383,11 +230,8 @@ Released   : 20130902
                         
                     </div>
             </div>
-            <div class="row" style="display:flex">
-                <div class="col-md-6">
-<!--                <h5>This should be row 2</h5>-->
-                </div>
-                <div class="col-md-6">
+            <div class="row">
+                <h5>This should be row 2</h5>
                 <a href='websiteGalleryLoggedInCheckout.php'><button type='submit' class='btn btn-success btn-fill pull-right'>Proceed to Checkout</button></a>
             </div>
         </div>
