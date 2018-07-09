@@ -65,11 +65,10 @@ if($first == 0 ){
                                     
 
            
-              $query3 = "UPDATE clientaccount SET CRepPassword = '$cpass', FLogin = '1'   WHERE CRepUsername = '".$username."'; ";
+              $query3 = "UPDATE clientaccount SET CRepPassword = PASSWORD('$cpass'), FLogin = '1'   WHERE CRepUsername = '".$username."'; ";
             $result = mysqli_query($dbc, $query3);
            
 }}
-    
     
 }
     
