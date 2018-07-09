@@ -14,7 +14,7 @@ $message2="";
 
 
 
-
+                            
 
 
 if (isset($_POST['submit'])){
@@ -22,7 +22,7 @@ if (isset($_POST['submit'])){
 
         $choice1=$_POST['choice1'];
         $specification=$_POST['specification'];
-
+    
 
        //choice1
        if(!isset($_FILES['choice1pic']) || $_FILES['choice1pic']['error'] == UPLOAD_ERR_NO_FILE) {
@@ -41,14 +41,14 @@ if (isset($_POST['submit'])){
         }
 
 
+       
 
-
-
+       
 
 
 
       if(!isset($message)){
-
+    
 
           $query="INSERT INTO AttributeValues       (ValueName,
                                                     ValueImage,
@@ -61,9 +61,9 @@ if (isset($_POST['submit'])){
                                                     'PreMade')";
           $result=mysqli_query($dbc,$query);
 
-
+  
               echo "<div class=\"alert alert-success\" align=\"center\">
-  {$choice1} added!<br>
+  {$choice1} added!<br> 
 </div>";
 
           /*$message2="{$choice1} added!<br>";*/
@@ -75,7 +75,7 @@ if (isset($_POST['submit'])){
 
   }
 
-
+         
 
 
 }; //end error
@@ -257,10 +257,10 @@ if (isset($_POST['submit'])){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                  <i class="ti-link"></i>
-                <p>Website</p>
-                <b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -297,15 +297,15 @@ if (isset($_POST['submit'])){
                                 <br><br>
                             </div>
                             <div class="content table-responsive table-full-width">
-
+                                
                                 <?php
-                                $query4="SELECT DISTINCT *
+                                $query4="SELECT DISTINCT * 
                                          FROM            Attribute";
                                 $result4=mysqli_query($dbc,$query4);
 
 
                                ?>
-
+                                
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 
 
@@ -313,7 +313,7 @@ if (isset($_POST['submit'])){
                            <label>&nbsp;&nbsp;<b>SELECT SPECIFICATION</b></label>
                           <select name="specification" class="form-control input" onchange="showDiv(this)">
                             <?php while ($row = mysqli_fetch_array($result4)) {
-                            echo "<option value='" . $row[0] ."'>" . $row[1] ."</option>";}
+                            echo "<option value='" . $row[0] ."'>" . $row[1] ."</option>";} 
                             ?>
                         </select>
                         </div>
@@ -337,7 +337,7 @@ if (isset($_POST['submit'])){
                                   $prev.attr('src', e.target.result)
                                   $prev.width(150)
                                   $prev.height(150);
-
+                                  
                               }
 
                               reader.readAsDataURL(input.files[0]);
@@ -360,10 +360,10 @@ if (isset($_POST['submit'])){
                     <button type="submit" class="btn btn-success btn-fill pull-right" Name="submit">FINISH</button>
                     <div class="clearfix"></div>
                   </form>
-
-
+                            
+                                
                             </div>
-
+                            
                         </div>
                     </div>
 

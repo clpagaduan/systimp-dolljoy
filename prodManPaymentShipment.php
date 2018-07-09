@@ -9,7 +9,7 @@ if (isset($_POST['ship'])){
 }
 if (isset($_POST['paid'])){
     echo "<div class=\"alert alert-success\" align=\"center\">
-  Successfully Paid!
+  Successfully Paid!    
 </div>";
     $id=$_POST['id'];
     $sql = "UPDATE Orders SET OPaymentDate = DATE(NOW()), OPaymentStatus = 'Paid' WHERE OrderID = " . $_POST['id'];
@@ -182,10 +182,10 @@ if (!empty($sql))
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                  <i class="ti-link"></i>
-                <p>Website</p>
-                <b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -215,7 +215,7 @@ if (!empty($sql))
                                 <p class="category">*Needs INSTRUCTIONS</p>
                             </div>
                                 <div class="content table-responsive table-full-width">
-
+                                
                                 <table class="table table-hover">
                                     <thead>
                                         <th><p class="category"><b>ORDER ID</b></p></th>
@@ -223,9 +223,9 @@ if (!empty($sql))
                                         <th><p class="category"><b>QUANTITY</b></p></th>
                                         <th><p class="category"><b>DATE ORDER</b></p></th>
                                         <th><p class="category"><b>DATE REQUIRED</b></p></th>
-
+                    
                                     </thead>
-
+                                    
 <?php
 
 //PAID
@@ -233,7 +233,7 @@ $query="SELECT *, C.CName from Orders O join ClientAccount C on O.OCompanyID=C.C
 $result=mysqli_query($dbc,$query);
 
 $numRows = mysqli_num_rows($result);
-
+                                    
 //SHIP
 $query2="SELECT *, C.CName from Orders O join ClientAccount C on O.OCompanyID=C.CompanyID WHERE ManufacturingStatus='Completed' AND OShipmentStatus='Not shipped' AND CompanyID = OCompanyID";
 $result2=mysqli_query($dbc,$query2);
@@ -242,13 +242,13 @@ $numRows2 = mysqli_num_rows($result2);
     if($numRows ==0 && $numRows2 == 0){
         $message="No orders to show";
     }
-
+    
 //SHIP
 while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
 
-echo
+echo 
 "
 <tbody>
 <tr>
@@ -267,15 +267,15 @@ echo
                             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
                             </form></td></tr>
 ";
-
+    
 }
-
+                                    
 //PAID
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
 
-echo
+echo 
 "
 <tr>
 
@@ -288,26 +288,26 @@ echo
 
 
 <td>
-
+                           
                             <input type = \"button\"  class=\"btn btn-fill btn-danger\" value=\"PAID\" data-toggle=\"modal\" data-target=\"#exampleModal\">
                             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
                             </td></tr>
 ";
 ?>
-    <?php
+    <?php 
 }?>
-
-
+                                    
+                                    
                                     </table>
-
+                                    
     <center>
     <label>
-        <?php
+        <?php 
             if(isset($message)){
                 echo $message;
             }
         ?>
-
+            
     </label>
     </center>
 

@@ -177,10 +177,10 @@ if (!empty($sql))
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-													<!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-																	<i class="ti-link"></i>
-								<p>Website</p>
-								<b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -206,53 +206,66 @@ if (!empty($sql))
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header">
-                                <p class="category"><b>Click on "RECEIVE" in order to receive ordered supplies</b></p>
+                            <div class="header">                                
+                        
+
+            <button type = "submit" name = "viewInventory" class = "btn btn-info">View Inventory</button>
+            <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
+
+
 
                                 <br><br>
-                            <div class="content table-responsive table-full-width">
+
+                             <p class="category"><b>Listed below are stock supplies DOLLJOY has ordered. Click on RECEIVE once
+                             supply has been accumulated.</b></p>
+
+                            <div class="content table-responsive table-full-width">   
                             <table class="table table-hover">
 
                             <?php
-                            $query="SELECT SupplyID, DateOrdered, SupplyDescription, SupplyQuantity, Suppliers.SupplierName AS 'Supplier' FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL";
+                            $query="SELECT SupplyID, SupplyType, DateOrdered,SupplierCountry, SupplyQuantity, Suppliers.SupplierName AS 'Supplier', SupplierContactNum FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL";
                             $result=mysqli_query($dbc,$query);
-
-
+                            
+                            
                             $query2="SELECT SupplyID FROM Supplies WHERE `DateReceived` IS NULL";
                             $result2=mysqli_query($dbc,$query2);
                             $result3 = $result2->num_rows;
-
+                            
                             if ($result3 >0){
                             echo '<tr>
-                            <td width="10%"><div align="center"><h6>Supply ID
+                            <td width="10%"><div align="center"><h6>Supply Type
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Date Ordered
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Supply Description
+                            <td width="10%"><div align="center"><h6>Supplier Country 
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Quantity<br>(in kilograms)
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Supplier
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Action
+                            <td width="10%"><div align="center"><h6>Contact Number
+                            </div></b></td>
+                            <td width="10%"><div align="center"><h6>Action 
                             </div></b></td>
 
                             </tr>';
-
+                            
                             while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                             $id=$row['SupplyID'];
 
-
+                                
                             echo "<tr>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyID']}</b>
+                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyType']}</b>
                             </div></td>
                             <td width=\"10%\"><div align=\"center\"><b>{$row['DateOrdered']}</b>
                             </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyDescription']}</b>
+                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplierCountry']}</b>
                             </div></td>
                             <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyQuantity']}</b>
                             </div></td>
                             <td width=\"10%\"><div align=\"center\"><b>{$row['Supplier']}</b>
+                            </div></td>
+                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplierContactNum']}</b>
                             </div></td>
                             <td><div align=\"center\">
                             <form action=\"prodManInventoryManagement1.php\" method=\"post\">
@@ -265,17 +278,17 @@ if (!empty($sql))
 
                             echo '</table>';
                             }
-
-
+                            
+                            
                             else if ($result3==0){
                                 echo "<center><b>No orders to be received!</b></center>";
                             }
                             ?>
-
+                                
                             </div>
                             </div>
                                 <div class="content table-responsive table-full-width">
-
+                                
                                 </div>
                         </div>
                     </div>
@@ -299,7 +312,7 @@ if (!empty($sql))
     </div>
 </div>
 </div>
-
+    
      <div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -318,11 +331,11 @@ if (!empty($sql))
     </div>
   </div>
 </div>
-
-
-
-
-
+    
+            
+                
+            
+        
     </form>
 </body>
 

@@ -18,14 +18,14 @@ $specificationName = $_SESSION["specificationName"];
                             $result=mysqli_query($dbc,$query);
 
 
-                            while ($row = mysqli_fetch_array($result)) {
+                            while ($row = mysqli_fetch_array($result)) { 
                               $specificationID=$row[0];
 
 
                             }
 
 
-
+                            
 
 
 if (isset($_POST['submit'])){
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])){
 
         $choice1=$_POST['choice1'];
         $choice2=$_POST['choice2'];
-
+    
 
        //choice1
        if(!isset($_FILES['choice1pic']) || $_FILES['choice1pic']['error'] == UPLOAD_ERR_NO_FILE) {
@@ -67,14 +67,14 @@ if (isset($_POST['submit'])){
            }
         }
 
+       
 
-
-
+       
 
 
 
       if(!isset($message)){
-
+    
 
           $query="INSERT INTO AttributeValues       (ValueName,
                                                     ValueImage,
@@ -112,7 +112,7 @@ if (isset($_POST['submit'])){
 
   }
 
-
+         
 
 
 }; //end error
@@ -299,10 +299,10 @@ if (isset($_POST['submit'])){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="ti-link"></i>
-                              <p>Website</p>
-                              <b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -336,7 +336,7 @@ if (isset($_POST['submit'])){
                                 <p> <?php echo"$message2 <br"; ?></p>
                             </div>
                             <div class="content table-responsive table-full-width">
-
+                                
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
@@ -345,9 +345,9 @@ if (isset($_POST['submit'])){
                           <br><input type="file" name="choice1pic" accept="image/*" onchange="readURL(this);">
                           <br>
                     <img id="display" src="#" alt="Display Image"/>
-
+                          
                     <br><br>
-
+                    
                         <div class="form-group">
                         <label>&nbsp;&nbsp;<b>2) Specification Choice Name</b></label>
                           <input type="text" name="choice2" class="form-control" placeholder="(e.g. Straight, short, orange)" required>
@@ -366,7 +366,7 @@ if (isset($_POST['submit'])){
                                   $prev.attr('src', e.target.result)
                                   $prev.width(150)
                                   $prev.height(150);
-
+                                  
                               }
 
                               reader.readAsDataURL(input.files[0]);
@@ -382,9 +382,9 @@ if (isset($_POST['submit'])){
                         </div>
                       </div>
                     </div>
-
-
-
+        
+                            
+                            
                     <script type="text/javascript">
                       function readURL2(input) {
                           var $prev = $('#display2'); // cached for efficiency
@@ -396,7 +396,7 @@ if (isset($_POST['submit'])){
                                   $prev.attr('src', e.target.result)
                                   $prev.width(150)
                                   $prev.height(150);
-
+                                  
                               }
 
                               reader.readAsDataURL(input.files[0]);
@@ -410,14 +410,14 @@ if (isset($_POST['submit'])){
                     </script>
                             <button type="submit" class="btn btn-success btn-fill pull-right" Name="submit">FINISH</button>
                     <div class="clearfix"></div>
-                  </form>
+                  </form>                                
                 <br>&nbsp;
                       </div>
                 </div>
 
 
 
-
+                    
                                 <br><br>
                     </div>
                     </div>

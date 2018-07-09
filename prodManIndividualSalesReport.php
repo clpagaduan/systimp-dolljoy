@@ -165,10 +165,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                  <i class="ti-link"></i>
-                <p>Website</p>
-                <b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -192,36 +192,36 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-
+                    
                     <div class="col-md-12">
                         <div class="card">
                             <p class="category">
                                 <b>
-                                <br>
-                                &nbsp;&nbsp;&nbsp;
+                                <br>    
+                                &nbsp;&nbsp;&nbsp;    
                                 <?php
                                 date_default_timezone_set('Asia/Manila');
                                 echo "<b>As of ".date('m/d/Y h:i A', time())."</b>";
                                 ?>
-                                </b>
+                                </b>    
                                 </p>
                             <center>
                             <div class="header">
                                 <h3 class="title"><b>DOLLJOY<br></b></h3>
                                 <h4 class="title"><b>INDIVIDUAL SALES REPORT</b></h4>
                             </div>
-
+                            
                                 <div class="content table-responsive table-full-width">
-
+                                
                                 <table class="table table-hover">
                            <?php
-
+                            
                             if (isset($_GET["id"])){
                                 $id = $_GET['id'];
                                 $query = "SELECT *, FORMAT(OTotalAmount,2) AS OTotalAmount, FORMAT(OQuantity,0) AS OQuantity, FORMAT(OPrice,2) AS OPrice, ClientAccount.CName AS 'Name', Product.ProductType AS 'Type', Product.ProductName AS 'PName' FROM Orders O INNER JOIN ClientAccount ON O.OCompanyID=ClientAccount.CompanyID INNER JOIN Product ON O.OProductID=Product.ProductID WHERE OrderID = ".$id;
-
+                                
                                 // ORDER DETAILS TABLE
-
+                                    
                                 $result=mysqli_query($dbc,$query);
                                 while ($row=mysqli_fetch_array($result)){
                                     $productID = $row['OProductID'];
@@ -233,91 +233,91 @@
                                     $pdate = date_format(date_create($row['OPaymentDate']), 'F d, Y');
                                     $ptype = $row['Type'];
                                     $pname = $row['PName'];
-
+                                    
                                 echo '<table width=50%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
                                 <tr bgcolor="black">
                                 <td colspan="2"><div align="center"><font color="white"><b>ORDER DETAILS</font>
                                 </div></b></td>
                                 </tr>';
-
-
+                                    
+                                    
                                 echo "<tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Order #</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"center\">$id
                                 </div></td>
                                 </tr>
-
-
+                                
+                                
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Ordered by</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"center\">$name
                                 </div></td>
                                 </tr>
-
+                                
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Date Ordered</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"center\">$odate
                                 </div></td>
                                 </tr>
-
-
+                                
+                                
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Payment Date</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"center\">$pdate
                                 </div></td>
                                 </tr>
-
-
+                                    
+                                
                                 </table>
                                 <br><br>";
-
-
-                                // ORDER PRICE AND QUANTITY
+                                    
+                                
+                                // ORDER PRICE AND QUANTITY    
                                 echo '<table width=50%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
                                 <tr bgcolor="black">
                                 <td colspan="2"><div align="center"><font color="white"><b>ORDER PRICE AND QUANTITY</font>
                                 </div></b></td>
                                 </tr>';
-
-
+                                    
+                                    
                                 echo "<tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Price per Doll (in PHP)</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"right\">$price
                                 </div></td>
                                 </tr>
-
+                                
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Quantity Ordered</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"right\">$qty
                                 </div></td>
                                 </tr>
-
+                                
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Total Amount (in PHP)</b>
                                 </div></td>
-
+                                
                                 <td width=\"10%\"><div align=\"right\">PHP $totalamt
                                 </div></td>
                                 </tr>
-
-
+                                    
+                                
                                 </table>
                                 <br><br>";
                             }
                             }
-
+                            
                             else{
                                 echo "No Order ID selected.";
                             }
@@ -328,7 +328,7 @@
                             <center>
                             <a class="noprint" href="javascript:window.print()"><input type="submit" value="Print" class="btn btn-fill btn-info"></a>
                             </center>
-
+                          
                             <center>
                                 <form action="prodManGeneratedSalesReport.php" method="post">
                                     <input type="hidden" name="startDate" value="<?php echo $startDate; ?>">

@@ -22,6 +22,7 @@ if (isset($_POST['end'])){
 
 if (!empty($sql))
     $qu = mysqli_query($dbc, $sql);
+
 ?>
 
 <!doctype html>
@@ -168,6 +169,7 @@ $numRows2 = mysqli_num_rows($result2);
 while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
+$q = $row['OQuantity'];
 
 echo
 "
@@ -179,16 +181,51 @@ echo
 <td><b>{$row['OQuantity']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-<td><b>{$row['OShippedDate']}</b></td>
-
-
-<td>
-                            <form action=\"employeeManufacturingStatuses.php\" method=\"post\">
-                            <input type = \"submit\" name =\"end\" class=\"btn btn-danger btn-fill\" value=\"END\">
-                            <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-                            </form></td></tr>
 ";
 
+
+// echo "<td>
+//                            <form action=\"employeeManufacturingStatuses.php\" method=\"post\">
+//                            <input type = \"submit\" name =\"end\" class=\"btn btn-danger btn-fill\" value=\"END\">
+//                            <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
+//                            </form></td></tr>
+// ";
+
+    $query3 = "SELECT o.ProductID, o.quantity, COUNT(ps.SerialCode) AS 'made' FROM ordersrefs o JOIN product_serial_audit ps ON o.ProductID = ps.ProductID WHERE o.OrderID = $id GROUP BY o.ProductID;";
+    $result3 = mysqli_query($dbc, $query3);
+
+    $falsecount = 0;
+    $made = 0;
+
+    while ($row3 = mysqli_fetch_array($result3,MYSQLI_ASSOC)){
+        $made = $made + $row3['made'];
+        if ($row3['quantity'] > $row3['made'])
+          $falsecount++;
+    }
+
+    $percent = ($made / $q) * 100;
+
+    echo "<td align='center'><div class='progress position-relative' style='width: 130%; margin-left: -40%;'>
+        <div class='progress-bar progress-bar-info progress-bar-striped active' role='progressbar' aria-valuenow=$made aria-valuemin='0' aria-valuemax= $q style='width:$percent%'>
+          <span>$made / $q</span>
+        </div></div>";
+
+    if ($falsecount == 0 && $made >= $q){
+      echo "<button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">UPDATE</button>
+          <input type = \"hidden\" name =\"updateid\" class=\"\" value=\"".$id."\">
+            </br></br>
+          <form action=\"employeeManufacturingStatuses.php\" method=\"post\">
+            <input type = \"submit\" name =\"end\" class=\"btn btn-danger btn-fill\" value=\"END\" style='margin-left: -40%;'>
+            <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
+          </form>";
+    }
+    else if ($falsecount > 0 || $made < $q) {
+      echo
+      "<button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">UPDATE</button>
+      <input type = \"hidden\" name =\"updateid\" class=\"\" value=\"".$id."\">";
+    }
+
+echo "</td></tr>";
 }
 
 //START
@@ -205,7 +242,7 @@ echo
 <td><b>{$row['OQuantity']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-<td><b>{$row['OShippedDate']}</b></td>
+
 
 
 <td>
@@ -258,6 +295,73 @@ echo
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Manufacturing Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+
+
+<?php
+
+
+$query="SELECT * from Orders O, ClientAccount C WHERE OrderStatus = 'Pending' AND CompanyID = OCompanyID";
+$result=mysqli_query($dbc,$query);
+
+
+$id=$row['OrderID'];
+
+echo "</div>
+<div class='modal-body'>
+  <h5>Order # </h5>
+  <table width='100%'>
+    <tr>
+      <td>Product ID</td>
+      <td>Product Name</td>
+      <td>Filled</td>
+      <td width='15%'><td>
+      <td> </td>
+    </tr>";
+
+    $query2 = "SELECT o.ProductID, p.ProductName, o.quantity, (SELECT COUNT(ps.SerialCode) FROM product_serial_audit ps WHERE ps.ProductID = o.ProductID AND ps.OrderID = ".$id." ) AS 'made' FROM ordersrefs o JOIN product p ON o.ProductID = p.ProductID WHERE o.OrderID = $id GROUP BY o.ProductID";
+    $result2 = mysqli_query($dbc, $query2);
+
+    while ($row2=mysqli_fetch_array($result2,MYSQLI_ASSOC))
+    {
+      echo "<tr>
+            <td>". $row2['ProductID'] ."</td>
+            <td>". $row2['ProductName'] ."</td>
+            <td>". $row2['made'] ." / ". $row['quantity'] ."</td>
+            <form>
+              <td><input type='number' class='form-control border-input' min='1' name='fill' value=1></td>
+              <td><div align='center'> <input type = \"submit\" name =\"start\" class=\"btn btn-success btn-fill\" value=\"Fill\"></div></td>
+            </form>
+            </tr>";
+    }
+
+echo "</table>
+</div>
+<div class='modal-footer'>";
+
+echo
+"
+
+<button type = \"submit\" name = \"approve\" class=\"btn btn-secondary\" value=\"".$id."\">$id Confirm</button>
+<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
+
+";
+?>
+
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 
@@ -282,6 +386,17 @@ echo
 
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
+  <style>
+    .progress {
+      position: relative;
+      }
 
+    .progress span {
+        position: absolute;
+        display: block;
+        width: 100%;
+        color: black;
+      }
+  </style>
 
 </html>

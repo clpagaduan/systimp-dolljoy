@@ -7,8 +7,10 @@ if(!isset($_SESSION)) {
 
 $username = $_SESSION['username'];
 //echo $username;
-
+//added this line
 ?>
+
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
@@ -36,69 +38,17 @@ Released   : 20130902
 
 </head>
 <body>
+    
     <?php
-
-
-
 //$shoppingCart = array();
-
-    if (isset($_POST['placeOrder'])){
-//        echo "placeOrder!!!";
-        $getDate = $_POST['requiredDate'];
-
-        $sTotal = $_POST['totalqty'];
-        $sSum = $_POST['totalsum'];
-
-//        echo ($sTotal);
-//        echo ($sSum);
-//
-//        echo ($getDate);
-//
-//        echo $username;
-        $userIDQuery = "SELECT CompanyID from clientaccount WHERE CRepUsername = '$username'";
-
-        $result = mysqli_query($dbc, $userIDQuery);
-        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-        $userID = $row['CompanyID'];
-
-//        echo($userID);
-//        THIS IS WHERE IT ENDS
-        $query = "INSERT INTO appdev.orders (OCompanyID, OProductID, OQuantity, OTotalAmount, OOrderedDate, ORequiredDate, OrderStatus, OPaymentStatus, OShipmentStatus, ManufacturingStatus) VALUES ( '{$userID}', NULL, '{$sTotal}', '{$sSum}', DATE(NOW()), '{$getDate}', 'Pending', 'Unpaid', 'Not Shipped', 'Pending')";
-        $result = mysqli_query($dbc, $query);
-
-        $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
-        $result2=mysqli_query($dbc,$query);
-        $numRows = mysqli_num_rows($result2);
-
-        while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
-            $bye = $row['cartID'];
-            $pID = $row['productID'];
-            $qty = $row['quantity'];
-            $gender = $row['productGender'];
-            $hair = $row['prefHair'];
-            $skin = $row['prefSkin'];
-            $eye = $row['prefEye'];
-            $size = $row['prefSize'];
-
-            $query = "INSERT INTO appdev.ordersrefs (OrderID, ProductID, quantity, gender, prefHair, prefSkin, prefEye, prefSize) VALUES ((SELECT OrderID FROM appdev.orders WHERE OCompanyID = '{$userID}' ORDER BY OrderID DESC LIMIT 1), '{$pID}' , '{$qty}', '{$gender}', '{$hair}', '{$skin}', '{$eye}', '{$size}')";
-            $result = mysqli_query($dbc, $query);
-
-            $delquery = "DELETE FROM appdev.cart WHERE cartID = '{$bye}'";
-            $delresult = mysqli_query($dbc, $delquery);
-        }
-
-        header("location: websiteGalleryLoggedIn.php");
-
-    }
-
 if (isset($_POST['remove'])){
     require_once('../mysql_connect.php');
-    echo "remove!";
+    // echo "remove!";
     $cID = $_POST['cartID'];
     $xID = $_POST['sID'];
 
-    echo ($cID);
-    echo ($xID);
+//    echo ($cID);
+//    echo ($xID);
     $query = "DELETE from appdev.cart WHERE cartID = '{$cID}'";
     $result = mysqli_query($dbc, $query);
 }
@@ -116,10 +66,10 @@ if (isset($_POST['add'])){
     if (!empty($_POST['sID'])){
         $xID = $_POST['sID'];
         $xQty = $_POST['qty'];
-        echo ('sID: ');
-        echo ($xID);
-        echo '<br> Qty: ';
-        echo ($xQty);
+//        echo ('sID: ');
+//        echo ($xID);
+//        echo '<br> Qty: ';
+//        echo ($xQty);
 
     }
     $query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
@@ -148,16 +98,79 @@ if (isset($_POST['add'])){
 
 <!-- START OF LOGIN FORM -->
 
-
-
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+<center><h3><b>Doll Catalog</b></h3></center>
 
+    <div class="content">
+        <div class="containter-fluid">
+            <div class="row">
+                <div class="col-md=12">
+                    <div class="card">
+                        <div class="content table-responsive table-full-width" style="width:100%; display: inline-block; overflow-y:hidden;overflow-x:scroll;">
+                            <table class="table table-hover" >
+                                <?php
+                                require_once('../mysql_connect.php');
+                                $query="SELECT * FROM appdev.product";
+                                $result=mysqli_query($dbc,$query);
+                                $count=0;
+
+
+                                while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                    $id = $row['ProductID'];
+                                    $itemName =$row['ProductName'];
+                                    $image= $row['ProductImage'];
+                                    $desc = $row['ProductDescription'];
+                                    $image2 = '<img src="data:image/jpeg;base64,'.base64_encode($image).'"style="width:128px;height:128px"/>';
+                                echo'
+
+
+                                <td><div class=card style="border:1px white; width:275px">
+                                    <center>'.$image2.'</center>
+                                    <h4 class="card-title" align="center">'.$id.' - '.$itemName.'</h4>
+
+                                    <p class="card-text" align="center">'.$desc.'</p>
+
+
+
+
+
+                                    <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View Details</a>
+
+
+
+                                    </div></td>
+                                    ';
+
+                                    /*
+                                    <input type="number" value="1" min="1" style="resize:horizontal; width:50px" align:"middle">
+                                    <input type="submit" name="add" class="btn btn-success btn-fill" value="Add to Cart" style="margin:auto; text-align:center; display:block"  />
+
+                                    <form action="websiteGalleryLoggedInID.php?id='.$id.'" method="post">
+                                    <input type = "submit" name ="view" class="btn btn-info btn-fill" value="VIEW DETAILS">*/
+
+                                    $count++;
+
+                                    if($count=3){
+
+                                    $count=0;
+                                    }
+                                }
+
+
+                                ?>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="content">
-    <center><h3><b>Checkout</b></h3></center>
+    <center><h3><b>Shopping Cart</b></h3></center>
             <div class="container-fluid">
                 <div class="row">
 
@@ -166,23 +179,20 @@ if (isset($_POST['add'])){
 
                                 <div class="content table-responsive table-full-width">
                                     <div style = "width:100%; display: inline-block">
-                                <table class="table table-hover" >
+                                <table class="table table-hover">
                                     <thead>
                                         <th><p class="category">Product ID</p></th>
                                         <th><p class="category">Doll Name</p></th>
                                         <th><p class="category">Specifications</p></th>
                                         <th><p class="category">Description</p></th>
 <!--                                        <th><p class="category">Photo</p></th>-->
-                                        <th><p class="category">Price</p></th>
                                         <th><p class="category">Quantity</p></th>
-                                        <th><p class="category">Subtotal</p></th>
-
                                     </thead>
 
                                     <?php
                                     require_once('../mysql_connect.php');
                                     $message="";
-                                    $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
+                                    $query="SELECT * FROM appdev.cart WHERE userName = '$username'";
                                     $result=mysqli_query($dbc,$query);
 
                                     $numRows = mysqli_num_rows($result);
@@ -190,44 +200,32 @@ if (isset($_POST['add'])){
                                         $message="No accounts to show";
                                     }
 
-                                    $sum = 0;
-                                    $totalqty = 0;
-                                    $count = 0;
-
                                     while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                         $caID = $row['cartID'];
                                         $id = $row['productID'];
-//                                      echo ($id);
+//                                        echo ($id);
                                         $name = $row['productName'];
                                         $size = $row['prefSize'];
                                         $desc = $row['productDesc'];
                                         $hair = $row['prefHair'];
                                         $skin = $row['prefSkin'];
                                         $eye  = $row['prefEye'];
-                                        $price = $row['price'];
                                         $qty  = $row['quantity'];
-                                        $subtotal = $row['subtotal'];
-
-                                        $totalqty += $qty;
-                                        $sum += $subtotal;
-
-                                        $count++;
 
                                         $specs = "<b>Size:</b> $size <br><b>Hair:</b> $hair <br><b>Skin:</b> $skin <br><b>Eye Color:</b> $eye";
 //                                        $image2 = '<img src="data:image/jpeg;base64,'.base64_encode($image).'"style="width:128px;height:128px"/>';
 
                                         echo
                                             '
-                                            <form action="websiteGalleryLoggedInCheckout.php" method="post">
+                                            <form action="websiteGalleryLoggedIn.php" method="post">
                                             <tr>
                                             <td>'.$id.'</td>
                                             <td>'.$name.'</td>
                                             <td>'.$specs.'</td>
                                             <td>'.$desc.'</td>
 
-                                            <td>'.$price.'</td>
+
                                             <td>'.$qty.'</td>
-                                            <td>'.$subtotal.'</td>
 
 
 
@@ -243,7 +241,7 @@ if (isset($_POST['add'])){
                                             </td>
 
 
-
+                                            </form>
 
                                             '
                                             ;
@@ -257,37 +255,17 @@ if (isset($_POST['add'])){
 //                                            </td>
 
                                         echo '</table>';
-
-                                    echo '<div class="col-md-12" align="right">
-                                            Total: <b>';
-
-                                    echo '<input type = "hidden" name = "totalqty" value = "'.$totalqty.'">';
-                                    echo '<input type = "hidden" name = "totalsum" value = "'.$sum.'">';
-                                    echo $sum;
-
-                                    echo '</b><br>
-                                                <div class="form-group">
-                                                <br>
-                                                    <label>Required Date</label><br>
-                                                        <input type="date" name="requiredDate"/>
-
-                                        </div>
-                                    </div>';
-
-
                                     ?>
 
                                     </table>
-
 
                                         </div>
 
                             </div>
 
                         </div>
-                        <input type="submit" name="placeOrder" class="btn btn-success btn-fill" value="Place Order" pull-right/>
-                        </form>
-                        <a href='websiteGalleryLoggedIn.php'><button type='submit' class='btn btn-info btn-fill pull-right'>Go Back</button></a>
+<!--                        <input type="submit" name="remove" class="btn btn-success btn-fill" value="Proceed to Checkout" pull-right/>-->
+                        <a href='websiteGalleryLoggedInCheckout.php'><button type='submit' class='btn btn-success btn-fill pull-right'>Proceed to Checkout</button></a>
                     </div>
 
                 </div>

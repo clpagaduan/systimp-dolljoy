@@ -31,7 +31,7 @@
 </head>
 
 <body>
-
+    
         <div class="wrapper">
 
             <div class="sidebar" data-background-color="white" data-active-color="info">
@@ -164,10 +164,10 @@
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
-                              <!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                      <i class="ti-link"></i>
-  									<p>Website</p>
-  									<b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -200,76 +200,76 @@
                                     <br>
                                     <div class="content table-responsive table-full-width">
                                         <form action="prodManSupplyOrdered.php" method="post">
-                                        <?php
+                                        <?php   
                             require_once('../mysql_connect.php');
-
-
+                                
+                                
                                 $query="SELECT * From Suppliers ORDER BY SupplyType, SupplierName ASC";
-
+                                
                                 echo "<label>&nbsp;&nbsp;<b>Select supplier</b></label>
                                             <select name='suppliers' placeholder='Select supplier' class='form-control input' onchange='showDiv(this)'> Select supplier";
-
+                                
                                 $result=mysqli_query($dbc,$query);
-
-
+                                
+                                
                                 while ($row = mysqli_fetch_array($result)){
                                 echo "<option value={$row['SupplierID']}>{$row['SupplierName']} ({$row['SupplierCountry']}) - {$row['SupplyType']}</option>";
 
                                 }
                                 echo "</select> <br><br>";
-
+                                
                                 echo "<label>&nbsp;&nbsp;<b>Supplier description</b></label>
-                                            <input type='text' name='dsc' placeholder='(e.g. Blonde, brunette, pasty white, etc.)' class='form-control'>
+                                            <input type='text' name='dsc' placeholder='(e.g. Blonde, brunette, pasty white, etc.)' class='form-control'> 
                                 <br><br>
-
+                                
                                 <label>&nbsp;&nbsp;<b>Supply quantity (in kilograms)</b></label>
-                                            <input type='number' min='1' name='qty' placeholder='(e.g. 25, 50, 100, etc.)' class='form-control'>
-
+                                            <input type='number' min='1' name='qty' placeholder='(e.g. 25, 50, 100, etc.)' class='form-control'> 
+                                
                                 <br><br>
-
+                                
                                 <input type='submit' class='btn btn-fill btn-success' value='Order Supplies'>";
-
+                                
                                /* while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                 echo "<option value='{$row['SupplierID']}> {$row['SupplierName']} ({$row['SupplierCountry']})
                                 </option>";
                                 }
                             echo "</select>";
-
+                            
                             echo "Select a supplier:   <select name='suppliers'>";
-                                while ($row = mysqli_fetch_array($result)) {
+                                while ($row = mysqli_fetch_array($result)) { 
                                 echo "<option value='{$row['SupplierID']}> {$row['SupplierName']} ({$row['SupplierCountry']})
                                 </option>";
                                 }
-                            echo "</select>";
-
-
+                            echo "</select>"; 
+                                
+                            
                             $message=NULL;
 
                              if (empty($_POST['startDate'])){
                               $_SESSION['startDate']=FALSE;
                               $message.='<p>Start Date is required!';
                              } else {
-                              $_SESSION['startDate']=$_POST['startDate'];
+                              $_SESSION['startDate']=$_POST['startDate']; 
                              }
 
                              if (empty($_POST['endDate'])){
                               $_SESSION['endDate']=FALSE;
                               $message.='<p>End Date is required!';
                              } else {
-                              $_SESSION['endDate']=$_POST['endDate'];
+                              $_SESSION['endDate']=$_POST['endDate']; 
                              }
-
+                            
                             if (isset($message)){
                              echo '<font color="red">'.$message. '</font>';
                             }
-
-
+                            
+                            
                             //startDate and endDate have valid input
                             if(isset($_POST["startDate"]) && !empty($_POST["startDate"]) && isset($_POST["endDate"]) && !empty($_POST["endDate"])) {
                                 if ($_POST["startDate"] <= $_POST["endDate"]){
                                     $query="SELECT OCompanyID FROM Orders where (OPaymentDate BETWEEN ('startDate') AND ('endDate')";
                                     $result=mysqli_query($dbc,$query);
-
+                                    
                                     echo '<table width="75%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
                                     <tr>
                                     <td width="10%"><div align="center"><b>Company ID
@@ -290,15 +290,15 @@
                                     echo '<center><b>- - END OF REPORT - -</b></center>';
                                 }
                                 else{
-
+                                    
                                 }
                             }
-
+                            
                             //startDate is empty
                             if (empty($_POST["startDate"])){
                                 $startrequiredError = "Start Date is required";
                             }
-
+                            
                             //endDate is empty
                             if (empty($_POST["endDate"])){
                                 $endrequiredError = "End Date is required";

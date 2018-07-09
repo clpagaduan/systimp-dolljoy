@@ -13,8 +13,8 @@ if (isset($_POST['submit'])){
         $message=NULL;
 
         $specificationName=$_POST['specificationName'];
-        echo $specificationName;
-
+        echo $specificationName; 
+           
           $query="INSERT INTO Attribute (AttributeName) VALUES ('{$specificationName}')";
           $result=mysqli_query($dbc,$query);
 
@@ -26,7 +26,7 @@ if (isset($_POST['submit'])){
             header("location:prodManDollSpecification2.php");
 
 
-
+         
 
 
 }; //end error
@@ -197,10 +197,10 @@ if (isset($_POST['submit'])){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="ti-link"></i>
-                              <p>Website</p>
-                              <b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -231,7 +231,7 @@ if (isset($_POST['submit'])){
                                 <p> <?php echo"$message <br"; ?></p>
                             </div>
                             <div class="content table-responsive table-full-width">
-
+                                
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                         <div class="form-group">
@@ -246,15 +246,15 @@ if (isset($_POST['submit'])){
                                 <br>&nbsp;
                                 <br><br>
                         </div>
-
+                                
                             </div>
-
+                            
                         </div>
                     </div>
 
 
             </div>
-
+           
 
         <footer class="footer">
             <div class="container-fluid">

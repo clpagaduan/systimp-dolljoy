@@ -4,10 +4,7 @@
                      session_start();
 
 require_once('../mysql_connect.php');
-                            if (empty($_POST['supplier']) || empty($_POST['semail']) || empty($_POST['num']) || empty($_POST['SRFN']) || empty($_POST['SRLN'])) {
-                                echo "<div class='alert alert-danger'><center><font color='white'>Incomplete input.
-                                <br>Please click BACK to try again.</center></font></div>";
-                            }
+                          
 
 
                             if (isset($_POST['supplier']) && !empty($_POST['semail']) && !empty($_POST['num']) && !empty($_POST['SRFN']) && !empty($_POST['SRLN'])) {
@@ -35,7 +32,7 @@ require_once('../mysql_connect.php');
 
                                         $query="insert into `suppliers` ( SupplierName, SupplierCountry, SupplyType, SupplierRepFirstName, SupplierRepLastName, SupplierEmail, SupplierContactNum) values ('{$supplier}', '{$country}','{$type}', '{$fn}','{$ln}', '{$email}','{$num}')";
 
-                                        echo "SELECT COUNT(*) AS number FROM `suppliers`";
+                                        //echo "SELECT COUNT(*) AS number FROM `suppliers`";
 
                                         mysqli_query($dbc,$query);
 
@@ -248,16 +245,16 @@ require_once('../mysql_connect.php');
                         <div class="card">
                             <div class="header">
                                 <p class="category">Enter supplier details to add another supplier to order from</p>
-                                <p class="category"><b>NOTE:</b> All fields are REQUIRED</p>
+                                
                                 <br>
                             </div>
                              <div class="content table-responsive table-full-width">
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Supplier name: </b></label>
+                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier name: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                                    <input class="form-control" type='text' name='supplier' placeholder="Supplier name">
+                                    <input class="form-control" type='text' name='supplier' placeholder="Supplier name" required="">
                                 </div>
 
                                 <br>
@@ -268,7 +265,7 @@ require_once('../mysql_connect.php');
                                 ?>
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Supply type: </b></label>
+                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supply type: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                                 <select class="form-control" name='type'>
                                 <option value="Vinyl">Vinyl</option>
@@ -277,7 +274,7 @@ require_once('../mysql_connect.php');
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Supplier country: </b></label>
+                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier country: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;
                                 <select class="form-control" name="country">
                                 <option value="Afganistan">Afghanistan</option>
@@ -533,31 +530,31 @@ require_once('../mysql_connect.php');
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Supplier E-mail: </b></label>
+                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier E-mail: </b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                                <input class="form-control" type='email' name='semail' placeholder="Supplier E-mail">
+                                <input class="form-control" type='email' name='semail' placeholder="Supplier E-mail" required="">
                                 </div>
                                 <br>
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Supplier Contact Number: </b></label>
+                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier Contact Number: </b></label>
                                     &emsp;&ensp;
 
-                                <input class="form-control" type='text' name='num' placeholder="Supplier Contact Number">
+                                <input class="form-control" type='text' name='num' placeholder="Supplier Contact Number" required="">
                                 </div>
                                 <br>
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Contact Person's First Name: </b></label>
-                                <input class="form-control" type='text' name='SRFN' placeholder="Contact Person's First Name">
+                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Contact Person's First Name: </b></label>
+                                <input class="form-control" type='text' name='SRFN' placeholder="Contact Person's First Name" required="">
                                 </div>
                                 <br>
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;Contact Person's Last Name:</label>
-                                <input class="form-control" type='text' name='SRLN' placeholder="Contact Person's Last Name"><br>
+                                    <label>&nbsp;&nbsp; <a style="color:red">*</a> Contact Person's Last Name:</label>
+                                <input class="form-control" type='text' name='SRLN' placeholder="Contact Person's Last Name" required=""><br>
                                 </div>
 
                                 <input type='button' value='Add Supplier' class='btn btn-sm btn-success btn-fill' data-toggle="modal" data-target="#exampleModal">
@@ -607,8 +604,8 @@ require_once('../mysql_connect.php');
         <div class="modal-body"> Confirm Added Supplier?
       </div>
       <div class="modal-footer">
-        <button type="submit" name ="submit"  class="btn btn-secondary">accept</button>
-            <button type="button"  class="btn btn-primary" data-dismiss="modal">cancel</button>
+        <button type="submit" name ="submit"  class="btn btn-secondary">Confirm</button>
+            <button type="button"  class="btn btn-primary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

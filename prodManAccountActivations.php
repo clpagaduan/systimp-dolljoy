@@ -10,6 +10,39 @@ $nada=$user=NULL;
 
 //button is pressed
 if (isset($_POST['activate'])){
+<<<<<<< HEAD
+=======
+    
+    //no empty fields
+    if (!empty($_POST['user'])){
+        $CRepUsername=$_POST['user'];
+
+
+     
+             $total=$total2=0;
+            $existing="SELECT EmployeeID AS employee FROM `employeeaccount` WHERE EmployeeUsername='$CRepUsername'";
+
+             $resultemp=mysqli_query($dbc,$existing);
+             $total= $resultemp->num_rows;
+
+            $existing2="SELECT CompanyID AS client FROM `clientaccount` WHERE CRepUsername='$CRepUsername'";
+
+             $resultcli=mysqli_query($dbc,$existing2);
+             $total2= $resultcli->num_rows;
+
+             $total=$total+$total2;
+
+                if ($total > 0){
+                    $message.= "<div class='alert alert-danger'><span aria-hidden='true'><b><center>Username already taken.</center></span></div>";
+
+
+                }
+                //ALL IS WELL FOR REALS
+                else{
+    echo "<div class=\"alert alert-success\" align=\"center\">
+  Successfully Activated!    
+</div>";
+>>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
 
                     $CName=$_POST['CName'];
                     $CompanyID=$_POST['CompanyID'];
@@ -18,13 +51,18 @@ if (isset($_POST['activate'])){
                             SET `CRepUsername`=('".$CRepUsername."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
     
                     $CRepPassword= bin2hex(openssl_random_pseudo_bytes(5));
+<<<<<<< HEAD
                     $query="UPDATE `appdev`.`clientaccount`
                             SET `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+=======
+                    $query="UPDATE `appdev`.`clientaccount` 
+                            SET `CRepUsername`='".$CRepUsername."', `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+>>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
                     mysqli_query($dbc,$query);
-
+                    
                     $query2="SELECT * FROM clientaccount WHERE CompanyID=$CompanyID";
                     $result2=mysqli_query($dbc, $query2);
-
+                    
 //                    while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
 //                        $email = $row['CRepEmailAdd'];
 //                        $fname = $row['CRepFirstName'];
@@ -47,22 +85,40 @@ if (isset($_POST['activate'])){
 //                }
 
                     $message="<div class='alert alert-success'><span aria-hidden='true'><b><center>Account has been successfully activated!</center></span></div>";
+<<<<<<< HEAD
 
                     //echo($CRepPassword);
 
+=======
+                    
+                    echo($CRepPassword);
+                    
+>>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
                     $queryaudit="INSERT INTO `accountaudittrail`(`AATCompanyID`, `TimeStamp`, `Description`, `Editor`) VALUES ($CompanyID, CURRENT_TIMESTAMP, 'Activated account of $CRepUsername','$editor')";
 
 
                     $result=mysqli_query($dbc,$queryaudit);
+<<<<<<< HEAD
 
+=======
+                    
+                
+            }
+        
+>>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
     }
     else{
             $user="<font color='red'>*</font>";
-
+        
         $message="<div class='alert alert-danger'><span aria-hidden='true'><b><center>Please fill out fields marked with *</center></span></div>";
     }
+<<<<<<< HEAD
 
 
+=======
+}
+	
+>>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
 
 
 ?>
@@ -98,7 +154,7 @@ if (isset($_POST['activate'])){
 
 </head>
 <body>
-    <form action="prodManAccountActivations.php" method="post">
+    <form action="prodManAccountActivations.php" method="post">   
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -230,10 +286,10 @@ if (isset($_POST['activate'])){
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <!--                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                <i class="ti-link"></i>
-                              <p>Website</p>
-                              <b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -271,9 +327,9 @@ if (isset($_POST['activate'])){
                                         <th><p class="category"><b>REPRESENTATIVE</b></p></th>
                                         <th><p class="category"></p></th>
                                     </thead>
-
+                      
 <?php
-$query="SELECT * FROM appdev.clientaccount
+$query="SELECT * FROM appdev.clientaccount 
 		WHERE AccountStatus <> 'Pending' AND AccountStatus <> 'Rejected' AND CRepPassword IS NULL AND CRepUsername IS NULL";
 $result=mysqli_query($dbc,$query);
 
@@ -287,33 +343,37 @@ $numRows = mysqli_num_rows($result);
 	$id=$row['CompanyID'];
 	$CName=$row['CName'];
 
-	echo
+	echo 
 	'
-	<tr>
-	<td><b>' . $CName. '</b></td>
-	<td><b>' .$row['CRepFirstName'].' '.$row['CRepLastName']. '</b></td>
+	<tr> 
+	<td><b>' . $CName. '</b></td> 
+	<td><b>' .$row['CRepFirstName'].' '.$row['CRepLastName']. '</b></td> 
 
-
+<<<<<<< HEAD
+=======
+	
+	<td align ="left"><input type="text" name="user" size="20" maxlength="30" value=""/></td>
+>>>>>>> df827ef6495f37f21e35b014157dd87e7a94622f
 	<input type = "hidden" name = "CName" value= "'.$CName.'">
 	<input type = "hidden" name = "CompanyID" value= "'.$id.'">
-
+	
 	<td align = "left"><input type="button" class="btn btn-success btn-fill" value="ACTIVATE" data-toggle="modal" data-target="#exampleModal" /></td>
 	'
 	;
 	echo '</tr>';
 }
-
+	
 	echo '</table>';
-
+  
   ?>
-</table>
+</table>                  
 
     <center>
     <label>
         <?php echo $nada;?>
-
+            
     </label>
-    </center>
+    </center>  
 
     <br><br>
             </div>
@@ -332,11 +392,11 @@ $numRows = mysqli_num_rows($result);
             </div>
         </footer>
 
-
+        
     </div>
 </div>
-
-
+ 
+        
         <div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

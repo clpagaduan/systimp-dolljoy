@@ -74,10 +74,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-													<!--  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-																	<i class="ti-link"></i>
-								<p>Website</p>
-								<b class="caret"></b> -->
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-link"></i>
+									<p>Website</p>
+									<b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
@@ -97,8 +97,8 @@
             </div>
         </nav>
 
-
-
+        
+        
 <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -112,32 +112,32 @@
                                 <?php
 
                                     require_once('../mysql_connect.php');
-
+                                    
                                     $querypaid="SELECT OrderID as 'startmanu' FROM orders WHERE OrderStatus='Approved' AND ManufacturingStatus ='Pending'";
                                    $resultpaid=mysqli_query($dbc,$querypaid);
                                    $paid= $resultpaid->num_rows;
-
+                                
                                   if ($paid == 0){
                                       echo "";
                                   }
                                   else if ($paid == 1){
-                                      echo
+                                      echo 
                                           '<div class="alert alert-info">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
                                             <a href="employeeManufacturingStatuses.php"><span aria-hidden="true"><b><font color="black">Order in queue - </b>Click to update manufacturing</font></span></a>
                                         </div>';
                                   }
                                   else if ($paid > 1){
-                                      echo
+                                      echo 
                                           '<div class="alert alert-info">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
                                             <a href="employeeManufacturingStatuses.php"><span aria-hidden="true"><b><font color="black">Orders in queue - </b>Click to update manufacturing</font></span></a>
                                         </div>';
                                   }
-
-
+                                  
+                                  
                                   ?>
-
+                               
                         </div>
                     </div>
                 </div>
