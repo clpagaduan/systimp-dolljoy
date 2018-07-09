@@ -225,9 +225,12 @@ th {
                               </div> <!-- end div header -->
                    
                     <br>
+
+                    
                                 <div class="content table-responsive table-full-width">
                                 <table id="myTable" class="table table-hover">
                                     <thead>
+
                                   <?php  
     
                                     if (isset($_POST['clientAccs']))

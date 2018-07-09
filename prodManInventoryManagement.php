@@ -207,14 +207,23 @@ if (!empty($sql))
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">                                
-                                <p class="category"><b>Click on "RECEIVE" in order to receive ordered supplies</b></p>
                         
+
+            <button type = "submit" name = "viewInventory" class = "btn btn-info">View Inventory</button>
+            <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
+
+
+
                                 <br><br>
+
+                             <p class="category"><b>Listed below are stock supplies DOLLJOY has ordered. Click on RECEIVE once
+                             supply has been accumulated.</b></p>
+
                             <div class="content table-responsive table-full-width">   
                             <table class="table table-hover">
 
                             <?php
-                            $query="SELECT SupplyID, DateOrdered, SupplyDescription, SupplyQuantity, Suppliers.SupplierName AS 'Supplier' FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL";
+                            $query="SELECT SupplyID, SupplyType, DateOrdered,SupplierCountry, SupplyQuantity, Suppliers.SupplierName AS 'Supplier', SupplierContactNum FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL";
                             $result=mysqli_query($dbc,$query);
                             
                             
@@ -224,15 +233,17 @@ if (!empty($sql))
                             
                             if ($result3 >0){
                             echo '<tr>
-                            <td width="10%"><div align="center"><h6>Supply ID
+                            <td width="10%"><div align="center"><h6>Supply Type
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Date Ordered
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Supply Description 
+                            <td width="10%"><div align="center"><h6>Supplier Country 
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Quantity<br>(in kilograms)
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Supplier
+                            </div></b></td>
+                            <td width="10%"><div align="center"><h6>Contact Number
                             </div></b></td>
                             <td width="10%"><div align="center"><h6>Action 
                             </div></b></td>
@@ -244,15 +255,17 @@ if (!empty($sql))
 
                                 
                             echo "<tr>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyID']}</b>
+                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyType']}</b>
                             </div></td>
                             <td width=\"10%\"><div align=\"center\"><b>{$row['DateOrdered']}</b>
                             </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyDescription']}</b>
+                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplierCountry']}</b>
                             </div></td>
                             <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyQuantity']}</b>
                             </div></td>
                             <td width=\"10%\"><div align=\"center\"><b>{$row['Supplier']}</b>
+                            </div></td>
+                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplierContactNum']}</b>
                             </div></td>
                             <td><div align=\"center\">
                             <form action=\"prodManInventoryManagement1.php\" method=\"post\">

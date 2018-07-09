@@ -45,7 +45,7 @@ if (!empty($sql))
 
 </head>
 <body>
-<form action ="prodManInventoryManagement.php" method="post">
+<form action ="prodManInventoryManagement1.php" method="post">
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -206,39 +206,54 @@ if (!empty($sql))
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header">                                
-                                <p class="category"><b>Click on "RECEIVE" in order to receive ordered supplies</b></p>
+                            <div class="header">    
+
+                              <p class="category">   </p>
+            <button type = "submit" name = "viewInventory" class = "btn btn-info">View Inventory</button>
+            <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
+                                
+                               
                         
+
                                 <br><br>
                             <div class="content table-responsive table-full-width">   
                             <table class="table table-hover">
 
-                            <?php
-                            $query="SELECT SupplyID, DateOrdered, SupplyDescription, SupplyQuantity, Suppliers.SupplierName AS 'Supplier' FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL";
+                            
+                            <?php  
+    
+                                    if (isset($_POST['receiveSupplies']))
+                            {
+                                    { echo"
+                                        
+                            $query=\"SELECT SupplyID, DateOrdered, SupplyDescription, SupplyQuantity, Suppliers.SupplierName AS 'Supplier' FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL\";
                             $result=mysqli_query($dbc,$query);
                             
                             
-                            $query2="SELECT SupplyID FROM Supplies WHERE `DateReceived` IS NULL";
+                            $query2=\"SELECT SupplyID FROM Supplies WHERE `DateReceived` IS NULL\";
                             $result2=mysqli_query($dbc,$query2);
                             $result3 = $result2->num_rows;
                             
                             if ($result3 >0){
                             echo '<tr>
-                            <td width="10%"><div align="center"><h6>Supply ID
+                            <td width=\"10%\"><div align=\"center\"><h6>Supply ID
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Date Ordered
+                            <td width=\"10%\"><div align=\"center\"><h6>Date Ordered
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Supply Description 
+                            <td width=\"10%\"><div align=\"center\"><h6>Supply Description 
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Quantity<br>(in kilograms)
+                            <td width=\"10%\"><div align=\"center\"><h6>Quantity<br>(in kilograms)
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Supplier
+                            <td width=\"10%\"><div align=\"center\"><h6>Supplier
                             </div></b></td>
-                            <td width="10%"><div align="center"><h6>Action 
+                            <td width=\"10%\"><div align=\"center\"><h6>Action 
                             </div></b></td>
 
                             </tr>';
-                            
+                            "?>
+
+                            <?php 
+
                             while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                             $id=$row['SupplyID'];
 
@@ -264,12 +279,14 @@ if (!empty($sql))
                             }
 
                             echo '</table>';
-                            }
                             
                             
-                            else if ($result3==0){
-                                echo "<center><b>No orders to be received!</b></center>";
+                            
+                            if ($result3==0){
+                                echo '<center><b>No orders to be received!</b></center>';
                             }
+                        
+                            } } // end if receive supplies
                             ?>
                                 
                             </div>
