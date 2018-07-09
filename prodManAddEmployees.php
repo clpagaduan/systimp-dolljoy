@@ -307,30 +307,30 @@ if(!isset($message) && empty($message)){
                         <div class="card">
                             <div class="header">
                                 <p class="category">Enter employee details to add an employee account</p>
-                                <p class="category"><b>NOTE:</b> All fields are REQUIRED</p>
+                             
                             </div>    
                             <div class="content table-responsive table-full-width">
                            
                                  <br>
           
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Employee first name *</b></label>
+                                    <label>&nbsp;&nbsp;<b>Employee first name <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="text" placeholder="Employee First Name" name="EmpFName" size="20" style="placeholder-color:black" maxlength="30" value="<?php if (isset($_POST['EmpFName']) && !$flag) echo $_POST['EmpFName']; ?>"/> <?php echo $fn;?>
                                 </div>
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Employee last name *</b></label>
+                                    <label>&nbsp;&nbsp;<b>Employee last name <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="text" placeholder="Employee Last Name" name="EmpLName" size="20" maxlength="30" value="<?php if (isset($_POST['EmpLName']) && !$flag) echo $_POST['EmpLName']; ?>"/> <?php echo $ln;?>
                                 </div>
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Contact number *</b></label>
+                                    <label>&nbsp;&nbsp;<b>Contact number <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="text" placeholder="Contact Number" name="EmpContactNo" size="20" maxlength="12" value="<?php if (isset($_POST['EmpContactNo']) && !$flag) echo $_POST['EmpContactNo']; ?>"/> <?php echo $cn;?>
                                 </div>
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>E-mail address *</b></label>
+                                    <label>&nbsp;&nbsp;<b>E-mail address <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="email" placeholder="E-mail Address" name="EmpEmailAdd" size="20" maxlength="30" value="<?php if (isset($_POST['EmpEmailAdd']) && !$flag) echo $_POST['EmpEmailAdd']; ?>"/> <?php echo $ea;?>
                                 </div>
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<b>Username *</b></label>
+                                    <label>&nbsp;&nbsp;<b>Username <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="text" placeholder="Username" name="EmpUsername" size="20" maxlength="30" value="<?php if (isset($_POST['EmpUsername']) && !$flag) echo $_POST['EmpUsername']; ?>"/> <?php echo $un;?>
                                 </div>
                                     
