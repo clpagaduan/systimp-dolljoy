@@ -11,41 +11,15 @@ $nada=$user=NULL;
 //button is pressed
 if (isset($_POST['activate'])){
 
-    //no empty fields
-    if (!empty($_POST['user'])){
-        $CRepUsername=$_POST['user'];
-
-
-
-             $total=$total2=0;
-            $existing="SELECT EmployeeID AS employee FROM `employeeaccount` WHERE EmployeeUsername='$CRepUsername'";
-
-             $resultemp=mysqli_query($dbc,$existing);
-             $total= $resultemp->num_rows;
-
-            $existing2="SELECT CompanyID AS client FROM `clientaccount` WHERE CRepUsername='$CRepUsername'";
-
-             $resultcli=mysqli_query($dbc,$existing2);
-             $total2= $resultcli->num_rows;
-
-             $total=$total+$total2;
-
-                if ($total > 0){
-                    $message.= "<div class='alert alert-danger'><span aria-hidden='true'><b><center>Username already taken.</center></span></div>";
-
-
-                }
-                //ALL IS WELL FOR REALS
-                else{
-    echo "<div class=\"alert alert-success\" align=\"center\">
-  Successfully Activated!
-</div>";
-
                     $CName=$_POST['CName'];
                     $CompanyID=$_POST['CompanyID'];
+                    $CRepUsername= bin2hex(openssl_random_pseudo_bytes(5));
+                    $query="UPDATE `appdev`.`clientaccount`
+                            SET `CRepUsername`=('".$CRepUsername."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+    
                     $CRepPassword= bin2hex(openssl_random_pseudo_bytes(5));
                     $query="UPDATE `appdev`.`clientaccount`
-                            SET `CRepUsername`='".$CRepUsername."', `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
+                            SET `CRepPassword`=PASSWORD('".$CRepPassword."'), `AccountStatus`='Activated' WHERE `CompanyID`='".$CompanyID."';";
                     mysqli_query($dbc,$query);
 
                     $query2="SELECT * FROM clientaccount WHERE CompanyID=$CompanyID";
@@ -74,15 +48,12 @@ if (isset($_POST['activate'])){
 
                     $message="<div class='alert alert-success'><span aria-hidden='true'><b><center>Account has been successfully activated!</center></span></div>";
 
-                    echo($CRepPassword);
+                    //echo($CRepPassword);
 
                     $queryaudit="INSERT INTO `accountaudittrail`(`AATCompanyID`, `TimeStamp`, `Description`, `Editor`) VALUES ($CompanyID, CURRENT_TIMESTAMP, 'Activated account of $CRepUsername','$editor')";
 
 
                     $result=mysqli_query($dbc,$queryaudit);
-
-
-            }
 
     }
     else{
@@ -90,7 +61,7 @@ if (isset($_POST['activate'])){
 
         $message="<div class='alert alert-danger'><span aria-hidden='true'><b><center>Please fill out fields marked with *</center></span></div>";
     }
-}
+
 
 
 
@@ -298,7 +269,6 @@ if (isset($_POST['activate'])){
                                     <thead>
                                         <th><p class="category"><b>COMPANY</b></p></th>
                                         <th><p class="category"><b>REPRESENTATIVE</b></p></th>
-                                        <th><p class="category"><b>USERNAME</b></p></th>
                                         <th><p class="category"></p></th>
                                     </thead>
 
@@ -324,7 +294,6 @@ $numRows = mysqli_num_rows($result);
 	<td><b>' .$row['CRepFirstName'].' '.$row['CRepLastName']. '</b></td>
 
 
-	<td align ="left"><input type="text" name="user" size="20" maxlength="30" value=""/></td>
 	<input type = "hidden" name = "CName" value= "'.$CName.'">
 	<input type = "hidden" name = "CompanyID" value= "'.$id.'">
 
