@@ -1,4 +1,92 @@
 <!doctype html>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#exampleModal").modal('show');
+    });
+</script>
+
+
+
+<?php 
+session_start(); 
+
+require_once('../mysql_connect.php');
+              
+$flag=0;
+ $message=null;
+
+
+ $username = $_SESSION['username'];
+ $query ='SELECT FLogin FROM clientaccount WHERE CRepUsername = "'.$username.'"';
+
+
+  $result= mysqli_query($dbc, $query);
+   if ($row2 = mysqli_fetch_array($result)){
+                                      $first = $row2['FLogin'];
+                                    }
+
+
+if (isset($_POST['submitpass'])){
+if($first == 0 ){
+    
+    
+    
+    
+    
+    
+     $pass =$_POST["pass"];
+        $cpass =  $_POST["cpass"];
+    echo "$first";
+    
+   echo "";
+    
+ 
+
+ 
+ echo "$pass $cpass";
+
+
+   
+      echo "$pass $cpass";
+    
+    
+    
+       if ($_POST["pass"] === $_POST["cpass"]) {
+           
+           
+           $query ='SELECT FLogin FROM clientaccount WHERE CRepUsername = "'.$username.'"';
+
+
+  $result= mysqli_query($dbc, $query);
+   if ($row2 = mysqli_fetch_array($result)){
+                                
+                                    
+
+           
+              $query3 = "UPDATE clientaccount SET CRepPassword = '$cpass', FLogin = '1'   WHERE CRepUsername = '".$username."'; ";
+            $result = mysqli_query($dbc, $query3);
+           
+}}
+    
+    
+}
+    
+}
+    
+
+
+    
+
+
+
+
+
+
+
+
+?>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -31,7 +119,46 @@
 
 </head>
 <body>
+            <form class="form-horizontal" method = "post" action = "<?php echo $_SERVER['PHP_SELF']?>">
 
+
+
+<?php 
+                if($first == 0 ){
+    
+    echo "$first";
+    
+   echo "<div class=\"modal fade\" id=\"exampleModal\"  role=\"dialog\" aria-hidden=\"false\">
+  <div class=\"modal-dialog\" role=\"document\">
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Password Entry</h5>
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+          <span aria-hidden=\"true\">&times;</span>
+        </button>
+      </div>
+      <div class=\"modal-body\">   <div class=\"form-group\">
+                                    <label>&nbsp;&nbsp;<b>Password:  </b></label>
+                                    <input class=\"form-control\" type=\"text\" placeholder=\"Password\" name=\"pass\" size=\"20\" maxlength=\"30\" /> 
+                                </div>
+                                <div class=\"form-group\">
+                                    <label>&nbsp;&nbsp;<b>Confirm Password:  </b></label>
+                                    <input class=\"form-control\" type=\"text\" placeholder=\"Password\" name=\"cpass\" size=\"20\" maxlength=\"30\" /> 
+                                </div>
+      </div>
+      <div class=\"modal-footer\">
+        <button  type=\"submit\" name =\"submitpass\"  class=\"btn btn-secondary\">accept</button>
+      
+}
+            <button type=\"button\"  class=\"btn btn-primary\" data-dismiss=\"modal\">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>";
+    
+ 
+}
+                ?>
 <div class="wrapper">
     <div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -129,10 +256,12 @@
                                 <p class="category">Take note of the following notifications before dismissing them</p>
                             </div>
                             <div class="content">
-                                <?php
+                             
 
-                                    require_once('../mysql_connect.php');
-                                    
+         <?php 
+
+                                 
+
                                     $querypaid="SELECT OrderID as 'startmanu' FROM orders WHERE OrderStatus='Approved' AND ManufacturingStatus ='Pending'";
                                    $resultpaid=mysqli_query($dbc,$querypaid);
                                    $paid= $resultpaid->num_rows;
@@ -177,7 +306,7 @@
     </div>
 </div>
 
-
+    </form>
 </body>
 
     <!--   Core JS Files   -->
