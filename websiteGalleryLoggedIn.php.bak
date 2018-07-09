@@ -40,44 +40,43 @@ Released   : 20130902
 <body>
     
     <?php
-        //$shoppingCart = array();
-        if (isset($_POST['remove'])){
-            require_once('../mysql_connect.php');
-            // echo "remove!";
-            $cID = $_POST['cartID'];
-            $xID = $_POST['sID'];
+//$shoppingCart = array();
+if (isset($_POST['remove'])){
+    require_once('../mysql_connect.php');
+    // echo "remove!";
+    $cID = $_POST['cartID'];
+    $xID = $_POST['sID'];
 
-        //    echo ($cID);
-        //    echo ($xID);
-            $query = "DELETE from appdev.cart WHERE cartID = '{$cID}'";
-            $result = mysqli_query($dbc, $query);
-        }
+//    echo ($cID);
+//    echo ($xID);
+    $query = "DELETE from appdev.cart WHERE cartID = '{$cID}'";
+    $result = mysqli_query($dbc, $query);
+}
 
-        if (isset($_POST['add'])){
-            require_once('../mysql_connect.php');
-        //    $chosenID = $_POST['sID'];
-        //    $qty = $_POST['qty'];
-        //
-        //    echo ('Product ID: ');
-        //    echo ($chosenID);
-        //    echo ('Qty:');
-        //    echo ($qty);
+if (isset($_POST['add'])){
+    require_once('../mysql_connect.php');
+//    $chosenID = $_POST['sID'];
+//    $qty = $_POST['qty'];
+//
+//    echo ('Product ID: ');
+//    echo ($chosenID);
+//    echo ('Qty:');
+//    echo ($qty);
 
-            if (!empty($_POST['sID'])){
-                $xID = $_POST['sID'];
-                $xQty = $_POST['qty'];
-        //        echo ('sID: ');
-        //        echo ($xID);
-        //        echo '<br> Qty: ';
-        //        echo ($xQty);
+    if (!empty($_POST['sID'])){
+        $xID = $_POST['sID'];
+        $xQty = $_POST['qty'];
+//        echo ('sID: ');
+//        echo ($xID);
+//        echo '<br> Qty: ';
+//        echo ($xQty);
 
-            }
-            $query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
+    }
+    $query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
 
-                $result = mysqli_query($dbc, $query);
-        }
-    ?>
-    
+        $result = mysqli_query($dbc, $query);
+}
+?>
 <div id="header" class="container">
 	<div id="logo">
         <h1><a href="websiteHome.php"><font color="#68B3C8">DOLLJOY</font></a></h1>
@@ -95,7 +94,7 @@ Released   : 20130902
 </div>
 
 <div id="banner"></div>
-<div id="content" class="container">
+<div id="featured" class="container">
 
 <!-- START OF LOGIN FORM -->
 
@@ -109,9 +108,9 @@ Released   : 20130902
     <div class="content">
         <div class="containter-fluid">
             <div class="row">
-                <div class="col-md=4">
-                    
-                        <div class="content table-responsive" style="width:40%; display: inline-block; overflow-y:hidden;overflow-x:scroll;">
+                <div class="col-md=12">
+                    <div class="card">
+                        <div class="content table-responsive table-full-width" style="width:100%; display: inline-block; overflow-y:hidden;overflow-x:scroll;">
                             <table class="table table-hover" >
                                 <?php
                                 require_once('../mysql_connect.php');
@@ -165,13 +164,21 @@ Released   : 20130902
                                 ?>
                             </table>
                         </div>
-                    
+                    </div>
                 </div>
-                <div class="col-md-8">
+            </div>
+        </div>
+    </div>
+<div class="content">
+    <center><h3><b>Shopping Cart</b></h3></center>
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="col-md-12">
                         <div class="card">
 
-                                <div class="content table-responsive">
-                                    <div style = "width:45%; display: inline-block">
+                                <div class="content table-responsive table-full-width">
+                                    <div style = "width:100%; display: inline-block">
                                 <table class="table table-hover">
                                     <thead>
                                         <th><p class="category">Product ID</p></th>
@@ -260,23 +267,13 @@ Released   : 20130902
 <!--                        <input type="submit" name="remove" class="btn btn-success btn-fill" value="Proceed to Checkout" pull-right/>-->
                         <a href='websiteGalleryLoggedInCheckout.php'><button type='submit' class='btn btn-success btn-fill pull-right'>Proceed to Checkout</button></a>
                     </div>
-            </div>
-        </div>
-    </div>
-<div class="content">
-    <center><h3><b>Shopping Cart</b></h3></center>
-            <div class="container-fluid">
-                <div class="row">
-
-                    
 
                 </div>
 
     </div>
 
     </div>
-    </div>
-    
+
 
 
 
