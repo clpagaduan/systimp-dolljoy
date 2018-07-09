@@ -111,7 +111,7 @@ Released   : 20130902
     
     <!------ Include the above in your HEAD tag ---------->
 
-    <center><h3><b>Doll Catalog</b></h3></center>
+    <h1><b>Doll Catalog</b></h1>
 
     <div class="content">
         <div class="container-fluid" >
@@ -248,7 +248,14 @@ Released   : 20130902
                       </form>                    
                       </div>
                   </div>
-                    
+                    <h1>&nbsp;</h1>
+                    <h4>Step 3: Select Quantity!</h4>
+                    <div class="row" style="display:flex">
+                        <h7>&nbsp; &nbsp; Quantity &nbsp; </h7>
+                    <input type="number" class="form-control border-input" min="1" style="width: 5em;" value=1>
+                        <h7>&nbsp;&nbsp;</h7>
+                    <input type='submit' name='add' class='btn btn-success btn-fill' value='Add to Cart'/>
+                    </div>
 <!--
                     <h1> henlo</h1>
                     <h1> henlo</h1>
