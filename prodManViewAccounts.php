@@ -224,7 +224,7 @@ th {
             
                               </div> <!-- end div header -->
                    
-                    <br>
+                    
 
                     
                                 <div class="content table-responsive table-full-width">
@@ -235,7 +235,10 @@ th {
     
                                     if (isset($_POST['clientAccs']))
     
-                                    { echo"
+                                    { echo "<center><p class=\"category\"><b>You are viewing activated client accounts. </b></p>
+     
+            						<p class=\"category\"><b>Click on a name to view its account details</b></p>
+                           			 </center>
                                     
                                     <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchAcc\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
                                     <tr>
@@ -251,7 +254,9 @@ th {
                                         elseif (isset($_POST['employeeAccs']))
     
                                     { echo"
-                                    
+                                     <center><p class=\"category\"><b>You are viewing all employee accounts.</b></p></center>
+
+                                
                                     
                                     <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchAcc\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> 
                                     <tr>
@@ -262,7 +267,7 @@ th {
                                         <th onclick=\"sortTable(3)\"><p class=\"category\"><b>CONTACT</b></p></th>
                                         <th onclick=\"sortTable(4)\"><p class=\"category\"><b>E-MAIL</b></p></th>
                                         
-                                   
+                                  
                                     </tr>
                                     </thead>";
                                     }  
@@ -276,17 +281,14 @@ $query = "SELECT * from ClientAccount WHERE AccountStatus = 'Activated'";
                   
  if (isset($_POST['employeeAccs']))  
  {  
-     echo "<center><p class=\"category\"><b>You are viewing all employee accounts.</b></p></center>";
+     
 
      
     $query = "SELECT * from EmployeeAccount";
  }   elseif (isset($_POST['clientAccs']))
 
  {  
-     echo "<center><p class=\"category\"><b>You are viewing activated client accounts. </b></p>
      
-            <p class=\"category\"><b>Click on a name to view its account details</b></p>
-                            </center>";
      $query = "SELECT * from ClientAccount WHERE AccountStatus = 'Activated'";
      
      
@@ -323,7 +325,6 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 <td><b>{$row['CRepEmailAdd']}</b></td>
                 
                 
-                <td>
 
 
                 </tr>
@@ -344,7 +345,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 <td><b>{$row['EmployeeContactNo']}</b></td>
                 <td><b>{$row['EmployeeEmailAdd']}</b></td>
                 
-                <td>
+                
 
 
                 </tr>

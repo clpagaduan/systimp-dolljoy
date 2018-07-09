@@ -208,21 +208,31 @@ if (!empty($sql))
                         <div class="card">
                             <div class="header">                                
                         
+                            <p class="category">   Select a button to do a specific task</p>
 
             <button type = "submit" name = "viewInventory" class = "btn btn-info">View Inventory</button>
             <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
 
 
 
-                                <br><br>
+                                <br>
 
-                             <p class="category"><b>Listed below are stock supplies DOLLJOY has ordered. Click on RECEIVE once
-                             supply has been accumulated.</b></p>
+                           
 
-                            <div class="content table-responsive table-full-width">   
-                            <table class="table table-hover">
+                            <div class="content table-responsive table-full-width">
+                                <table id="myTable" class="table table-hover">
 
-                            <?php
+                                  <?php  
+    
+                                    if (isset($_POST['receiveSupplies']))
+    
+                                    { echo "  <center><p class=\"category\"><b>Listed below are UNRECEIVED stock supplies DOLLJOY has ordered. 
+                                <br> Click on RECEIVE once
+                             supply has been accumulated.</b></p></center>";
+
+
+
+                           
                             $query="SELECT SupplyID, SupplyType, DateOrdered,SupplierCountry, SupplyQuantity, Suppliers.SupplierName AS 'Supplier', SupplierContactNum FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NULL";
                             $result=mysqli_query($dbc,$query);
                             
@@ -231,59 +241,115 @@ if (!empty($sql))
                             $result2=mysqli_query($dbc,$query2);
                             $result3 = $result2->num_rows;
                             
-                            if ($result3 >0){
-                            echo '<tr>
-                            <td width="10%"><div align="center"><h6>Supply Type
-                            </div></b></td>
-                            <td width="10%"><div align="center"><h6>Date Ordered
-                            </div></b></td>
-                            <td width="10%"><div align="center"><h6>Supplier Country 
-                            </div></b></td>
-                            <td width="10%"><div align="center"><h6>Quantity<br>(in kilograms)
-                            </div></b></td>
-                            <td width="10%"><div align="center"><h6>Supplier
-                            </div></b></td>
-                            <td width="10%"><div align="center"><h6>Contact Number
-                            </div></b></td>
-                            <td width="10%"><div align="center"><h6>Action 
-                            </div></b></td>
 
-                            </tr>';
+
+                            if ($result3 >0){
+                            echo 
+
+                             "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
+                                    <tr>
+                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><div align=\"center\"><b>ITEM SUPPLIED</b></p></div></th>
+                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><div align=\"center\"><b>DATE ORDERED</b></p></div></th>
+                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><div align=\"center\"><b>SUPPLIER NAME</b></p></div></th>
+                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><div align=\"center\"><b>SUPPLIER SOURCE</b></p></div></th>
+                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><div align=\"center\"><b>QUANTITY IN KG</b></p></div></th>
+                                        <th onclick=\"sortTable(5)\"><p class=\"category\"><div align=\"center\"><b>CONTACT NUMBER</b></p></div></th>
+                                        <th><p class=\"category\"><div align=\"center\"><b>ACTION</b></p></div></th>
+
+                                    </tr>
+                                    ";
                             
                             while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                             $id=$row['SupplyID'];
 
                                 
                             echo "<tr>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyType']}</b>
-                            </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['DateOrdered']}</b>
-                            </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplierCountry']}</b>
-                            </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplyQuantity']}</b>
-                            </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['Supplier']}</b>
-                            </div></td>
-                            <td width=\"10%\"><div align=\"center\"><b>{$row['SupplierContactNum']}</b>
-                            </div></td>
-                            <td><div align=\"center\">
-                            <form action=\"prodManInventoryManagement1.php\" method=\"post\">
+                            <td><b>{$row['SupplyType']}</b></td>
+                            <td><b>{$row['DateOrdered']}</b></td>
+                            <td><b>{$row['Supplier']}</b></td>
+                            <td><b>{$row['SupplierCountry']}</b></td>
+                            <td><b>{$row['SupplyQuantity']}</b></td>
+                            <td><b>{$row['SupplierContactNum']}</b></td>
+                            <td>
+                            <form action=\"prodManInventoryManagement.php\" method=\"post\">
                             <input type = \"button\"  class=\"btn btn-fill btn-success\" value=\"RECEIVE\" data-toggle=\"modal\" data-target=\"#exampleModal\">
                             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-                            </form>
-                            </div></td>
+                            </form></td>
                             </tr>";
                             }
 
-                            echo '</table>';
+                          //  echo '</table>';
                             }
                             
                             
                             else if ($result3==0){
                                 echo "<center><b>No orders to be received!</b></center>";
                             }
-                            ?>
+                        }// end if isset receive supplies
+
+                        elseif (isset($_POST['viewInventory']))
+    
+                                    { echo"
+
+                                <center><p class=\"category\"><b>You are viewing Inventory Count based on Product Orders. </b></p>
+     
+                                   
+                                   
+                                    <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchInventory\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
+                                    <tr>
+                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><b>PRODUCT NAME</b></p></th>
+                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><b>PRODUCT TYPE</b></p></th>
+                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><b>PRODUCT SIZE</b></p></th>
+                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><b>PRODUCT PRICE</b></p></th>
+                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><b>ORDER QUANTITY</b></p></th>
+                                    
+                                    </tr>
+                                    </thead>";
+
+
+
+                                      
+                                                         
+
+                            $query = "SELECT `ProductID`, `ProductType`, `ProductName`, `ProductSize`, `ProductPrice`, SUM(orders.OQuantity) AS OQuantity
+                                FROM product
+                                JOIN orders 
+                                ON product.ProductID = orders.OProductID
+                                GROUP BY ProductName";
+                            
+                  
+                                $result=mysqli_query($dbc,$query);
+                  
+              
+                
+                            while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                echo 
+                                            "
+                                            <tbody>
+                                            <tr>
+
+                                            <td><b>{$row['ProductName']}</a></b></td>
+
+                                            <td><b>{$row['ProductType']}</b></td>
+
+                                            <td><b>{$row['ProductSize']}</b></td>
+
+                                            <td><b>{$row['ProductPrice']}</b></td>
+
+                                            <td><b>{$row['OQuantity']}</b></td>
+
+                                           
+
+
+                                            </tr>
+                                            </tbody>
+                                            "; 
+                                        
+                                    } // end while MYSQLI
+                  
+                             }       
+                                    
+                ?> 
                                 
                             </div>
                             </div>
@@ -300,13 +366,7 @@ if (!empty($sql))
             </div>
         </div>
 
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script> designed by <a href="http://www.creative-tim.com">Creative Tim</a>
-                </div>
-            </div>
-        </footer>
+    
 
 
     </div>
@@ -322,7 +382,7 @@ if (!empty($sql))
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"> Are You Sure You want to Receive?
+      <div class="modal-body"> Confirm RECEIVE supply?
       </div>
       <div class="modal-footer">
           <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">Yes</button>
@@ -337,6 +397,88 @@ if (!empty($sql))
             
         
     </form>
+
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+    
+    function search() {
+        // Declare variables 
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        th = table.getElementsByTagName("th");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) {
+            tr[i].style.display = "none";
+            for (var j = 0; j < th.length; j++) {
+                td = tr[i].getElementsByTagName("td")[j];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
 </body>
 
     <!--   Core JS Files   -->
