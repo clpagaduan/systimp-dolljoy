@@ -99,142 +99,21 @@ Released   : 20130902
 
 <!-- START OF LOGIN FORM -->
 
-<!--
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
--->
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
     <!------ Include the above in your HEAD tag ---------->
 
     <center><h3><b>Doll Catalog</b></h3></center>
 
     <div class="content">
-        <div class="container-fluid" >
+        <div class="container" >
             <div class="row" style="display:flex">
-                
                 <div class="col-">
-                    <div class="col-">
-                        <h4>Step 1: Select a doll!</h4>
-<!--                        SCROLLBAR FOR THE PREMADE DOLLS-->
-                        <div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
+<!--                    <div class="scrollmenu">-->
+                    <div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
                         <table class="table table-hover" >
-                            <?php 
-                            require_once('../mysql_connect.php');
-                            $query="SELECT * FROM appdev.product";
-                            $result=mysqli_query($dbc,$query);
-                            $count=0;
-
-                            while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                $id = $row['ProductID'];
-                                $itemName =$row['ProductName'];
-                                $image= $row['ProductImage'];
-                                $desc = $row['ProductDescription'];
-                                $image2 = '<img src="data:image/jpeg;base64,'.base64_encode($image).'"style="width:30px;height:30px"/>';
-                            echo'
-                                <td><div class=card style="border:1px white; width:50px">
-                                <center>'.$image2.'</center>
-                                <h7 class="card-title" align="center">'.$itemName.'</h7>
-
-
-                                <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View</a>
-
-                                </div></td>
-                                ';
-                                
-//                                echo'
-//                                <td><div class=card style="border:1px white; width:50px">
-//                                <center>'.$image2.'</center>
-//                                <h4 class="card-title" align="center">'.$id.' - '.$itemName.'</h4>
-//
-//                                <p class="card-text" align="center">'.$desc.'</p>
-//
-//                                <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View Details</a>
-//
-//                                </div></td>
-//                                ';
-
-
-                                $count++;
-
-                                if($count=3){
-
-                                $count=0;
-                                }
-                            }
-                            
-                            ?>
-                        </table>
-                        
-                        </div> 
-                        <h1>&nbsp;</h1>
-<!--
-                    <h1>henlo</h1>
-                       <div class="col-">
-                    <h1>henlo</h1>
-                        
-                    </div> 
--->
-                    </div>
-                    
-<!--                    TABS FOR THE DOLLS-->
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#hair">Hair</a></li>
-                    <li><a data-toggle="tab" href="#eye">Eye Color</a></li>
-                    <li><a data-toggle="tab" href="#skin">Skin Color</a></li>
-                    <li><a data-toggle="tab" href="#outfit">Outfit</a></li>
-                  </ul>
-
-                  <div class="tab-content">
-                    <div id="hair" class="tab-pane fade in active">
-<!--                      <h3>HOME</h3>-->
-                      <p>Select Hair Colour</p>
-                        <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>
-                      </form>
-                    </div>
-                    <div id="eye" class="tab-pane fade">
-<!--                      <h3>Menu 1</h3>-->
-                        <p>Select Eye Colour</p>
-                        <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>                    
-                      </form>                    
-                    </div>
-                    <div id="skin" class="tab-pane fade">
-<!--                      <h3>Menu 2</h3>-->
-                        <p>Select Skin Colour</p>
-                        <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>
-                      </form>                    
-                    </div>
-                    <div id="outfit" class="tab-pane fade">
-<!--                      <h3>Menu 3</h3>-->
-                        <p>Select Outfit</p>
-                        <form>
-                        <div class="radio">
-                          <label><input type="radio" name="optradio">Option 1</label>
-                        </div>
-                        
-                      </form>                    
-                      </div>
-                  </div>
-                    
-                    <h1> henlo</h1>
-                    <h1> henlo</h1>
-
-                    <!--<div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
-                        <table class="table table-hover" >
-                            <?php /*
+                            <?php
                             require_once('../mysql_connect.php');
                             $query="SELECT * FROM appdev.product";
                             $result=mysqli_query($dbc,$query);
@@ -265,11 +144,11 @@ Released   : 20130902
                                 $count=0;
                                 }
                             }
-                            */
+
                             ?>
                         </table>
                         
-                        </div>  -->                  
+                        </div>                    
                     </div>
                 <div class="col-">
                        
