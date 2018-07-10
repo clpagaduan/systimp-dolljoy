@@ -25,7 +25,7 @@ if (isset($_POST['fill'])){
     $id=$_POST['id'];
     $reps = $_POST['fillq'];
     $prid = $_POST['prid'];
-    $sql = "INSERT INTO product_serial_audit (`ProductID`, `OrderID`, `audit_employee_username`, `audit_timelog`) VALUES ('$prid', '$id', '$username', DATE(NOW()))";
+    $sql = "INSERT INTO product_serial_audit (`ProductID`, `OrderID`, `audit_employee_username`, `audit_timelog`) VALUES ('$prid', '$id', '$username', NOW())";
 }
 if (!empty($sql))
   for ($i = 0; $i < $reps; $i++){
