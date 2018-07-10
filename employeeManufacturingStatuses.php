@@ -213,7 +213,7 @@ echo
 
     if ($falsecount == 0 && $made >= $q){
       echo "
-            <a href='employeeManufacturingStatuses.php?id=$id'><button data-toggle='modal' data-target='#exampleModal' type = 'button'  class='btn btn-success btn-fill pull-left'>UPDATE</button></a>";
+            <button data-toggle='modal' data-target='#exampleModal' type = 'button'  class='btn btn-success btn-fill pull-left'>UPDATE</button>";
 
       echo  "
             </br></br>
