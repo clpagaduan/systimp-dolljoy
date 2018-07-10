@@ -53,9 +53,10 @@ if (!empty($sql))
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 </head>
-<body>
+<body ng-app="">
 
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
@@ -211,9 +212,12 @@ echo
         </div></div>";
 
     if ($falsecount == 0 && $made >= $q){
-      echo "<button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">UPDATE</button>
-          <input type = \"hidden\" name =\"updateid\" class=\"\" value=\"".$id."\">
+      echo "
+            <a href='employeeManufacturingStatuses.php?id=$id'><button data-toggle='modal' data-target='#exampleModal' type = 'button'  class='btn btn-success btn-fill pull-left'>UPDATE</button></a>";
+
+      echo  "
             </br></br>
+
           <form action=\"employeeManufacturingStatuses.php\" method=\"post\">
             <input type = \"submit\" name =\"end\" class=\"btn btn-danger btn-fill\" value=\"END\" style='margin-left: -40%;'>
             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
@@ -226,6 +230,8 @@ echo
     }
 
 echo "</td></tr>";
+
+
 }
 
 //START
@@ -295,73 +301,51 @@ echo
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Manufacturing Status</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-
-
 <?php
 
-
-$query="SELECT * from Orders O, ClientAccount C WHERE OrderStatus = 'Pending' AND CompanyID = OCompanyID";
-$result=mysqli_query($dbc,$query);
-
-
-$id=$row['OrderID'];
-
-echo "</div>
-<div class='modal-body'>
-  <h5>Order # </h5>
-  <table width='100%'>
-    <tr>
-      <td>Product ID</td>
-      <td>Product Name</td>
-      <td>Filled</td>
-      <td width='15%'><td>
-      <td> </td>
-    </tr>";
+echo '  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Manufacturing Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h5>Order # '.$id.' </h5>
+                <table width="100%">
+                  <tr>
+                    <td>Product ID</td>
+                    <td>Product Name</td>
+                    <td>Filled</td>
+                    <td width="15%"><td>
+                    <td> </td>
+                  </tr>';
 
     $query2 = "SELECT o.ProductID, p.ProductName, o.quantity, (SELECT COUNT(ps.SerialCode) FROM product_serial_audit ps WHERE ps.ProductID = o.ProductID AND ps.OrderID = ".$id." ) AS 'made' FROM ordersrefs o JOIN product p ON o.ProductID = p.ProductID WHERE o.OrderID = $id GROUP BY o.ProductID";
     $result2 = mysqli_query($dbc, $query2);
 
     while ($row2=mysqli_fetch_array($result2,MYSQLI_ASSOC))
     {
-      echo "<tr>
-            <td>". $row2['ProductID'] ."</td>
-            <td>". $row2['ProductName'] ."</td>
-            <td>". $row2['made'] ." / ". $row['quantity'] ."</td>
-            <form>
-              <td><input type='number' class='form-control border-input' min='1' name='fill' value=1></td>
-              <td><div align='center'> <input type = \"submit\" name =\"start\" class=\"btn btn-success btn-fill\" value=\"Fill\"></div></td>
-            </form>
-            </tr>";
+          echo "  <tr>
+                    <td>". $row2['ProductID'] ."</td>
+                    <td>". $row2['ProductName'] ."</td>
+                    <td>". $row2['made'] ." / ". $row2['quantity'] ."</td>
+                    <td><input type='number' class='form-control border-input' min='1' name='fill' value=1><input type = \"hidden\" name =\"fillid\" class=\"\" value=\"".$row2['ProductID']."\"></td>
+                    <td><div align='center'> <input type = \"submit\" name =\"start\" class=\"btn btn-success btn-fill\" value=\"Fill\"></div></td>
+                  </tr>";
     }
 
-echo "</table>
-</div>
-<div class='modal-footer'>";
-
-echo
-"
-
-<button type = \"submit\" name = \"approve\" class=\"btn btn-secondary\" value=\"".$id."\">$id Confirm</button>
-<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-
-";
-?>
-
-
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+      echo    " </table>
+              </div>
+              <div class='modal-footer'>
+                <button type='button' class='btn btn-primary' data-dismiss='modal'>Cancel</button>
+              </div>
             </div>
-        </div>
-    </div>
-</div>
-
+          </div>
+        </div>";
+?>
 
 </body>
 
@@ -386,6 +370,13 @@ echo
 
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
+
+  <script>
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+
   <style>
     .progress {
       position: relative;
