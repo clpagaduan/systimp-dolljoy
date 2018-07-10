@@ -212,11 +212,12 @@ th {
                                 
                                 
                             <p class="category">   Select a button to view a specific account table </p>
+                                <center>
             <button type = "submit" name = "clientAccs" class = "btn btn-info">Client Accounts</button>
             <button type = "submit" name = "employeeAccs" class = "btn btn-info">Employee Accounts</button>
-                                
+                                </center>
                                
-                            <br><br>
+                            
 
              
         <!-- SEARCH BAR & SUBMIT BUTTON --> 

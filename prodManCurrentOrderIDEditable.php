@@ -1,13 +1,46 @@
 <?php
 
-require_once(__DIR__.'/../mysql_connect.php');
+require_once('../mysql_connect.php');
 session_start();
 $orderID = $_GET['id'];
+$qua=null;
+
+if (isset($_POST['editOrder'])){
+
+    //UDDATING DOLL SPECIFICATIONS
+    
 
 
+    //UPDATING ORDER DETAILS
+    $queryA = "SELECT * FROM Orders WHERE OrderID = '".$orderID."'; ";
+    $resultA = mysqli_query($dbc, $queryA);
+    if ($rowA = mysqli_fetch_array($resultA, MYSQLI_ASSOC)){
+        
+        
+         if (!empty($_POST['qua'])){
+            $qua = $_POST['qua'];
+            $tot  = $_POST['tot'];
+             $sta = $_POST['sta'];
+            $nam  = $_POST['nam'];
+            $ord  = $_POST['ord'];
+            $req  = $_POST['req'];
+            $pay  = $_POST['pay'];
+            $paym  = $_POST['paym'];
+             
+            $ssdate  = $_POST['sdate'];  
+            $mend  = $_POST['mend'];    
+            $mstart  = $_POST['mstart']; 
+            $ship  = $_POST['ship'];    
+            $msta  = $_POST['msta'];     
 
+            $query = "UPDATE orders SET OQuantity = '$qua', OTotalAmount = '$tot', OOrderedDate = '$ord', ORequiredDate ='$req', OPaymentStatus ='$pay', OPaymentDate = '$paym', OShippedDate = '$ssdate' , EndManufacturing = '$mend', StartManufacturing = '$mstart' , OShipmentStatus = '$ship' ,ManufacturingStatus = '$msta'  WHERE OrderID = '".$orderID."'; ";
+            $result = mysqli_query($dbc, $query);
+        
+      
+        
+    }
 
-
+}}
 
 
 ?>
@@ -43,6 +76,7 @@ $orderID = $_GET['id'];
 
 </head>
 <body>
+<form action=prodManCurrentOrderIDEditable.php?<?php echo"id=$orderID" ?> method="post">
 
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
@@ -179,7 +213,7 @@ $orderID = $_GET['id'];
                                                 <i class="ti-link"></i>
                               <p>Website</p>
                               <b class="caret"></b> -->
-                              </a>
+                         
                               <ul class="dropdown-menu">
                                 <li><a href="websiteHome.php">Homepage</a></li>
                                 <li><a href="websiteGalleryLoggedIn.php">Gallery</a></li>
@@ -233,10 +267,9 @@ $orderID = $_GET['id'];
                                     //$pname = $row['PName'];
 
                                     $pdate = date_format(date_create($row['OPaymentDate']), 'F d, Y');
-                                    $odate = date_format(date_create($row['OOrderedDate']), 'F d, Y');
-                                    $rdate = date_format(date_create($row['ORequiredDate']), 'F d, Y');
-                                    $sdate = date_format(date_create($row['OShippedDate']), 'F d, Y');
-                                    $smdate = date_format(date_create($row['StartManufacturing']), 'F d, Y');
+                                    $odate = $row['OOrderedDate'];
+                                     $rdate = $row['ORequiredDate'];
+                                    $smdate = $row['OShippedDate'];
                                     $emdate = date_format(date_create($row['EndManufacturing']), 'F d, Y');
 
                                 echo '<table class="table table-hover" width=75%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
@@ -258,7 +291,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Order Status</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">$status
+                                <td width=\"10%\"><div align=\"center\"><input name=\"sta\" value =$status
+                                />
                                 </div></td>
                                 </tr>
 
@@ -266,7 +300,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Ordered by</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">$name
+                                <td width=\"10%\"><div align=\"center\"><input name=\"nam\" value =$name
+                                />
                                 </div></td>
                                 </tr>
 
@@ -274,7 +309,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Date Ordered</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">$odate
+                                <td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"ord\" value =$odate
+                                />
                                 </div></td>
                                 </tr>
 
@@ -282,7 +318,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Required Date</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">$rdate
+                                <td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"req\" value =$rdate
+                                />
                                 </div></td>
                                 </tr>
 
@@ -290,7 +327,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Payment Status</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">$pstatus
+                                <td width=\"10%\"><div align=\"center\"><input name=\"pay\" value =$pstatus
+                                />
                                 </div></td>
                                 </tr>
 
@@ -300,9 +338,11 @@ $orderID = $_GET['id'];
 
                                 <td width=\"10%\"><div align=\"center\">";
                                 if ($pstatus!='Unpaid')
-                                    echo $pdate;
+                                    echo "<input type =\"date\" name=\"paym\" value =$pdate
+                                />";
                                 else
-                                    echo "Unpaid";
+                                    echo "<input name=\"paym\" value =\"unpaid\"
+                                />";
                                 echo "
                                 </div></td>
                                 </tr>
@@ -325,7 +365,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Quantity Ordered</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">$qty
+                                <td width=\"10%\"><div align=\"center\"><input name=\"qua\" value =$qty
+                                />
                                 </div></td>
                                 </tr>
 
@@ -333,7 +374,8 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Total Amount</b>
                                 </div></td>
 
-                                <td width=\"10%\"><div align=\"center\">PHP$totalamt
+                                <td width=\"10%\"><div align=\"center\"><input name=\"tot\" value =PHP$totalamt
+                                />
                                 </div></td>
                                 </tr>
 
@@ -352,10 +394,12 @@ $orderID = $_GET['id'];
                                 if ($mstatus != 'Completed'){
                                     echo "<font color='red'>";
                                     if (empty($mstatus)){
-                                        echo "<b>Not Started</b>";
+                                        echo "<b><input name=\"msta\" value =Not Started
+                                /></b>";
                                     }
                                     else {
-                                        echo "<b>$mstatus</b>";
+                                        echo "<b><input name=\"msta\" value =$mstatus
+                                /></b>";
                                     }
                                     echo '</font></div></b></td>
                                 </tr>';
@@ -375,18 +419,22 @@ $orderID = $_GET['id'];
 
 
                                 if ($mstatus == 'Pending' && $pstatus=='Unpaid'){
-                                    echo "<td width=\"10%\"><div align=\"center\">Order has not been paid for yet</div></td><tr>";
+                                    echo "<td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"mstart\" value =$smdate
+                                /></div></td><tr>";
                                     echo "<tr>
                                     <td width=\"10%\"><div align=\"center\"><b>End Date</b>
                                     </div></td>
-                                    <td width=\"10%\"><div align=\"center\">Order has not been paid for yet</div></td></tr>";
+                                    <td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"mend\" value =$emdate
+                                /></div></td></tr>";
                                 }
                                 else if ($mstatus = 'In Progress'){
-                                    echo "<td width=\"10%\"><div align=\"center\">$smdate</td></tr>
+                                    echo "<td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"mstart\" value =$smdate
+                                /></td></tr>
                                     <tr>
                                     <td width=\"10%\"><div align=\"center\"><b>End Date</b>
                                     </div></td>
-                                    <td width=\"10%\"><div align=\"center\">In progress</div></td>
+                                    <td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"mend\" value =$emdate
+                                /></div></td>
                                     </div></td></tr>";
                                 }
                                 }
@@ -410,11 +458,13 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\"><b>Start Date</b>
                                 </div></td>";
 
-                                echo "<td width=\"10%\"><div align=\"center\">$smdate</td></tr>
+                                echo "<td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"mstart\" value =$smdate
+                                /></td></tr>
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>End Date Date</b>
                                 </div></td>
-                                <td width=\"10%\"><div align=\"center\">$emdate
+                                <td width=\"10%\"><div align=\"center\"><input type =\"date\" name=\"mend\" value =$emdate
+                                />
                                 </div></td></tr>";
 
                                 }
@@ -440,10 +490,12 @@ $orderID = $_GET['id'];
                                 <td colspan="2"><div align="center"><font color = "white"><b>SHIPPING STATUS: </font>';
 
                                 if ($sstatus != 'Shipped'){
-                                    echo "<font color='red'>$sstatus";
+                                    echo "<font color='red'><input name=\"ship\" value =\"Not Shipped\"
+                                />";
                                 }
                                 else{
-                                    echo "<font color='green'>$sstatus";
+                                    echo "<font color='green'><input name=\"ship\" value =$sstatus
+                                />";
                                 }
 
                                 echo'</div></b></td>
@@ -466,10 +518,12 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\">";
 
                                 if ($sstatus != 'Shipped'){
-                                    echo "Not shipped";
+                                    echo "<input type =\"date\" name=\"sdate\" value =$sdate
+                                />";
                                 }
                                 else {
-                                    echo $sdate;
+                                    echo "<input type =\"date\" name=\"sdate\" value =$sdate
+                                />";
                                 }
 
                                 echo "
@@ -611,12 +665,10 @@ $orderID = $_GET['id'];
 
 
 <br><br>
-<?php
-if ($pstatus!='Paid')                        {
-echo "<a href='prodManCurrentOrderIDEditable.php?id=$id";?>
-    <?php echo"'><button type='submit' name= 'Edit' class='btn btn-success btn-fill pull-right'>Edit this Order</button></a>";
-} ?>
-<a href="prodManCurrentOrders.php"><button class="btn btn-default btn-fill pull-right">Back to Orders</button></a>
+                     
+<button type='submit' name="editOrder" class='btn btn-success btn-fill pull-right'>Save</button>";
+ </form>
+<a href="prodManCurrentOrderID.php?<?php echo"id=$id" ?>"><button class="btn btn-default btn-fill pull-right">cancel</button></a>
 
 
 <br><br><br>
