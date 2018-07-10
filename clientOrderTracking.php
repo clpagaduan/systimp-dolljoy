@@ -1,15 +1,15 @@
 <!doctype html>
-<?php 
+<?php
 session_start();
 
     require_once('../mysql_connect.php');
     if(isset($_POST['approve'])){
         $id = $_POST['approve'];
-        $query = "UPDATE Orders 
-                  SET OrderStatus = 'Approved', 
-                      ManufacturingStatus = 'Pending', 
-                      OPaymentStatus = 'Unpaid', 
-                      OShipmentStatus = 'Not shipped' 
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Approved',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
 
                   WHERE OrderID = '{$id}' ";
 
@@ -134,13 +134,13 @@ session_start();
             </div>
         </nav>
 
-        
-        
+
+
 <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="header">
                                 <p class="category"><b>Click on an ORDER # to view more order details</b></p>
                             </div>
@@ -149,11 +149,11 @@ session_start();
                                 <table class="table table-hover">
                                     <thead>
                                         <th><p class="category"><b>ORDER #</b></p></th>
-                                        <th><p class="category"><b>COMPANY</b></p></th>
                                         <th><p class="category"><b>DATE ORDERED</b></p></th>
                                         <th><p class="category"><b>DATE REQUIRED</b></p></th>
                                         <th><p class="category"><b>PAYMENT</b></p></th>
                                         <th><p class="category"><b>MANUFACTURING</b></p></th>
+                                        <th><p class="category"><b>SHIPMENT</b></p></th>
                                     </thead>
                                 <?php
 
@@ -161,7 +161,7 @@ require_once('../mysql_connect.php');
 
 $username = $_SESSION['username'];
 $query="SELECT *, ClientAccount.CName AS 'CName'
-        FROM Orders O INNER JOIN ClientAccount ON O.OCompanyID=ClientAccount.CompanyID WHERE O.OrderStatus = 'Pending' AND CRepUsername='$username'";
+        FROM Orders O INNER JOIN ClientAccount ON O.OCompanyID=ClientAccount.CompanyID WHERE O.OrderStatus != 'Completed' AND CRepUsername='$username'";
 
 $result=mysqli_query($dbc,$query);
 
@@ -178,8 +178,6 @@ echo "
 <tr>
 <td><b><a href=\"clientOrderTrackingID.php?id=$id \">{$row['OrderID']}</b></a></td>
 
-<td><b>{$row['CName']}</b></td>
-
 <td><b>{$row['OOrderedDate']}</b></td>
 
 <td><b>{$row['ORequiredDate']}</b></td>
@@ -188,24 +186,26 @@ echo "
 
 <td><b>{$row['ManufacturingStatus']}</b></td>
 
+<td><b>{$row['OShipmentStatus']}</b></td>
+
 </tr>
 </tbody>";
 
 }
 
 ?>
-</table>                  
+</table>
 
     <center>
     <label>
-        <?php 
+        <?php
             if(isset($message)){
                 echo $message;
             }
         ?>
-            
+
     </label>
-    </center>  
+    </center>
 
                             </div>
                         </div>
@@ -217,7 +217,7 @@ echo "
                 </div>
             </div>
         </div>
-        
+
 
 
         <footer class="footer">
@@ -256,5 +256,5 @@ echo "
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
-	
+
 </html>
