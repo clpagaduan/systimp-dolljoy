@@ -1,6 +1,8 @@
 <?php
 require_once('../mysql_connect.php');
 $sql = "";
+$username = "kurt";
+$reps = 1;
 date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d');
 if (isset($_POST['ship'])){
@@ -19,10 +21,16 @@ if (isset($_POST['end'])){
     $id=$_POST['id'];
     $sql = "UPDATE Orders SET EndManufacturing = DATE(NOW()), ManufacturingStatus = 'Completed' WHERE OrderID = " . $_POST['id'];
 }
-
+if (isset($_POST['fill'])){
+    $id=$_POST['id'];
+    $reps = $_POST['fillq'];
+    $prid = $_POST['prid'];
+    $sql = "INSERT INTO product_serial_audit (`ProductID`, `OrderID`, `audit_employee_username`, `audit_timelog`) VALUES ('$prid', '$id', '$username', DATE(NOW()))";
+}
 if (!empty($sql))
+  for ($i = 0; $i < $reps; $i++){
     $qu = mysqli_query($dbc, $sql);
-
+  }
 ?>
 
 <!doctype html>
@@ -213,7 +221,7 @@ echo
 
     if ($falsecount == 0 && $made >= $q){
       echo "
-            <button data-toggle='modal' data-target='#exampleModal' type = 'button'  class='btn btn-success btn-fill pull-left'>UPDATE</button>";
+            <p onclick='update_url($id);'><button data-toggle='modal' data-target='#exampleModal' type = 'button'  class='btn btn-success btn-fill pull-left'>UPDATE</button></p>";
 
       echo  "
             </br></br>
@@ -225,7 +233,7 @@ echo
     }
     else if ($falsecount > 0 || $made < $q) {
       echo
-      "<button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">UPDATE</button>
+      "<p onclick='update_url($id);'><button data-toggle='modal' data-target='#exampleModal' type = 'button'  class='btn btn-success btn-fill pull-left'>UPDATE</button></p>
       <input type = \"hidden\" name =\"updateid\" class=\"\" value=\"".$id."\">";
     }
 
@@ -303,6 +311,8 @@ echo
 
 <?php
 
+$id = $_GET['id'];
+
 echo '  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -332,8 +342,8 @@ echo '  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" ar
                     <td>". $row2['ProductID'] ."</td>
                     <td>". $row2['ProductName'] ."</td>
                     <td>". $row2['made'] ." / ". $row2['quantity'] ."</td>
-                    <td><input type='number' class='form-control border-input' min='1' name='fill' value=1><input type = \"hidden\" name =\"fillid\" class=\"\" value=\"".$row2['ProductID']."\"></td>
-                    <td><div align='center'> <input type = \"submit\" name =\"start\" class=\"btn btn-success btn-fill\" value=\"Fill\"></div></td>
+                    <form action='employeeManufacturingStatuses.php' method='post'><td><input type='number' class='form-control border-input' min='1' name='fillq' value=1><input type = \"hidden\" name =\"fillid\" class=\"\"></td>
+                    <td><div align='center'> <input type='hidden' name='prid' value='".$row2['ProductID']."'><input type='hidden' name='id' value='".$id."'><input type = \"submit\" name =\"fill\" class=\"btn btn-success btn-fill\" value=\"Fill\"></div></td></form>
                   </tr>";
     }
 
@@ -375,6 +385,14 @@ echo '  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" ar
         $('#myModal').on('shown.bs.modal', function() {
             $('#myInput').trigger('focus')
         })
+
+        function update_url(id)
+        {
+          if (window.location.hash != "#stopload") {
+            location.replace("employeeManufacturingStatuses.php?id=" + id + '#stopload');
+          }
+          history.pushState(null, '', '?id=' + id);
+        }
     </script>
 
   <style>
