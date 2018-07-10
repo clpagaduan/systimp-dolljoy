@@ -158,142 +158,153 @@ if (isset($_POST['add'])){
 
 <div class="content">
     <center><h3><b>Checkout</b></h3></center>
-            <div class="container-fluid">
-                <div class="row">
+        <div class="container-fluid">
+            <div class="row" style="display:flex">
 
-                    <div class="col-md-12">
-                        <div class="card">
+                <div class="col-md-8">
+                    <div class="card">
 
-                                <div class="content table-responsive table-full-width">
-                                    <div style = "width:100%; display: inline-block">
-                                <table class="table table-hover" >
-                                    <thead>
-                                        <th><p class="category">Product ID</p></th>
-                                        <th><p class="category">Doll Name</p></th>
-                                        <th><p class="category">Specifications</p></th>
-                                        <th><p class="category">Description</p></th>
+                            <div class="content table-responsive table-full-width">
+                                <div style = "width:100%; display: inline-block">
+                            <table class="table table-hover" >
+                                <thead>
+                                    <th><p class="category">Product ID</p></th>
+                                    <th><p class="category">Doll Name</p></th>
+                                    <th><p class="category">Specifications</p></th>
+                                    <th><p class="category">Description</p></th>
 <!--                                        <th><p class="category">Photo</p></th>-->
-                                        <th><p class="category">Price</p></th>
-                                        <th><p class="category">Quantity</p></th>
-                                        <th><p class="category">Subtotal</p></th>
+                                    <th><p class="category">Price</p></th>
+                                    <th><p class="category">Quantity</p></th>
+                                    <th><p class="category">Subtotal</p></th>
 
-                                    </thead>
+                                </thead>
 
-                                    <?php
-                                    require_once('../mysql_connect.php');
-                                    $message="";
-                                    $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
-                                    $result=mysqli_query($dbc,$query);
+                                <?php
+                                require_once('../mysql_connect.php');
+                                $message="";
+                                $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
+                                $result=mysqli_query($dbc,$query);
 
-                                    $numRows = mysqli_num_rows($result);
-                                    if($numRows ==0){
-                                        $message="No accounts to show";
-                                    }
+                                $numRows = mysqli_num_rows($result);
+                                if($numRows ==0){
+                                    $message="No accounts to show";
+                                }
 
-                                    $sum = 0;
-                                    $totalqty = 0;
-                                    $count = 0;
+                                $sum = 0;
+                                $totalqty = 0;
+                                $count = 0;
 
-                                    while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                        $caID = $row['cartID'];
-                                        $id = $row['productID'];
+                                while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                    $caID = $row['cartID'];
+                                    $id = $row['productID'];
 //                                      echo ($id);
-                                        $name = $row['productName'];
-                                        $size = $row['prefSize'];
-                                        $desc = $row['productDesc'];
-                                        $hair = $row['prefHair'];
-                                        $skin = $row['prefSkin'];
-                                        $eye  = $row['prefEye'];
-                                        $price = $row['price'];
-                                        $qty  = $row['quantity'];
-                                        $subtotal = $row['subtotal'];
+                                    $name = $row['productName'];
+                                    $size = $row['prefSize'];
+                                    $desc = $row['productDesc'];
+                                    $hair = $row['prefHair'];
+                                    $skin = $row['prefSkin'];
+                                    $eye  = $row['prefEye'];
+                                    $price = $row['price'];
+                                    $qty  = $row['quantity'];
+                                    $subtotal = $row['subtotal'];
 
-                                        $totalqty += $qty;
-                                        $sum += $subtotal;
+                                    $totalqty += $qty;
+                                    $sum += $subtotal;
 
-                                        $count++;
+                                    $count++;
 
-                                        $specs = "<b>Size:</b> $size <br><b>Hair:</b> $hair <br><b>Skin:</b> $skin <br><b>Eye Color:</b> $eye";
+                                    $specs = "<b>Size:</b> $size <br><b>Hair:</b> $hair <br><b>Skin:</b> $skin <br><b>Eye Color:</b> $eye";
 //                                        $image2 = '<img src="data:image/jpeg;base64,'.base64_encode($image).'"style="width:128px;height:128px"/>';
 
-                                        echo
-                                            '
-                                            <form action="websiteGalleryLoggedInCheckout.php" method="post">
-                                            <tr>
-                                            <td>'.$id.'</td>
-                                            <td>'.$name.'</td>
-                                            <td>'.$specs.'</td>
-                                            <td>'.$desc.'</td>
+                                    echo
+                                        '
+                                        <form action="websiteGalleryLoggedInCheckout.php" method="post">
+                                        <tr>
+                                        <td>'.$id.'</td>
+                                        <td>'.$name.'</td>
+                                        <td>'.$specs.'</td>
+                                        <td>'.$desc.'</td>
 
-                                            <td>'.$price.'</td>
-                                            <td>'.$qty.'</td>
-                                            <td>'.$subtotal.'</td>
-
-
+                                        <td>₱'.$price.'.00</td>
+                                        <td>'.$qty.'</td>
+                                        <td>₱'.$subtotal.'.00</td>
 
 
 
 
 
 
-                                            <input type = "hidden" name = "cartID" value = "'.$caID.'">
-                                            <input type = "hidden" name = "sID" value = "'.$id.'">
-                                            <td align = "left">
-                                            <input type="submit" name="remove" class="btn btn-danger btn-fill" value="Remove" />
-                                            </td>
+
+
+                                        <input type = "hidden" name = "cartID" value = "'.$caID.'">
+                                        <input type = "hidden" name = "sID" value = "'.$id.'">
+                                        <td align = "left">
+                                        <input type="submit" name="remove" class="btn btn-danger btn-fill" value="Remove" />
+                                        </td>
 
 
 
 
-                                            '
-                                            ;
+                                        '
+                                        ;
 
 
-                                        echo '</tr>';
-                                    }
+                                    echo '</tr>';
+                                }
 
 //                                                                                <td align = "left">
 //                                            <input type="submit" name="edit" class="btn btn-info btn-fill" value="Edit" />
 //                                            </td>
 
-                                        echo '</table>';
+                                    echo '</table>';
 
-                                    echo '<div class="col-md-12" align="right">
-                                            Total: <b>';
+                                echo '<div class="col-md-12" align="right">
+                                        ';
 
-                                    echo '<input type = "hidden" name = "totalqty" value = "'.$totalqty.'">';
-                                    echo '<input type = "hidden" name = "totalsum" value = "'.$sum.'">';
-                                    echo $sum;
+//                                echo '<input type = "hidden" name = "totalqty" value = "'.$totalqty.'">';
+//                                echo '<input type = "hidden" name = "totalsum" value = "'.$sum.'">';
+//                                echo '₱';
+//                                echo $sum;
+//                                echo '.00';
 
-                                    echo '</b><br>
-                                                <div class="form-group">
-                                                <br>
-                                                    <label>Required Date</label><br>
-                                                        <input type="date" name="requiredDate"/>
-
-                                        </div>
-                                    </div>';
-
-
-                                    ?>
-
-                                    </table>
+                                echo '</b><br>
+                                            <div class="form-group">
+                                            <br>
+                                               
+                                    </div>
+                                </div>
 
 
-                                        </div>
+                                
 
-                            </div>
+                                </table>
+
+
+                                    </div>
 
                         </div>
-                        <input type="submit" name="placeOrder" class="btn btn-success btn-fill" value="Place Order" pull-right/>
-                        </form>
-                        <a href='websiteGalleryLoggedIn.php'><button type='submit' class='btn btn-info btn-fill pull-right'>Go Back</button></a>
+
                     </div>
-
+                    
                 </div>
-
-    </div>
-
+                <div class="col-md-4"> 
+                    <h3>Order Summary</h3>
+                     <label>Required Date</label><br>
+                                                    <input type="date" name="requiredDate"/><br><br>
+                    ';
+                                echo 'Total Items: <input type = "hidden" name = "totalqty" value = "'.$totalqty.'">';
+                                echo $totalqty;
+                                echo '<br>Total: <b><input type = "hidden" name = "totalsum" value = "'.$sum.'">';
+                                echo '₱';
+                                echo $sum;
+                                echo '.00 </b> <br><br>';
+                                    ?>
+                    <input type="submit" name="placeOrder" class="btn btn-success btn-fill" value="Place Order" pull-right/>
+                    </form>
+                    <a href='websiteGalleryLoggedIn.php'><button type='submit' class='btn btn-info btn-fill pull-right'>Go Back</button></a>
+                </div>
+            </div>
+        </div>
     </div>
 
 
