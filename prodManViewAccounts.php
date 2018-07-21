@@ -243,12 +243,15 @@ th {
                                     
                                     <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchAcc\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
                                     <tr>
-                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><b>COMPANY</b></p></th>
-                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><b>CONTACT</b></p></th>
-                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><b>E-MAIL</b></p></th>
-                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><b>REPRESENTATIVE</b></p></th>
-                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><b>CONTACT</b></p></th>
-                                        <th onclick=\"sortTable(5)\"><p class=\"category\"> <b>E-MAIL</b></p></th>
+                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><b>COMPANY NAME</b></p></th>
+
+                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><b>COMPANY CONTACT #</b></p></th>
+                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><b>COMPANY E-MAIL</b></p></th>
+                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><b>REPRESENTATIVE NAME</b></p></th>
+                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><b>REPRESENTATIVE CONTACT #</b></p></th>
+                                        <th onclick=\"sortTable(5)\"><p class=\"category\"> <b>REPRESENTATIVE E-MAIL</b></p></th>
+                                        <th onclick=\"sortTable(6)\"><p class=\"category\"> <b>USERNAME</b></p></th>
+
                                     </tr>
                                     </thead>";
                                     }    
@@ -315,6 +318,7 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
                 <td><b><a href=\"prodManViewAccountID.php?id=$id \"><u>{$row['CName']}</u></a></b></td>
 
+
                 <td><b>{$row['CContactNo']}</b></td>
 
                 <td><b>{$row['CEmailAdd']}</b></td>
@@ -324,6 +328,9 @@ while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
                 <td><b>{$row['CRepContactNo']}</b></td>
 
                 <td><b>{$row['CRepEmailAdd']}</b></td>
+
+
+                <td><b>{$row['CRepUsername']}</b></td>
                 
                 
 
