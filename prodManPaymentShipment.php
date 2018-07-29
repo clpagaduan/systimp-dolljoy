@@ -12,7 +12,8 @@ if (isset($_POST['paid'])){
   Successfully Paid!    
 </div>";
     $id=$_POST['id'];
-    $sql = "UPDATE Orders SET OPaymentDate = DATE(NOW()), OPaymentStatus = 'Paid' WHERE OrderID = " . $_POST['id'];
+    $ORnum=$_POST['ORnum'];
+    $sql = "UPDATE Orders SET ORnumber= '".$ORnum."' ,OPaymentDate = DATE(NOW()), OPaymentStatus = 'Paid' WHERE OrderID = " . $_POST['id'];
 }
 
 if (!empty($sql))
@@ -341,7 +342,7 @@ echo
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body"> Confirm Payment?
+      <div class="modal-body"> Input Official Receipts (OR) number: <input type="number" name="ORnum" required>
       </div>
       <div class="modal-footer">
         <button type="submit" name ="paid"  class="btn btn-secondary">accept</button>

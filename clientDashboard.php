@@ -28,7 +28,7 @@ $flag=0;
                                     }
 
 
-if (isset($_POST['submitpass'])){
+if (isset($_POST['submitpass'])){ 
 if($first == 0 ){
     
     
@@ -53,7 +53,7 @@ if($first == 0 ){
     
     
     
-       if ($_POST["pass"] === $_POST["cpass"]) {
+       if ($_POST["pass"] == $_POST["cpass"]) {
            
            
            $query ='SELECT FLogin FROM clientaccount WHERE CRepUsername = "'.$username.'"';
@@ -122,42 +122,7 @@ if($first == 0 ){
 
 
 
-<?php 
-                if($first == 0 ){
-    
-    echo "$first";
-    
-   echo "<div class=\"modal fade\" id=\"exampleModal\"  role=\"dialog\" aria-hidden=\"false\">
-  <div class=\"modal-dialog\" role=\"document\">
-    <div class=\"modal-content\">
-      <div class=\"modal-header\">
-        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Password Entry</h5>
-        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
-          <span aria-hidden=\"true\">&times;</span>
-        </button>
-      </div>
-      <div class=\"modal-body\">   <div class=\"form-group\">
-                                    <label>&nbsp;&nbsp;<b>Password:  </b></label>
-                                    <input class=\"form-control\" type=\"text\" placeholder=\"Password\" name=\"pass\" size=\"20\" maxlength=\"30\" /> 
-                                </div>
-                                <div class=\"form-group\">
-                                    <label>&nbsp;&nbsp;<b>Confirm Password:  </b></label>
-                                    <input class=\"form-control\" type=\"text\" placeholder=\"Password\" name=\"cpass\" size=\"20\" maxlength=\"30\" /> 
-                                </div>
-      </div>
-      <div class=\"modal-footer\">
-        <button  type=\"submit\" name =\"submitpass\"  class=\"btn btn-secondary\">accept</button>
-      
-}
-            <button type=\"button\"  class=\"btn btn-primary\" data-dismiss=\"modal\">cancel</button>
-      </div>
-    </div>
-  </div>
-</div>";
-    
- 
-}
-                ?>
+
 <div class="wrapper">
     <div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -305,6 +270,42 @@ if($first == 0 ){
     </div>
 </div>
 
+   <?php 
+                if($first == 0 ){
+    
+    echo "$first";
+    
+   echo "<div class=\"modal fade\" id=\"exampleModal\"  role=\"dialog\" aria-hidden=\"false\">
+  <div class=\"modal-dialog\" role=\"document\">
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Password Entry</h5>
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+          <span aria-hidden=\"true\">&times;</span>
+        </button>
+      </div>
+      <div class=\"modal-body\">   <div class=\"form-group\">
+                                    <label>&nbsp;&nbsp;<b>Password:  </b></label>
+                                    <input class=\"form-control\" type=\"text\" required placeholder=\"Password\" name=\"pass\" size=\"20\" maxlength=\"30\" /> 
+                                </div>
+                                <div class=\"form-group\">
+                                    <label>&nbsp;&nbsp;<b>Confirm Password:  </b></label>
+                                    <input class=\"form-control\" type=\"text\" required placeholder=\"Password\" name=\"cpass\" size=\"20\" maxlength=\"30\" /> 
+                                </div>
+      </div>
+      <div class=\"modal-footer\">
+        <button  type=\"submit\" name =\"submitpass\"  class=\"btn btn-secondary\">accept</button>
+      
+}
+            <button type=\"button\"  class=\"btn btn-primary\" data-dismiss=\"modal\">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>";
+    
+ 
+}
+                ?>
     </form>
 </body>
 
