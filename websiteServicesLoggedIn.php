@@ -26,8 +26,7 @@ Released   : 20130902
 <body>
 <div id="header" class="container">
 	<div id="logo">
-        <h1><a href="websiteHomeLoggedIn.php" target="_blank"><img src="http://i65.tinypic.com/29mwvnm.jpg" border="0" alt="Image and video hosting by TinyPic" style="width:250px"></a></h1>
-	</div>
+<h1><a href="websiteHome.php"><font color="#68B3C8">DOLLJOY</font></a></h1>	</div>
 	<div id="menu">
 		<ul>
 			<li><a href="websiteHomeLoggedIn.php" accesskey="1" title="">Homepage</a></li>

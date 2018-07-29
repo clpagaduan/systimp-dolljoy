@@ -252,7 +252,7 @@ require_once('../mysql_connect.php');
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier name: </b></label>
+                                    <label>&nbsp;&nbsp; <b>Supplier name: <a style="color:red">*</a></b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                                     <input class="form-control" type='text' name='supplier' placeholder="Supplier name" required="">
                                 </div>
@@ -265,7 +265,7 @@ require_once('../mysql_connect.php');
                                 ?>
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supply type: </b></label>
+                                    <label>&nbsp;&nbsp;<b>Supply type: <a style="color:red">*</a></b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                                 <select class="form-control" name='type'>
                                 <option value="Vinyl">Vinyl</option>
@@ -274,7 +274,7 @@ require_once('../mysql_connect.php');
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier country: </b></label>
+                                    <label>&nbsp;&nbsp; <b>Supplier country: <a style="color:red">*</a></b></label>
                                     &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;
                                 <select class="form-control" name="country">
                                 <option value="Afganistan">Afghanistan</option>
@@ -530,14 +530,14 @@ require_once('../mysql_connect.php');
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier E-mail: </b></label>
+                                    <label>&nbsp;&nbsp;<b>Supplier E-mail: <a style="color:red">*</a></b></label>
                                     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
                                 <input class="form-control" type='email' name='semail' placeholder="Supplier E-mail" required="">
                                 </div>
                                 <br>
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Supplier Contact Number: </b></label>
+                                    <label>&nbsp;&nbsp;<b>Supplier Contact Number: </b><a style="color:red">*</a></label>
                                     &emsp;&ensp;
 
                                 <input class="form-control" type='text' name='num' placeholder="Supplier Contact Number" required="">
@@ -546,14 +546,14 @@ require_once('../mysql_connect.php');
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp;<a style="color:red">*</a> <b>Contact Person's First Name: </b></label>
+                                    <label>&nbsp;&nbsp;<b>Contact Person's First Name: <a style="color:red">*</a></b></label>
                                 <input class="form-control" type='text' name='SRFN' placeholder="Contact Person's First Name" required="">
                                 </div>
                                 <br>
 
 
                                 <div class="form-group">
-                                    <label>&nbsp;&nbsp; <a style="color:red">*</a> Contact Person's Last Name:</label>
+                                    <label>&nbsp;&nbsp;<b>Contact Person's Last Name: <a style="color:red">*</a></b></label>
                                 <input class="form-control" type='text' name='SRLN' placeholder="Contact Person's Last Name" required=""><br>
                                 </div>
 
