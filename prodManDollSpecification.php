@@ -227,15 +227,16 @@ if (isset($_POST['submit'])){
                     <div class="col-md-8">
                         <div class="card">
                             <div class="header">
-                                <p class="category"><b>1) Enter a doll specification category<br>2) Click next to add and upload pictures of TWO (2) specification choices</b></p>
+                                <p class="category"><h5><b>1) Enter a doll specification category <i>(e.g. Hairstyle, Shoes)</i><br><br>2) Click next to add the specification category<br><br>3) Upload pictures of TWO (2) specification choices <i>(e.g. Braided Hairstyle, Converse Shoes)</i><br><br>4) Click 'FINISH' to finish adding the specification and its choices</b></p></h5>
                                 <p> <?php echo"$message <br"; ?></p>
                             </div>
+                        <br><br><br><br>
                             <div class="content table-responsive table-full-width">
                                 
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                         <div class="form-group">
-                          <input class="form-control" type="text" name="specificationName" class="form-control" placeholder="(e.g. Hairstyle, Accessories)" required>
+                          <input class="form-control" type="text" name="specificationName" class="form-control" placeholder="Enter doll specification name here" required>
                         </div>
                         </div>
                             </div>

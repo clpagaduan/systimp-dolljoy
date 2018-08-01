@@ -329,7 +329,7 @@ if (isset($_POST['submit'])){
                     <div class="col-md-8">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Add <?php echo $_SESSION["specificationName"]; ?> Choices</h4>
+                                <h4 class="title">Add<b> <?php echo $_SESSION["specificationName"]; ?> </b>Choices</h4>
                                 <p> <?php echo"$msg <br"; ?></p>
                                 <p> <?php echo"$msg2 <br"; ?></p>
                                 <p> <?php echo"$message <br"; ?></p>
@@ -340,8 +340,8 @@ if (isset($_POST['submit'])){
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
-                        <label>&nbsp;&nbsp;<b>1) Specification Choice Name</b></label>
-                          <input class="form-control" type="text" name="choice1" placeholder="(e.g. Wavy, long, purple)" required>
+                        <label>&nbsp;&nbsp;<h5>&nbsp;&nbsp;1) Specification Choice Name</h5></label>
+                          <input class="form-control" type="text" name="choice1" placeholder="Enter specification choice name" required>
                           <br><input type="file" name="choice1pic" accept="image/*" onchange="readURL(this);">
                           <br>
                     <img id="display" src="#" alt="Display Image"/>
@@ -349,8 +349,8 @@ if (isset($_POST['submit'])){
                     <br><br>
                     
                         <div class="form-group">
-                        <label>&nbsp;&nbsp;<b>2) Specification Choice Name</b></label>
-                          <input type="text" name="choice2" class="form-control" placeholder="(e.g. Straight, short, orange)" required>
+                        <label>&nbsp;&nbsp;<h5>&nbsp;&nbsp;2) Specification Choice Name</h5></label>
+                          <input type="text" name="choice2" class="form-control" placeholder="Enter specification choice name" required>
                           <br><input type="file" name="choice2pic" accept="image/*" onchange="readURL2(this);">
                           <br>
                     <img id="display2" src="#" alt="Display Image"/>
