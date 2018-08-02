@@ -83,9 +83,7 @@ if ($empties>0){
 
         }
         else{
-                echo "<div class=\"alert alert-success\" align=\"center\">
-  Successfully Added!    
-</div>";
+                echo "<div class=\"alert alert-success\" align=\"center\">Successfully Added!</div>";
             $EmpPassword= bin2hex(openssl_random_pseudo_bytes(5));
             $query="INSERT INTO `employeeaccount` (`EmployeeID`, `employeeType`, `EmployeeFirstName`, `EmployeeLastName`, `EmployeeContactNo`, `EmployeeEmailAdd`, `EmployeeUsername`, `EmployeePassword`) VALUES (NULL, '$EmpType', '$EmpFName', '$EmpLName', '$EmpContactNo', '$EmpEmailAdd', '$EmpUsername', PASSWORD('$EmpPassword'));";
   
@@ -109,18 +107,9 @@ if ($empties>0){
             $mail->AddAddress($EmpEmailAdd);
             $mail->Send();
 
-//            $query2 = "SELECT * FROM employeeaccount WHERE employeeUsername = '$EmpUsername'";
-            
-//            $result2 = mysqli_query($dbc, $query2);
-            
-//            while($row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC)){
-//                $
-//            }
 
-              $message.= "<div class='alert alert-success'><span aria-hidden='true'><b><font color='black'><center>The account of ".$EmpFName." ".$EmpLName." has been activated</center></font></span></div>";
-                
-            
-              
+            $message.= "<div class='alert alert-success'><span aria-hidden='true'><b><font color='black'><center>The account of ".$EmpFName." ".$EmpLName." has been activated</center></font></span></div>";
+    
             $flag=1;
   
     }
