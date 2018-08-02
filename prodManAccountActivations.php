@@ -65,26 +65,32 @@ if (isset($_POST['activate'])){
                     $query2="SELECT * FROM clientaccount WHERE CompanyID=$CompanyID";
                     $result2=mysqli_query($dbc, $query2);
 
-//                    while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
-//                        $email = $row['CRepEmailAdd'];
-//                        $fname = $row['CRepFirstName'];
-//                        $lname = $row['CRepLastName'];
-//
-//                	$mail = new PHPMailer();
-//                	$mail->isSMTP();
-//                	$mail->SMTPAuth= true;
-//                	$mail->SMTPSecure = 'ssl';
-//                	$mail->Host = 'smtp.gmail.com';
-//                	$mail->Port = '465';
-//                	$mail->isHTML();
-//                	$mail->Username = 'joytothedolls@gmail.com';
-//                	$mail->Password = 'smartguard123';
-//                	$mail->SetFrom('no-reply@dolljoy');
-//                	$mail->Subject = "Welcome to Dolljoy";
-//                	$mail->Body = 'You have been assigned the username '.$CRepUsername.' and the password '.$CRepPassword.'. It is recommended to change your password upon login.';
-//                	$mail->AddAddress($email);
-//                	$mail->Send();
-//                }
+                    while($row=mysqli_fetch_array($result2,MYSQLI_ASSOC)){
+                        $email = $row['CRepEmailAdd'];
+                        $fname = $row['CRepFirstName'];
+                        $lname = $row['CRepLastName'];
+                    }
+                    
+                    echo $email . $fname . $lname;
+                	$mail = new PHPMailer();
+                        
+                	$mail->isSMTP();
+                	$mail->SMTPAuth= true;
+                	$mail->SMTPSecure = 'ssl';
+                	$mail->Host = 'smtp.gmail.com';
+                	$mail->Port = '465';
+                	$mail->Username = 'dolljoyfactorymuseum@gmail.com';
+                	$mail->Password = 'DLSU1234';
+                    
+                	$mail->SetFrom($email);
+                    
+                    $mail->isHTML();
+                	$mail->Subject = "Welcome to Dolljoy";
+                	$mail->Body = 'You have been assigned the username '.$CRepUsername.' and the password '.$CRepPassword.'. It is recommended to change your password upon login.';
+                	$mail->AddAddress($email);
+                    
+                	$mail->Send();
+                
 
                     $message="<div class='alert alert-success'><span aria-hidden='true'><b><center>Account has been successfully activated!</center></span></div>";
 
