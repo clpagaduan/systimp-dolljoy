@@ -293,8 +293,11 @@ if (isset($_POST['submit'])){
                         </div>
                         <div class="card">
                             <div class="header">
-                                <p class="category"><b>Select a specification category to add more choices to</b></p>
-                                <br><br>
+                                <p class="category"><h5><b>1) Select a specification category to add more choices to</b></h5>
+                                <h5><b>2) Enter the new specification choice for the selected category</b></h5>
+                                <h5><b>3) Upload the reference picture for the new specification choice</b></h5>
+                                <h5><b>4) Click 'FINISH' to finish adding the new specification choice</b></h5>
+                                </p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 
@@ -310,16 +313,16 @@ if (isset($_POST['submit'])){
 
 
                         <div class="form-group">
-                           <label>&nbsp;&nbsp;<b>SELECT SPECIFICATION</b></label>
+                           <label>&nbsp;&nbsp;<b><h5>&nbsp;&nbsp;&nbsp;SELECT SPECIFICATION</h5></b></label>
                           <select name="specification" class="form-control input" onchange="showDiv(this)">
                             <?php while ($row = mysqli_fetch_array($result4)) {
                             echo "<option value='" . $row[0] ."'>" . $row[1] ."</option>";} 
                             ?>
                         </select>
                         </div>
-
+                        <br>
                         <div class="form-group">
-                          <label>&nbsp;&nbsp;<b>Specification Choice Name</b></label>
+                          <label>&nbsp;&nbsp;<b><h5>&nbsp;&nbsp;&nbsp;SPECIFICATION CHOICE NAME</h5></b></label>
                           <input type="text" name="choice1" class="form-control" placeholder="ex. Wavy" required>
                           <br><input type="file" name="choice1pic" accept="image/*" onchange="readURL(this);">
                           <br>

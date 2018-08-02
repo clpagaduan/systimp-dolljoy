@@ -28,13 +28,15 @@ if (isset($_POST['submit'])){
  }else
   $EmpLName=$_POST['EmpLName'];
 
- if (empty($_POST['EmpUsername'])){
+/*
+if (empty($_POST['EmpUsername'])){
   $EmpUsername=FALSE;
   $un='<font color="red">*This is a required field!</font>';
      $empties++;
  }else{
    $EmpUsername=$_POST['EmpUsername'];
  }
+*/    
 
 if (empty($_POST['EmpContactNo'])){
   $EmpContactNo=FALSE;
@@ -303,10 +305,14 @@ if(!isset($message) && empty($message)){
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div class="card">
                             <div class="header">
-                                <p class="category">Enter employee details to add an employee account</p>
+                                <p class="category"><h5><b>1) Enter employee details to add an employee account</b></h5>
+                                <h5><b>2) Once employee details are filled out, click 'ADD EMPLOYEE ACCOUNT' to finish adding the new employee</b></h5>
+                                
+                            
+                                </p>
                              
                             </div>    
                             <div class="content table-responsive table-full-width">
@@ -329,12 +335,18 @@ if(!isset($message) && empty($message)){
                                     <label>&nbsp;&nbsp;<b>E-mail address <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="email" placeholder="E-mail Address" name="EmpEmailAdd" size="20" maxlength="30" value="<?php if (isset($_POST['EmpEmailAdd']) && !$flag) echo $_POST['EmpEmailAdd']; ?>"/> <?php echo $ea;?>
                                 </div>
+                                <!--
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Username <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="text" placeholder="Username" name="EmpUsername" size="20" maxlength="30" value="<?php if (isset($_POST['EmpUsername']) && !$flag) echo $_POST['EmpUsername']; ?>"/> <?php echo $un;?>
                                 </div>
-                                    
+                                -->
+                                <br>    
                                 <!-- Change this to a button or input when using this as a form -->
+                                
+                                <h5><b>&nbsp;&nbsp;&nbsp;* These fields are required</b></h5>
+                                <h5><b>&nbsp;&nbsp;&nbsp;** When an employee is added, the employee will receive an email with their username and password to the system</b></h5>
+                                
                                 <br>&nbsp;
                                 <input class="btn btn-sm btn-success btn-fill" type="button" value="Add employee account " data-toggle="modal" data-target="#exampleModal">
                                 <br><br>
