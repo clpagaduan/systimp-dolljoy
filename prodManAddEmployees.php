@@ -28,7 +28,7 @@ if (isset($_POST['submit'])){
  }else
   $EmpLName=$_POST['EmpLName'];
 
-/*
+
 if (empty($_POST['EmpUsername'])){
   $EmpUsername=FALSE;
   $un='<font color="red">*This is a required field!</font>';
@@ -36,7 +36,7 @@ if (empty($_POST['EmpUsername'])){
  }else{
    $EmpUsername=$_POST['EmpUsername'];
  }
-*/    
+  
 
 if (empty($_POST['EmpContactNo'])){
   $EmpContactNo=FALSE;
@@ -91,8 +91,31 @@ if ($empties>0){
   
   
               mysqli_query($dbc,$query);
+            
+            $mail = new PHPMailer();
+            $mail->isSMTP();
+            $mail->SMTPAuth= true;
+            $mail->SMTPSecure = 'ssl';
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = '465';
+            $mail->Username = 'dolljoyfactorymuseum@gmail.com';
+            $mail->Password = 'DLSU1234';
+            
+            $mail->SetFrom($EmpEmailAdd);
+            
+            $mail->isHTML();
+            $mail->Subject = "Welcome to Dolljoy!";
+            $mail->Body = 'You have been assigned the username '.$EmpUsername.' and the password '.$EmpPassword.'. It is recommended to change your password upon login.';
+            $mail->AddAddress($EmpEmailAdd);
+            $mail->Send();
 
-                
+//            $query2 = "SELECT * FROM employeeaccount WHERE employeeUsername = '$EmpUsername'";
+            
+//            $result2 = mysqli_query($dbc, $query2);
+            
+//            while($row2 = mysqli_fetch_array($result2, MYSQLI_ASSOC)){
+//                $
+//            }
 
               $message.= "<div class='alert alert-success'><span aria-hidden='true'><b><font color='black'><center>The account of ".$EmpFName." ".$EmpLName." has been activated</center></font></span></div>";
                 
@@ -335,12 +358,12 @@ if(!isset($message) && empty($message)){
                                     <label>&nbsp;&nbsp;<b>E-mail address <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="email" placeholder="E-mail Address" name="EmpEmailAdd" size="20" maxlength="30" value="<?php if (isset($_POST['EmpEmailAdd']) && !$flag) echo $_POST['EmpEmailAdd']; ?>"/> <?php echo $ea;?>
                                 </div>
-                                <!--
+                                
                                 <div class="form-group">
                                     <label>&nbsp;&nbsp;<b>Username <a style="color:red">*</a> </b></label>
                                     <input class="form-control" type="text" placeholder="Username" name="EmpUsername" size="20" maxlength="30" value="<?php if (isset($_POST['EmpUsername']) && !$flag) echo $_POST['EmpUsername']; ?>"/> <?php echo $un;?>
                                 </div>
-                                -->
+                                
                                 <br>    
                                 <!-- Change this to a button or input when using this as a form -->
                                 
