@@ -1,6 +1,6 @@
 <?php
 require_once('../mysql_connect.php');
-//require_once('PHPMailer/PHPMailerAutoload.php');
+require_once('PHPMailer/PHPMailerAutoload.php');
 if(!isset($_SESSION)) {
    session_start();
 }
