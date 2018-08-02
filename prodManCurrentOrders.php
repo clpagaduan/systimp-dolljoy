@@ -221,7 +221,7 @@ if(isset($_POST['reject'])){
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <p class="category"><b>Select an order to view order details and statuses</b></p>
+                               <center> <p class="category"><b>Click on the ORDER ID to view more details</b></p></b></center>
                             </div>
                             <br><br>
 
@@ -229,13 +229,14 @@ if(isset($_POST['reject'])){
                                 
                                 <table class="table table-hover">
                                     <thead>
-                                        <th><p class="category"><b>ORDER #</b></p></th>
-                                        <th><p class="category"><b>COMPANY</b></p></th>
+                                        <th><p class="category"><b>ORDER ID</b></p></th>
+                                       
                                         <th><p class="category"><b>DATE ORDERED</b></p></th>
+                                         <th><p class="category"><b>CLIENT</b></p></th>
+                                        <th><p class="category"><b>PAYMENT STATUS</b></p></th>
+                                        <th><p class="category"><b>MANUFACTURING STATUS</b></p></th>
+
                                         <th><p class="category"><b>DATE REQUIRED</b></p></th>
-                                        <th><p class="category"><b>PAYMENT</b></p></th>
-                                        <th><p class="category"><b>MANUFACTURING</b></p></th>
-                                        <th><p class="category"></p></th>
                                     </thead>
 <?php
 
@@ -260,24 +261,19 @@ echo "
 <tr>
 <td><b><a href=\"prodManCurrentOrderID.php?id=$id \">{$row['OrderID']}</a></b></td>
 
-<td><b>{$row['CName']}</b></td>
 
 <td><b>{$row['OOrderedDate']}</b></td>
 
-<td><b>{$row['ORequiredDate']}</b></td>
+<td><b>{$row['CName']}</b></td>
 
 <td><b>{$row['OPaymentStatus']}</b></td>
 
 <td><b>{$row['ManufacturingStatus']}</b></td>
 
-<td>
-<div align=\"center\">
-<form action=\"prodManCurrentOrderID.php?id=$id\" method=\"post\">
-<input type = \"submit\" name =\"view\" class=\"btn btn-info btn-fill\" value=\"VIEW DETAILS\">
-<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-</form>
-</div>
-</td>
+
+
+<td><b>{$row['ORequiredDate']}</b></td>
+
 
 </tr>
 </tbody>";

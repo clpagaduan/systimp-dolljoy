@@ -1,11 +1,35 @@
 <?php
 require_once('../mysql_connect.php');
+$orderID = $_GET['id'];
 $sql = "";
+
+ if(isset($_POST['approve'])){
+        $id = $_POST['approve'];
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Approved',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
+
+                  WHERE OrderID = '{$id}' ";
+
+        mysqli_query($dbc, $query);
+    }
+
+if(isset($_POST['reject'])){
+    $id = $_POST['reject'];
+    $query = "UPDATE Orders SET OrderStatus = 'Rejected' WHERE OrderID = '{$id}' ";
+    mysqli_query($dbc, $query);
+}
 
 if (!empty($sql)){
     $qu = mysqli_query($dbc, $sql);
 }
+
+
+
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -200,7 +224,7 @@ if (!empty($sql)){
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <p class="category"><b>Select an order to view more order details, and either "APPROVE" or "REJECT" the order</b></p>
+                                <center><p class="category"><b>Click on the Order ID to view Order Details</b></p></center>
                             </div>
                             <br><br>
 
@@ -208,13 +232,13 @@ if (!empty($sql)){
                                 
                                 <table class="table table-hover">
                                     <thead>
-                                        <th><p class="category"><b>ORDER #</b></p></th>
-                                        <th><p class="category"><b>COMPANY</b></p></th>
-                                        <th><p class="category"><b>QUANTITY</b></p></th>
-                                        <th><p class="category"><b>PRICE</b></p></th>
-                                        <th><p class="category"><b>TOTAL AMOUNT</b></p></th>
+                                        <th><p class="category"><b>ORDER ID</b></p></th>
+                                        <th><p class="category"><b>CLIENT</b></p></th>
+                                     
+                                        <th><p class="category"><b>AMOUNT IN PHP</b></p></th>
                                         <th><p class="category"><b>DATE ORDERED</b></p></th>
                                         <th><p class="category"><b>DATE REQUIRED</b></p></th>
+                                        <th><p>ACTION</p></th>
                                         
                                     </thead>
 <?php
@@ -230,6 +254,8 @@ $numRows = mysqli_num_rows($result);
     
 
 
+
+
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
@@ -241,23 +267,23 @@ echo
 
 <td><b><a href=\"prodManReviewOrderID.php?id=$id \">{$row['OrderID']}</a></b></td>
 <td><b>{$row['CName']}</b></td>
-<td><b>{$row['OQuantity']}</b></td>
-<td><b>{$row['Oprice']}</b></td>
 <td><b>{$row['OTotalAmount']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-
-<td><form action=\"prodManReviewOrderID.php?id=$id\" method=\"post\">
-<button type = \"submit\" name =\"view\" class=\"btn btn-info btn-fill\" value=\"".$id."\">VIEW DETAILS</button>
+<td><button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">APPROVE</button>
 <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-</form></td>
+<button data-toggle=\"modal\" data-target=\"#exampleModal1\" type = \"button\" class=\"btn btn-danger btn-fill pull-left\" value=\"".$id."\">REJECT</button>
+<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
+</td>
 ";
 ?>
     <?php 
 echo "
 
 </div></td>
-</tr>"; }?>
+</tr>"; 
+
+}?>
 
 
 

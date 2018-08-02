@@ -18,7 +18,7 @@ $orderID = $_GET['id'];
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Current Orders — Order #<?php echo $orderID; ?></title>
+	<title>Current Orders — Order ID: <?php echo $orderID; ?></title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -205,7 +205,7 @@ $orderID = $_GET['id'];
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title"><b>Order #<?php echo $orderID; ?></b> </h4>
+                                <h4 class="title"><b>Order ID: <a><?php echo $orderID; ?> </a></b> </h4>
                             </div>
                                 <div class="content table-responsive table-full-width">
 
@@ -246,21 +246,9 @@ $orderID = $_GET['id'];
                                 </tr>';
 
 
-                                echo "<tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Order #</b>
-                                </div></td>
+                                echo "
 
-                                <td width=\"10%\"><div align=\"center\">$id
-                                </div></td>
-                                </tr>
-
-                                <tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Order Status</b>
-                                </div></td>
-
-                                <td width=\"10%\"><div align=\"center\">$status
-                                </div></td>
-                                </tr>
+                                
 
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Ordered by</b>
@@ -302,7 +290,7 @@ $orderID = $_GET['id'];
                                 if ($pstatus!='Unpaid')
                                     echo $pdate;
                                 else
-                                    echo "Unpaid";
+                                    echo "Pending";
                                 echo "
                                 </div></td>
                                 </tr>
@@ -314,12 +302,20 @@ $orderID = $_GET['id'];
                                     // ORDER PRICE AND QUANTITY
                                 echo '<table class="table table-hover" width=75%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
                                 <tr bgcolor="black">
-                                <td colspan="2"><div align="center"><font color="white"><b>ORDER PRICE AND QUANTITY</font>
+                                <td colspan="2"><div align="center"><font color="white"><b>COMPUTATIONS</font>
                                 </div></b></td>
                                 </tr>';
 
 
                                 echo "
+
+                                  <tr>
+                                <td width=\"10%\"><div align=\"center\"><b>Product Price</b>
+                                </div></td>
+
+                                <td width=\"10%\"><div align=\"center\">$price
+                                </div></td>
+                                </tr>
 
                                 <tr>
                                 <td width=\"10%\"><div align=\"center\"><b>Quantity Ordered</b>
@@ -375,11 +371,11 @@ $orderID = $_GET['id'];
 
 
                                 if ($mstatus == 'Pending' && $pstatus=='Unpaid'){
-                                    echo "<td width=\"10%\"><div align=\"center\">Order has not been paid for yet</div></td><tr>";
+                                    echo "<td width=\"10%\"><div align=\"center\">Pending Payment</div></td><tr>";
                                     echo "<tr>
                                     <td width=\"10%\"><div align=\"center\"><b>End Date</b>
                                     </div></td>
-                                    <td width=\"10%\"><div align=\"center\">Order has not been paid for yet</div></td></tr>";
+                                    <td width=\"10%\"><div align=\"center\">Pending Payment</div></td></tr>";
                                 }
                                 else if ($mstatus = 'In Progress'){
                                     echo "<td width=\"10%\"><div align=\"center\">$smdate</td></tr>
@@ -466,7 +462,7 @@ $orderID = $_GET['id'];
                                 <td width=\"10%\"><div align=\"center\">";
 
                                 if ($sstatus != 'Shipped'){
-                                    echo "Not shipped";
+                                    echo "Not Shipped";
                                 }
                                 else {
                                     echo $sdate;
@@ -611,12 +607,14 @@ $orderID = $_GET['id'];
 
 
 <br><br>
+<!--
 <?php
                       {
 echo "<a href='prodManCurrentOrderIDEditable.php?id=$id";?>
     <?php echo"'><button type='submit' name= 'Edit' class='btn btn-success btn-fill pull-right'>Edit this Order</button></a>";
-} ?>
-<a href="prodManCurrentOrders.php"><button class="btn btn-default btn-fill pull-right">Back to Orders</button></a>
+} ?> 
+-->
+<a href="prodManCurrentOrders.php"><button class="btn btn-default btn-fill pull-left">Back to Orders</button></a>
 
 
 <br><br><br>

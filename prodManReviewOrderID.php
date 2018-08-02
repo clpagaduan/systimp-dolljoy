@@ -70,7 +70,7 @@ if (!empty($sql)){
 
     <body>
 
-          <form action="prodManCurrentOrders.php" method="post">
+          <form action="prodManReviewOrders.php" method="post">
 
             <div class="wrapper">
                 <div class="sidebar" data-background-color="white" data-active-color="info">
@@ -263,7 +263,6 @@ echo '<font size="2pt">
 <tr>
 <td width="10%"><div align="center"><b>Product ID</div></b></td>
 <td width="10%"><div align="center"><b>Product Name</div></b></td>
-<td width="10%"><div align="center"><b>Quantity</div></b></td>
 <td width="10%"><div align="center"><b>Type</div></b></td>
 <td width="10%"><div align="center"><b>Description</div></b></td>
 <td width="10%"><div align="center"><b>Image</div></b></td>
@@ -423,9 +422,9 @@ echo '<font size="2pt">
 <table width="80%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
 
 <tr>
-<td width="10%"><div align="center"><b>Company</div></b></td>
+<td width="10%"><div align="center"><b>Ordered By</div></b></td>
 <td width="10%"><div align="center"><b>Quantity</div></b></td>
-<td width="10%"><div align="center"><b>Total</div></b></td>
+<td width="10%"><div align="center"><b>Total Price</div></b></td>
 <td width="10%"><div align="center"><b>Date Ordered</div></b></td>
 <td width="10%"><div align="center"><b>Date Required</div></b></td>
 
@@ -478,26 +477,17 @@ $id=$row['OrderID'];
 
 echo
 "
-
-<button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">APPROVE</button>
-<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-
 ";
 ?>
 
 
                                                     <?php
 echo
-"
-<button data-toggle=\"modal\" data-target=\"#exampleModal1\" type = \"button\" class=\"btn btn-danger btn-fill pull-left\" value=\"".$id."\">REJECT</button>
-<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-
-
-</div></td>
+"</div></td>
 </tr>"; ?>
 
 
-                                                    <a href="prodManReviewOrders.php"><button class="btn btn-default btn-fill pull-right">Back to Review</button></a>
+ <a href="/prodManReviewOrders.php"><button class="btn btn-default btn-fill pull-left">Back to Review</button></a>
 
 
                                                     <br><br><br>
