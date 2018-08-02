@@ -1,11 +1,35 @@
 <?php
 require_once('../mysql_connect.php');
+$orderID = $_GET['id'];
 $sql = "";
+
+ if(isset($_POST['approve'])){
+        $id = $_POST['approve'];
+        $query = "UPDATE Orders
+                  SET OrderStatus = 'Approved',
+                      ManufacturingStatus = 'Pending',
+                      OPaymentStatus = 'Unpaid',
+                      OShipmentStatus = 'Not shipped'
+
+                  WHERE OrderID = '{$id}' ";
+
+        mysqli_query($dbc, $query);
+    }
+
+if(isset($_POST['reject'])){
+    $id = $_POST['reject'];
+    $query = "UPDATE Orders SET OrderStatus = 'Rejected' WHERE OrderID = '{$id}' ";
+    mysqli_query($dbc, $query);
+}
 
 if (!empty($sql)){
     $qu = mysqli_query($dbc, $sql);
 }
+
+
+
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -195,26 +219,38 @@ if (!empty($sql)){
 
 
         <div class="content">
+
+            <form class="form-horizontal" method = "post" action = "<?php echo $_SERVER['PHP_SELF']?>">
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <p class="category"><b>Select an order to view more order details, and either "APPROVE" or "REJECT" the order</b></p>
+                                <center><p class="category"><b>Click on the Order ID to view Order Details</b></p></center>
                             </div>
                             <br><br>
 
+
+
                                 <div class="content table-responsive table-full-width">
+
+                                       <input id="myInput" type="search" onkeyup="search();" name = "searchOrder" class="form-control col-sm-2" placeholder="Search Order..."> 
+
                                 
-                                <table class="table table-hover">
+
+                                <table  id="myTable" class="table table-hover">
                                     <thead>
-                                        <th><p class="category"><b>ORDER #</b></p></th>
-                                        <th><p class="category"><b>COMPANY</b></p></th>
-                                        <th><p class="category"><b>QUANTITY</b></p></th>
-                                        <th><p class="category"><b>PRICE</b></p></th>
-                                        <th><p class="category"><b>TOTAL AMOUNT</b></p></th>
-                                        <th><p class="category"><b>DATE ORDERED</b></p></th>
-                                        <th><p class="category"><b>DATE REQUIRED</b></p></th>
+
+                                        
+
+                                        <th onclick="sortTable(0)"><p class="category"><b>ORDER ID</b></p></th>
+                                        <th onclick="sortTable(1)"><p class="category"><b>CLIENT</b></p></th>
+                                     
+                                        <th onclick="sortTable(2)"><p class="category"><b>AMOUNT IN PHP</b></p></th>
+                                        <th onclick="sortTable(3)"><p class="category"><b>DATE ORDERED</b></p></th>
+                                        <th onclick="sortTable(4)"><p class="category"><b>DATE REQUIRED</b></p></th>
+                                        <th><p>ACTION</p></th>
                                         
                                     </thead>
 <?php
@@ -230,6 +266,8 @@ $numRows = mysqli_num_rows($result);
     
 
 
+
+
 while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 $id=$row['OrderID'];
@@ -241,23 +279,23 @@ echo
 
 <td><b><a href=\"prodManReviewOrderID.php?id=$id \">{$row['OrderID']}</a></b></td>
 <td><b>{$row['CName']}</b></td>
-<td><b>{$row['OQuantity']}</b></td>
-<td><b>{$row['Oprice']}</b></td>
 <td><b>{$row['OTotalAmount']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-
-<td><form action=\"prodManReviewOrderID.php?id=$id\" method=\"post\">
-<button type = \"submit\" name =\"view\" class=\"btn btn-info btn-fill\" value=\"".$id."\">VIEW DETAILS</button>
+<td><button data-toggle=\"modal\" data-target=\"#exampleModal\" type = \"button\"  class=\"btn btn-success btn-fill pull-left\" value=\"".$id."\">APPROVE</button>
 <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-</form></td>
+<button data-toggle=\"modal\" data-target=\"#exampleModal1\" type = \"button\" class=\"btn btn-danger btn-fill pull-left\" value=\"".$id."\">REJECT</button>
+<input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
+</td>
 ";
 ?>
     <?php 
 echo "
 
 </div></td>
-</tr>"; }?>
+</tr>"; 
+
+}?>
 
 
 
@@ -297,6 +335,87 @@ echo "
     </div>
 </div>
 
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+    
+    function search() {
+        // Declare variables 
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        th = table.getElementsByTagName("th");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) {
+            tr[i].style.display = "none";
+            for (var j = 0; j < th.length; j++) {
+                td = tr[i].getElementsByTagName("td")[j];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+</script>
 
 </body>
 
