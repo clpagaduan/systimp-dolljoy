@@ -48,6 +48,7 @@ if (!empty($sql))
 
 <form action ="prodManInventoryManagement.php" method="post">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -63,6 +64,8 @@ if (!empty($sql))
           <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 =======
+=======
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
 
      <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -78,12 +81,19 @@ if (!empty($sql))
             </button>
             <button type="submit" class="btn btn-secondary" data-dismiss="modal">   CANCEL
             </button>
+<<<<<<< HEAD
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
+=======
 >>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
       </div>
     </div>
   </div>
 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
 =======
 
 >>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
@@ -474,7 +484,11 @@ if (!empty($sql))
 </div>
     
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+  
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
 =======
   
 >>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
