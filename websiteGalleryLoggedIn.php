@@ -157,7 +157,7 @@ Released   : 20130902
                 
                 <div class="col-md-5">
                     <div class="col-">
-                        <h4>Step 1: Select a doll!</h4>
+                        <h4>Step 1: Select a doll</h4>
 <!--                        SCROLLBAR FOR THE PREMADE DOLLS-->
                         <?php
 //                        $listQuery = "SELECT * FROM appdev.product";
@@ -237,7 +237,7 @@ Released   : 20130902
                     </div>
                     
 <!--                    TABS FOR THE DOLLS-->
-                    <h4>Step 2: Customize your doll!</h4>
+                    <h4>Step 2: Customize your doll</h4>
                   <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#hair">Hair</a></li>
                     <li><a data-toggle="tab" href="#eye">Eye Color</a></li>
@@ -372,7 +372,7 @@ Released   : 20130902
                       </div>
                   </div>
                     <h1>&nbsp;</h1>
-                    <h4>Step 3: Select Quantity!</h4>
+                    <h4>Step 3: Select Quantity</h4>
                     <div class="row" style="display:flex">
                         <h7>&nbsp; &nbsp; Quantity &nbsp; </h7>
                     <input type="number" name="qty" class="form-control border-input" min="1" style="width: 5em;" value=1>
