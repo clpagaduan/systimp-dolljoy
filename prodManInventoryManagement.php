@@ -247,7 +247,7 @@ if (!empty($sql))
                             
 
 
-                            if ($result3 >0){
+                            if ($result3 >=0){
                             echo 
 
                              "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
@@ -371,7 +371,7 @@ if (!empty($sql))
                             
 
 
-                            if ($result3>0){
+                            if ($result3>=0){
                             echo 
 
                              "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
