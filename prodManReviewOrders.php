@@ -1,6 +1,6 @@
 <?php
 require_once('../mysql_connect.php');
-$orderID = $_GET['id'];
+//$orderID = $_GET['id'];
 $sql = "";
 
  if(isset($_POST['approve'])){
