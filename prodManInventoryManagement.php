@@ -45,7 +45,6 @@ if (!empty($sql))
 
 </head>
 <body>
-
 <form action ="prodManInventoryManagement.php" method="post">
 
 
@@ -253,11 +252,8 @@ if (!empty($sql))
                         
                             <p class="category">   Select a button to do a specific task</p>
 
-
+            <button type = "submit" name = "viewInventory" class = "btn btn-info">View Inventory</button>
             <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
-            <button type = "submit" name = "viewStocks" class = "btn btn-info">View Stocks</button>
-
-            <button type = "submit" name = "viewInventory" class = "btn btn-info">Order List</button>
 
 
 
@@ -310,17 +306,17 @@ if (!empty($sql))
 
                                 
                             echo "<tr>
-                            <td><div align=\"center\"><b>{$row['SupplyType']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['DateOrdered']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['Supplier']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['SupplierCountry']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['SupplyQuantity']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['SupplierContactNum']}</b></div></td>
-                            <td><div align=\"center\">
+                            <td><b>{$row['SupplyType']}</b></td>
+                            <td><b>{$row['DateOrdered']}</b></td>
+                            <td><b>{$row['Supplier']}</b></td>
+                            <td><b>{$row['SupplierCountry']}</b></td>
+                            <td><b>{$row['SupplyQuantity']}</b></td>
+                            <td><b>{$row['SupplierContactNum']}</b></td>
+                            <td>
                             <form action=\"prodManInventoryManagement.php\" method=\"post\">
-                            <input type = \"button\"  class=\"btn btn-fill btn-success\" value=\"RECEIVE\" data-toggle=\"modal\" data-target=\"#receiveModal\">
+                            <input type = \"button\"  class=\"btn btn-fill btn-success\" value=\"RECEIVE\" data-toggle=\"modal\" data-target=\"#exampleModal\">
                             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
-                            </form></div></td>
+                            </form></td>
                             </tr>";
                             }
 
@@ -343,11 +339,11 @@ if (!empty($sql))
                                    
                                     <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchInventory\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
                                     <tr>
-                                        <th onclick=\"sortTable(0)\"><div align=\"center\"><p class=\"category\"><b>PRODUCT NAME</b></p></div></th>
-                                        <th onclick=\"sortTable(1)\"><div align=\"center\"><p class=\"category\"><b>PRODUCT TYPE</b></p></div></th>
-                                        <th onclick=\"sortTable(2)\"><div align=\"center\"><p class=\"category\"><b>PRODUCT SIZE</b></p></div></th>
-                                        <th onclick=\"sortTable(3)\"><div align=\"center\"><p class=\"category\"><b>PRODUCT PRICE</b></p></div></th>
-                                        <th onclick=\"sortTable(4)\"><div align=\"center\"><p class=\"category\"><b>ORDER QUANTITY</b></p></div></th>
+                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><b>PRODUCT NAME</b></p></th>
+                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><b>PRODUCT TYPE</b></p></th>
+                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><b>PRODUCT SIZE</b></p></th>
+                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><b>PRODUCT PRICE</b></p></th>
+                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><b>ORDER QUANTITY</b></p></th>
                                     
                                     </tr>
                                     </thead>";
@@ -374,15 +370,15 @@ if (!empty($sql))
                                             <tbody>
                                             <tr>
 
-                                            <td><div align=\"center\"><b>{$row['ProductName']}</b></div></td>
+                                            <td><b>{$row['ProductName']}</a></b></td>
 
-                                            <td><div align=\"center\"><b>{$row['ProductType']}</b></div></td>
+                                            <td><b>{$row['ProductType']}</b></td>
 
-                                            <td><div align=\"center\"><b>{$row['ProductSize']}</b></div></td>
+                                            <td><b>{$row['ProductSize']}</b></td>
 
-                                            <td><div align=\"center\"><b>{$row['ProductPrice']}</b></div></td>
+                                            <td><b>{$row['ProductPrice']}</b></td>
 
-                                            <td><div align=\"center\"><b>{$row['OQuantity']}</b></div></td>
+                                            <td><b>{$row['OQuantity']}</b></td>
 
                                            
 
@@ -393,65 +389,7 @@ if (!empty($sql))
                                         
                                     } // end while MYSQLI
                   
-                             }   // end else
-
-                     elseif (isset($_POST['viewStocks']))
-                     {
-                            echo "  <center><p class=\"category\"><b>Listed below are RECEIVED stock supplies DOLLJOY has ordered. 
-                                <br>";
-
-
-
-                           
-                            $query="SELECT SupplyID, SupplyType, DateOrdered, DateReceived, SupplierCountry, SupplyQuantity, Suppliers.SupplierName AS 'Supplier', SupplierContactNum FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NOT NULL";
-                            $result=mysqli_query($dbc,$query);
-                            
-                            
-                            $query2="SELECT SupplyID FROM Supplies WHERE `DateReceived` IS NULL";
-                            $result2=mysqli_query($dbc,$query2);
-                            $result3 = $result2->num_rows;
-                            
-
-
-                            if ($result3>0){
-                            echo 
-
-                             "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
-                                    <tr>
-
-                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><div align=\"center\"><b>DATE RECEIVED</b></p></div></th>
-                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><div align=\"center\"><b>DATE ORDERED</b></p></div></th>
-                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><div align=\"center\"><b>ITEM</b></p></div></th>
-                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><div align=\"center\"><b>FROM </b></p></div></th>
-                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><div align=\"center\"><b>SOURCE</b></p></div></th>
-                                        <th onclick=\"sortTable(5)\"><p class=\"category\"><div align=\"center\"><b>QUANTITY IN KG</b></p></div></th>
-
-                                    </tr>
-                                    ";
-                            
-                            while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                            $id=$row['SupplyID'];
-
-                                
-                            echo "
-
-                            <tr>
-
-                            <td><div align=\"center\"><b>{$row['DateReceived']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['DateOrdered']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['SupplyType']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['Supplier']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['SupplierCountry']}</b></div></td>
-                            <td><div align=\"center\"><b>{$row['SupplyQuantity']}</b></div></td>
-                          
-                            </tr>";
-                            }
-
-                          //  echo '</table>';
-                            }
-
-                     }
-    
+                             }       
                                     
                 ?> 
                                </div> 
@@ -471,12 +409,18 @@ if (!empty($sql))
         </div>
 
     
-</div>
+
+
+    </div>
 </div>
 </div>
     
+<<<<<<< HEAD
 
     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+=======
+     <div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+>>>>>>> parent of f231254... [help wanted, read description] TWEAKS ON VIEW ACCS AND INVENTORY
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -488,12 +432,13 @@ if (!empty($sql))
       <div class="modal-body"> Confirm RECEIVE supply?
       </div>
       <div class="modal-footer">
-          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
+          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">Yes</button>
         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
+<<<<<<< HEAD
      
 
                 
@@ -521,6 +466,16 @@ if (!empty($sql))
     
             
 
+=======
+    
+            
+                
+            
+        
+    </form>
+
+
+>>>>>>> parent of f231254... [help wanted, read description] TWEAKS ON VIEW ACCS AND INVENTORY
 <script>
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
