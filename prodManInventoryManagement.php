@@ -93,25 +93,6 @@ if (!empty($sql))
 
 >>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
 <div class="wrapper">
-
- <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Inventory Management</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body"> Confirm RECEIVE supply?
-      </div>
-      <div class="modal-footer">
-          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
-        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
     <!--
@@ -272,8 +253,7 @@ if (!empty($sql))
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">                                
-                        <div class="row">
-                             <div class="col-sm-5">
+                        
                             <p class="category">   Select a button to do a specific task</p>
 
 
@@ -281,47 +261,9 @@ if (!empty($sql))
             <button type = "submit" name = "viewStocks" class = "btn btn-info">View Stocks</button>
 
             <button type = "submit" name = "viewInventory" class = "btn btn-info">Order List</button>
-                            </div> <div class="col-sm-7">
-                               <table class="table table-hover">
-                               <tr>
-                                   <th align="center"><div align="center" padding >Totals</div></th>
-                                    <th align="center"><div align="center" padding >Quantity</div></th></tr>
-                               <?php
-                                   
-                                   
-                                   
-                                   $query2=
-                                       
-                                       "UPDATE `appdev`.`suppliestotal`,supplies SET `Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Hair\" and supplies.datereceived is not null ) WHERE `TotalID`='2';";
-                                       $result2=mysqli_query($dbc,$query2);
-                                     $query3=
-                                       
-                                       "UPDATE `appdev`.`suppliestotal`,supplies SET `Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Vinyl\" and supplies.datereceived is not null ) WHERE `TotalID`='1';";
-                                       $result3=mysqli_query($dbc,$query3);
-                                   
-                                   
-                                   
-                                   
-                                   
 
 
-                                   
-                                
-                                 $query="SELECT * FROM suppliestotal ";
-                            $result=mysqli_query($dbc,$query);
-                                while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                     
-                                
-                                
-                                echo"
-                               <tr><td align =\"center\">{$row['Supply']}</td><td align =\"center\">{$row['Quantity']}</td>
-                                ";}
-                               
-                                    
-                                    ?>
-                                </table>
-                                </div>
-                                </div>
+
                                 <br>
 
                            
@@ -456,7 +398,7 @@ if (!empty($sql))
                   
                              }   // end else
 
-                     if (isset($_POST['viewStocks']))
+                     elseif (isset($_POST['viewStocks']))
                      {
                             echo "  <center><p class=\"category\"><b>Listed below are RECEIVED stock supplies DOLLJOY has ordered. 
                                 <br>";
@@ -474,13 +416,10 @@ if (!empty($sql))
                             
 
 
-                            if ($result3>=0){
+                            if ($result3>0){
                             echo 
 
-                             "
-                           
-                             
-                             <input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
+                             "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
                                     <tr>
 
                                         <th onclick=\"sortTable(0)\"><p class=\"category\"><div align=\"center\"><b>DATE RECEIVED</b></p></div></th>
@@ -539,8 +478,27 @@ if (!empty($sql))
 </div>
 </div>
     
-
-
+====
+    <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inventory Management</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"> Confirm RECEIVE supply?
+      </div>
+      <div class="modal-footer">
+          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+     
+>>>>>>> parent of b649b95... totals and dashboard
                 
             
 </form>

@@ -346,8 +346,6 @@ $numRows = mysqli_num_rows($result);
 
 	$id=$row['CompanyID'];
 	$CName=$row['CName'];
-        $firstn=$row['CRepFirstName'];
-	$lastn=$row['CRepLastName'];
 
 	echo
 	'
@@ -358,7 +356,7 @@ $numRows = mysqli_num_rows($result);
 
 
 	
-	<td align ="left"><input type="text" name="user" size="20" maxlength="30" value="'.$firstn.'.'.$lastn.'"/></td>
+	<td align ="left"><input type="text" name="user" size="20" maxlength="30" value=""/></td>
 
 	<input type = "hidden" name = "CName" value= "'.$CName.'">
 	<input type = "hidden" name = "CompanyID" value= "'.$id.'">
