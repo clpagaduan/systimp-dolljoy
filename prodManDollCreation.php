@@ -31,7 +31,7 @@ if (isset($_POST['submit'])){
             $message="Please upload a display image for the doll.";
         }
         else{
-          $target1 ="images/".basename($_FILES['dollImage']['name']);
+          $target1 ="images/specs/".basename($_FILES['dollImage']['name']);
           $dollImage = addslashes(file_get_contents($_FILES['dollImage']['tmp_name']));
 
            if (move_uploaded_file($_FILES['dollImage']['tmp_name'], $target1)) {

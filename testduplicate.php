@@ -85,10 +85,7 @@ if(isset($_POST['register'])){
     
 $message=null;
     
-    
 
-    
-    
  if (empty($_POST['CName'])){
   $CName=FALSE;
   $cn="<font color='red'>*</font>";

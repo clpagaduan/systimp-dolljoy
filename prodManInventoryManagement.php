@@ -47,6 +47,51 @@ if (!empty($sql))
 <body>
 
 <form action ="prodManInventoryManagement.php" method="post">
+
+    <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inventory Management</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"> Confirm RECEIVE supply?
+      </div>
+      <div class="modal-footer">
+          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
+        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+=======
+=======
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
+
+     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    
+    <div class="modal-content">
+     
+      <div class="modal-body"> 
+            Confirm RECEIVE supply?
+      </div>
+      <div class="modal-footer">
+          
+            <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">  CONFIRM
+            </button>
+            <button type="submit" class="btn btn-secondary" data-dismiss="modal">   CANCEL
+            </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+=======
+
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
+=======
+
+>>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
 <div class="wrapper">
 
  <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -305,7 +350,7 @@ if (!empty($sql))
                             
 
 
-                            if ($result3 >0){
+                            if ($result3 >=0){
                             echo 
 
                              "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
@@ -494,13 +539,13 @@ if (!empty($sql))
 </div>
 </div>
     
-   
-     
+
+
                 
             
 </form>
 
-
+ 
     
             
 

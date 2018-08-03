@@ -122,7 +122,7 @@ Released   : 20130902
 	</div>
 </div>
 
-<div id="banner"></div>
+<!--<div id="banner"></div>-->
 <div id="featured" class="container">
 
 <!-- START OF LOGIN FORM -->

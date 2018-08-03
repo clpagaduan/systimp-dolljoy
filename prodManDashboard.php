@@ -206,6 +206,24 @@
                                     $queryaccp="SELECT CompanyID as 'acct' FROM clientaccount WHERE AccountStatus='Approved'";
                                     $resultaccp=mysqli_query($dbc,$queryaccp);
                                     $accp = $resultaccp->num_rows;
+                                
+                                
+                                
+                                 ////notif Vinyl
+                                     $queryvinyl="SELECT Quantity  FROM suppliestotal WHERE Supply='Vinyl'";
+                                    $resultvinyl=mysqli_query($dbc,$queryvinyl);
+                                
+                                $vinyl=mysqli_fetch_array($resultvinyl,MYSQLI_ASSOC);
+                                echo "{$vinyl['Quantity']}";
+                                  
+                                
+                                 ////notif Hair
+                                    $queryhair="SELECT *  FROM suppliestotal WHERE Supply='Hair'";
+                                    $resulthair=mysqli_query($dbc,$queryhair);
+                                   $hair=mysqli_fetch_array($resulthair,MYSQLI_ASSOC);
+                                echo "{$hair['Quantity']}";
+                                
+                                
                                        
                                         ////notif pending order
                                     $queryorder="SELECT OrderID as 'orderid' FROM orders WHERE OrderStatus='Pending'";
