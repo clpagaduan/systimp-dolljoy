@@ -47,9 +47,10 @@ if (!empty($sql))
 <body>
 
 <form action ="prodManInventoryManagement.php" method="post">
-<<<<<<< HEAD
+
 
     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -453,7 +454,7 @@ if (!empty($sql))
     
                                     
                 ?> 
-                                
+                               </div> 
                             </div>
                             </div>
                                 <div class="content table-responsive table-full-width">
@@ -497,7 +498,7 @@ if (!empty($sql))
 
                 
             
-</form>
+
 
   <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
