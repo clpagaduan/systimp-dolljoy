@@ -47,6 +47,7 @@ if (!empty($sql))
 <body>
 
 <form action ="prodManInventoryManagement.php" method="post">
+<<<<<<< HEAD
 
     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -85,6 +86,8 @@ if (!empty($sql))
 </div>
 
 
+=======
+>>>>>>> parent of a7bf826... MODAL WORKING THANKS BYE
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -496,7 +499,24 @@ if (!empty($sql))
             
 </form>
 
- 
+  <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    
+    <div class="modal-content">
+     
+      <div class="modal-body"> 
+            Confirm RECEIVE supply?
+      </div>
+      <div class="modal-footer">
+          
+            <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">  CONFIRM
+            </button>
+            <button type="submit" class="btn btn-secondary" data-dismiss="modal">   CANCEL
+            </button>
+      </div>
+    </div>
+  </div>
+</div>
     
             
 
