@@ -6,7 +6,7 @@ if(!isset($_SESSION)) {
 }
 
 $username = $_SESSION['username'];
-//echo $username;
+echo $username;
 
 ?>
 
