@@ -89,6 +89,19 @@ $requiredDate =$_POST['requiredDate'];
         
         
 
+             $query8="update ordersrefs set weighthair=( select sum(weight)*quantity from attributevalues where prefHair=valuename  group by orderid) ;";
+
+
+          $result8=mysqli_query($dbc,$query8);
+            
+            
+             $query7="update ordersrefs set weighthair=( select sum(weight)*quantity from attributevalues where prefHair=valuename  group by orderid)";
+
+
+          $result7=mysqli_query($dbc,$query7);
+            
+            
+            
 
         $query2="INSERT INTO Orders       	(OProductID,
                                              OCompanyID,

@@ -51,6 +51,8 @@ Released   : 20130902
         //    echo ($xID);
             $query = "DELETE from appdev.cart WHERE cartID = '{$cID}'";
             $result = mysqli_query($dbc, $query);
+            
+            
         }
 
         if (isset($_POST['add'])){
@@ -62,20 +64,56 @@ Released   : 20130902
         //    echo ($chosenID);
         //    echo ('Qty:');
         //    echo ($qty);
+                    
+//            $id   = $_POST['sID'];
+            $qty = $_POST['qty'];
+            $dollID = $_POST['radioDoll'];
+            $hair = $_POST['radioHair'];
+            $eye  = $_POST['radioEye'];
+            $skin = $_POST['radioSkin'];
+            $size = $_POST['radioSize'];
+            $gen  = $_POST['radioGen'];
+            
+            $dollName = NULL;
+            
+            $query2="SELECT * FROM product WHERE ProductID = '$dollID'";
+            $result=mysqli_query($dbc,$query2);
+//            $count=0;
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            
+            $dollName = $row['ProductName'];
+            $xDesc = $row['ProductDescription'];
+            $xPrice = $row['ProductPrice'];
+            $xSubTotal = $qty * $xPrice;
+//            while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+//                $dollName = $row['ProductName'];
+//                echo $dollName;
+//            }
+            
+            echo $dollID . $dollName . $hair . $eye . $skin . $size . $gen . $qty;
+            
+            $addToCart = "INSERT INTO cart (userName, productID, productName, productGender, productDesc, prefHair, prefSkin, prefEye, prefSize, quantity, price, subtotal) VALUES ('{$username}', '{$dollID}', '{$dollName}', '{$gen}', '{$xDesc}', '{$hair}', '{$skin}', '{$eye}', '{$size}', '{$qty}', '{$xPrice}', '{$xSubTotal}')";
+//            echo $dollID;
+            
+            if (mysqli_query($dbc, $addToCart)){
+                echo "Added to cart!";
+            } else {
+                echo "Error: " . mysqli_error($dbc);
+            }
 
-            if (!empty($_POST['sID'])){
-                $xID = $_POST['sID'];
-                $xQty = $_POST['qty'];
+//            if (!empty($_POST['sID'])){
+//                $xID = $_POST['sID'];
+//                $xQty = $_POST['qty'];
         //        echo ('sID: ');
         //        echo ($xID);
         //        echo '<br> Qty: ';
         //        echo ($xQty);
 
             }
-            $query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
+//            $query = "INSERT INTO appdev.cart (productID, quantity) VALUES ('{$xID}', '{$xQty}')";
 
-                $result = mysqli_query($dbc, $query);
-        }
+//                $result = mysqli_query($dbc, $query);
+        
     ?>
     
 <div id="header" class="container">
@@ -94,7 +132,7 @@ Released   : 20130902
 	</div>
 </div>
 
-<div id="banner"></div>
+<!--<div id="banner"></div>-->
 <div id="content" class="container">
 
 <!-- START OF LOGIN FORM -->
@@ -112,16 +150,27 @@ Released   : 20130902
     <!------ Include the above in your HEAD tag ---------->
 
     <h1><b>Doll Catalog</b></h1>
-
+    <form action="websiteGalleryLoggedIn.php" method="post">
     <div class="content">
         <div class="container-fluid" >
             <div class="row" style="display:flex">
                 
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="col-">
-                        <h4>Step 1: Select a doll!</h4>
+                        <h4>Step 1: Select a doll</h4>
 <!--                        SCROLLBAR FOR THE PREMADE DOLLS-->
-                        <div class="container table-responsive" style="display:flex; width:400px; overflow-y:hidden;overflow-x:scroll;">
+                        <?php
+//                        $listQuery = "SELECT * FROM appdev.product";
+//                        $listResult = mysqli_query($dbc, $listQuery);
+//                        
+//                        while ($row=mysqli_fetch_array($listResult, MYSQLI_ASSOC)){
+//                            $name = $row['ProductName'];
+//                            echo '<label class="radio"><input type="radio" name="dollList" value='.$row['ProductName'].'>
+//                            '.$row['ProductName'].'</label>';
+//                        }
+                        ?>
+                        
+                        <div class="container table-responsive" style="display:flex; width:400px; height:125px; overflow-y:hidden;overflow-x:scroll;">
                         <table class="table table-hover" >
                             <?php 
                             require_once('../mysql_connect.php');
@@ -137,14 +186,20 @@ Released   : 20130902
                                 $image2 = '<img src="data:image/jpeg;base64,'.base64_encode($image).'"style="width:30px;height:30px"/>';
                             echo'
                                 <td><div class=card style="border:1px white; width:50px">
-                                <center>'.$image2.'</center>
+                                <center>'.$image2.'
                                 <h7 class="card-title" align="center">'.$itemName.'</h7>
 
-
-                                <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View</a>
+                                <div class="radio" value='.$id.'><label>
+                                
+                                <input type="radio" name="radioDoll" value='.$row['ProductID'].'> 
+                            </label></div>
+                            
+                                
 
                                 </div></td>
                                 ';
+                                
+//                                <a href="websiteGalleryLoggedInID.php?id='.$id.'" class="btn btn-primary" style="margin:auto; text-align:center; display:block">View</a></center>
                                 
 //                                echo'
 //                                <td><div class=card style="border:1px white; width:50px">
@@ -182,62 +237,117 @@ Released   : 20130902
                     </div>
                     
 <!--                    TABS FOR THE DOLLS-->
-                    <h4>Step 2: Customize your doll!</h4>
+                    <h4>Step 2: Customize your doll</h4>
                   <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#hair">Hair</a></li>
                     <li><a data-toggle="tab" href="#eye">Eye Color</a></li>
                     <li><a data-toggle="tab" href="#skin">Skin Color</a></li>
-                    <li><a data-toggle="tab" href="#outfit">Outfit</a></li>
+                    <li><a data-toggle="tab" href="#dollSize">Size</a></li>
+                    <li><a data-toggle="tab" href="#dollGen">Gender</a></li>
                   </ul>
 
                   <div class="tab-content">
                     <div id="hair" class="tab-pane fade in active">
 <!--                      <h3>HOME</h3>-->
 <!--                      <p>Select Hair Colour</p>-->
-                        <form>
+<!--                        <form>-->
                             <?php
-//                                require_once('../mysql_connect.php');
-//                                $queryHair = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=1;";
-//                                $resultHair = mysqli_query($dbc,$queryHair);
+                        
+//                        $queryHair = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=1;";
+//                        $resultHair = mysqli_query($dbc,$queryHair);
 //
-//                                echo "<select class='form-control' name='hairStyle'>";
+//                        echo "<select class='form-control' name='hairStyle'>";
 //
-//                                while ($Row = mysqli_fetch_array($resultHair)){
+//                        while ($Row = mysqli_fetch_array($resultHair)){
+//                        echo "
+//                        <option value='".$Row['ValueName']."'}>{$Row['ValueName']}</option></div>";
+//                        }
+//                        echo "</select>";
+
+                            $queryHair = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=1;";
+                            $resultHair = mysqli_query($dbc,$queryHair);
+                            
+                            
+                            while ($rowHair = mysqli_fetch_array($resultHair)){
+                            echo '<div class="radio"><label><input type="radio" name="radioHair" value='.$rowHair['ValueName'].'>
+                            '.$rowHair['ValueName'].'</label></div>';
+                            };
+                        
+                            
+//                            echo '<select class="form-control" name="hairstyle">';
+//                        
+//                            while ($rowHair = mysqli_fetch_array($resultHair)){
 //                                echo "<div class='form-group'>
-//                                <option value='".$Row['ValueName']."'}>{$Row['ValueName']}</option></div>";
-//                                }
-//                                echo "</select>";
-//
-//                                echo "</div>";
+//                        <option value='".$Row['ValueName']."'}>{$Row['ValueName']}</option></div>";
+//                            }
+//                            echo '</select></div>';
+                              
 
                             ?>
+<!--
                         <div class="radio"><label><input type="radio" name="optradio">Curly         </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Straight      </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Dreadlocks    </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Wavy          </label></div>
-                      </form>
+-->
+<!--                      </form>-->
                     </div>
                     <div id="eye" class="tab-pane fade">
 <!--                      <h3>Menu 1</h3>-->
 <!--                        <p>Select Eye Colour</p>-->
-                        <form>
+<!--                        <form>-->
+                        <?php
+                        $queryEye = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=3;";
+                        $resultEye= mysqli_query($dbc,$queryEye);
+                            
+                            
+                            while ($eyeRow = mysqli_fetch_array($resultEye)){
+                            echo '<div class="radio"><label><input type="radio" name="radioEye" value='.$eyeRow['ValueName'].'>
+                            '.$eyeRow['ValueName'].'</label></div>';
+                            };                     
+                        ?>
+<!--
                         <div class="radio"><label><input type="radio" name="optradio">Black         </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Brown         </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Blue          </label></div>                   
-                      </form>                    
+-->
+<!--                      </form>                    -->
                     </div>
                     <div id="skin" class="tab-pane fade">
 <!--                      <h3>Menu 2</h3>-->
-                        <p>Select Skin Colour</p>
-                        <form>
+<!--                        <p>Select Skin Colour</p>-->
+<!--                        <form>-->
+                        <?php
+                        $querySkin = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=2;";
+                        $resultSkin = mysqli_query($dbc,$querySkin);
+                            
+                            
+                            while ($skinRow = mysqli_fetch_array($resultSkin)){
+                            echo '<div class="radio"><label><input type="radio" name="radioSkin" value='.$skinRow['ValueName'].'>
+                            '.$skinRow['ValueName'].'</label></div>';
+                            };     
+                        ?>
+<!--
                         <div class="radio"><label><input type="radio" name="optradio">Light         </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Fair          </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Tan           </label></div>
                         <div class="radio"><label><input type="radio" name="optradio">Dark          </label></div>
-                      </form>                    
+-->
+<!--                      </form>                    -->
                     </div>
-                    <div id="outfit" class="tab-pane fade">
+                    <div id="dollSize" class="tab-pane fade">
 <!--                      <h3>Menu 3</h3>-->
+                        <?php
+                            $querySize = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=4;";
+                            $resultSize= mysqli_query($dbc,$querySize);
+                            
+                            
+                            while ($sizeRow = mysqli_fetch_array($resultSize)){
+                            echo '<div class="radio"><label><input type="radio" name="radioSize" value='.$sizeRow['ValueName'].'>
+                            '.$sizeRow['ValueName'].'</label></div>';
+                            };
+                        ?>
+<!--
                         <p>Select Outfit</p>
                         <form>
                         <div class="radio"><label><input type="radio" name="optradio">Formal        </label></div>
@@ -246,13 +356,26 @@ Released   : 20130902
                         <div class="radio"><label><input type="radio" name="optradio">Swimwear      </label></div>
                         
                       </form>                    
+-->
+                      </div>
+                      <div id="dollGen" class="tab-pane fade">
+                          <?php
+                            $queryGen = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=5;";
+                            $resultGen= mysqli_query($dbc,$queryGen);
+                            
+                            
+                            while ($genRow = mysqli_fetch_array($resultGen)){
+                            echo '<div class="radio"><label><input type="radio" name="radioGen" value='.$genRow['ValueName'].'>
+                            '.$genRow['ValueName'].'</label></div>';
+                            };
+                          ?>
                       </div>
                   </div>
                     <h1>&nbsp;</h1>
-                    <h4>Step 3: Select Quantity!</h4>
+                    <h4>Step 3: Select Quantity</h4>
                     <div class="row" style="display:flex">
                         <h7>&nbsp; &nbsp; Quantity &nbsp; </h7>
-                    <input type="number" class="form-control border-input" min="1" style="width: 5em;" value=1>
+                    <input type="number" name="qty" class="form-control border-input" min="1" style="width: 5em;" value=1>
                         <h7>&nbsp;&nbsp;</h7>
                     <input type='submit' name='add' class='btn btn-success btn-fill' value='Add to Cart'/>
                     </div>
@@ -345,7 +468,7 @@ Released   : 20130902
 
                                         echo
                                             '
-                                            <form action="websiteGalleryLoggedIn.php" method="post">
+                                            
                                             <tr>
                                             
                                             <td>'.$name.'</td>
@@ -383,7 +506,11 @@ Released   : 20130902
                         
                     </div>
             </div>
-            <div class="row" style="display:flex">
+            
+    </div>
+    </form>
+</div>
+<div class="row" style="display:flex">
                 <div class="col-md-6">
 <!--                <h5>This should be row 2</h5>-->
                 </div>
@@ -391,9 +518,6 @@ Released   : 20130902
                 <a href='websiteGalleryLoggedInCheckout.php'><button type='submit' class='btn btn-success btn-fill pull-right'>Proceed to Checkout</button></a>
             </div>
         </div>
-    </div>
-</div>
-
 <!-- END OF LOGIN FORM -->
 
 
