@@ -6,7 +6,7 @@ if(!isset($_SESSION)) {
 }
 
 $username = $_SESSION['username'];
-echo $username;
+//echo $username;
 
 ?>
 
@@ -65,6 +65,10 @@ Released   : 20130902
 //        THIS IS WHERE IT ENDS
         $query = "INSERT INTO appdev.orders (OCompanyID, OProductID, OQuantity, OTotalAmount, OOrderedDate, ORequiredDate, OrderStatus, OPaymentStatus, OShipmentStatus, ManufacturingStatus) VALUES ( '{$userID}', NULL, '{$sTotal}', '{$sSum}', DATE(NOW()), '{$getDate}', 'Pending', 'Unpaid', 'Not Shipped', 'Pending')";
         $result = mysqli_query($dbc, $query);
+        
+        
+        
+        
 
         $query="SELECT * FROM appdev.cart WHERE userName ='$username'";
         $result2=mysqli_query($dbc,$query);
@@ -80,14 +84,26 @@ Released   : 20130902
             $eye = $row['prefEye'];
             $size = $row['prefSize'];
 
-            $query = "INSERT INTO appdev.ordersrefs (OrderID, ProductID, quantity, gender, prefHair, prefSkin, prefEye, prefSize) VALUES ((SELECT OrderID FROM appdev.orders WHERE OCompanyID = '{$userID}' ORDER BY OrderID DESC LIMIT 1), '{$pID}' , '{$qty}', '{$gender}', '{$hair}', '{$skin}', '{$eye}', '{$size}')";
+            $query = "INSERT INTO appdev.ordersrefs (OrderID, ProductID, quantity, gender, prefHair, prefSkin, prefEye, prefSize) VALUES ((SELECT OrderID FROM appdev.orders WHERE OCompanyID = '{$userID}' ORDER BY OrderID DESC LIMIT 1), '{$pID}' , '{$qty}', '{$gender}', '{$hair}', '{$skin}', '{$eye}', '{$size} in')";
             $result = mysqli_query($dbc, $query);
 
             $delquery = "DELETE FROM appdev.cart WHERE cartID = '{$bye}'";
             $delresult = mysqli_query($dbc, $delquery);
         }
+    $query8="update ordersrefs set weighthair=( select sum(weight)*quantity from attributevalues where prefHair=valuename  group by orderid) ;";
 
+
+          $result8=mysqli_query($dbc,$query8);
+            
+            
+             $query7="update ordersrefs set weightVinyl=( select sum(weight)*quantity from attributevalues where  prefSkin=valuename
+or prefEye=valuename or prefSize=valuename  group by orderid) ";
+
+
+          $result7=mysqli_query($dbc,$query7);
         header("location: websiteGalleryLoggedIn.php");
+        
+        
 
     }
 

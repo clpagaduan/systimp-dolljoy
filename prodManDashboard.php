@@ -1,3 +1,7 @@
+
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -214,14 +218,14 @@
                                     $resultvinyl=mysqli_query($dbc,$queryvinyl);
                                 
                                 $vinyl=mysqli_fetch_array($resultvinyl,MYSQLI_ASSOC);
-                                echo "{$vinyl['Quantity']}";
+                               
                                   
                                 
                                  ////notif Hair
                                     $queryhair="SELECT *  FROM suppliestotal WHERE Supply='Hair'";
                                     $resulthair=mysqli_query($dbc,$queryhair);
                                    $hair=mysqli_fetch_array($resulthair,MYSQLI_ASSOC);
-                                echo "{$hair['Quantity']}";
+                                
                                 
                                 
                                        
@@ -373,6 +377,26 @@
                                     <span aria-hidden="true"><b><font color="black">No pending notifications</font></span>
                                 </div>';
                                   }
+                                 $hper = $hair['Quantity']/100*100;
+                                if ($hair['Quantity'] < 5000){
+                                    
+                                     echo '
+                                        <div class="alert alert-warning">
+                                            <a href="prodManInventoryManagement.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+                                            <span aria-hidden="true"><b><font color="black">Supplies - </b>  Hair storage at '.$hper.'%</font></span></a>
+                                        </div>';
+                                }
+                                
+                                 $vper = $vinyl['Quantity']/1000*100;
+                               
+                                if ($vinyl['Quantity'] < 5000){
+                                    
+                                     echo '
+                                        <div class="alert alert-warning">
+                                            <a href="prodManInventoryManagement.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+                                            <span aria-hidden="true"><b><font color="black">Supplies - </b> Vinyl storage at '.$vper.'% </font></span></a>
+                                        </div>';
+                                }
                                   
                                   ?>
                             </div>
@@ -393,6 +417,67 @@
 
     </div>
 </div>
+           
+                        <div class="row">
+                             <div class="col-sm-5">
+                            <p class="category">   Select a button to do a specific task</p>
+
+
+
+            <button type = "submit" name = "viewStocks" class = "btn btn-info">View Stocks</button>
+
+            <button type = "submit" name = "viewInventory" class = "btn btn-info">Order List</button>
+                            </div> <div class="col-sm-7">
+                               <table class="table table-hover">
+                               <tr>
+                                   <th align="center"><div align="center" padding >Totals</div></th>
+                                    <th align="center"><div align="center" padding >Quantity</div></th></tr>
+                               <?php
+                                   
+                                   
+                                   
+                               $query2=
+                                       
+                                       "UPDATE `appdev`.`suppliestotal`,supplies SET session =1,`Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Hair\" and supplies.datereceived is not null ) WHERE `TotalID`='2' and session =0;";
+                                       $result2=mysqli_query($dbc,$query2);
+                                     $query3=
+                                       
+                                       "UPDATE `appdev`.`suppliestotal`,supplies SET session =1,`Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Vinyl\" and supplies.datereceived is not null ) WHERE `TotalID`='1' and session =0;";
+                                       $result3=mysqli_query($dbc,$query3);
+                                   
+                                   
+                                   
+                                   
+                                   
+
+
+
+                                   
+                                
+                                 $query="SELECT * FROM suppliestotal ";
+                            $result=mysqli_query($dbc,$query);
+                                while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                     
+                                
+                                
+                                echo"
+                               <tr><td align =\"center\">{$row['Supply']}</td><td align =\"center\">{$row['Quantity']}</td>
+                                ";}
+                               
+                                    
+                                    ?>
+                                </table>
+                                </div>
+                                </div>
+                                <br>
+
+
+
+
+
+
+
+
 
 
 </body>
