@@ -247,7 +247,7 @@
                                       echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManAccountRequests.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Activate Client Accounts - </b> There are client accounts pending for approval</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Activate Client Accounts - </b> There are '.$acct.' client accounts pending for approval</font></span></a>
                                         </div>';
                                   }
 
@@ -267,7 +267,7 @@
                                       echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManAccountActivations.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Activate Client Accounts - </b> There are client accounts pending for activation</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Activate Client Accounts - </b> There are '.$accp.' client accounts pending for activation</font></span></a>
                                         </div>';
                                   }
 
@@ -287,7 +287,7 @@
                                       echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManReviewOrders.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Order Approval - </b> There are orders pending for approval</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Order Approval - </b> There are '.$order.' orders pending for approval</font></span></a>
                                         </div>';
                                   }
                                   
@@ -306,7 +306,7 @@
                                       echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManPaymentShipment.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Shipment - </b> There are orders ready to be shipped</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Shipment - </b> There are '.$ship.'orders ready to be shipped</font></span></a>
                                         </div>';
                                   }
                                   
@@ -325,7 +325,7 @@
                                       echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManPaymentShipment.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Payment - </b> There are orders pending payment</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Payment - </b> There are '.$pay.'orders pending payment</font></span></a>
                                         </div>';
                                   }
                                   
@@ -344,7 +344,7 @@
                                       echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManInventoryManagement.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Supplies - </b> There are supplies waiting to be received</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Supplies - </b> There are  '.$rcv.' supplies waiting to be received</font></span></a>
                                         </div>';
                                   }
                               }
