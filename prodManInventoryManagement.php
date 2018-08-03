@@ -62,9 +62,7 @@ if (!empty($sql))
       <div class="modal-footer">
           <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-=======
-=======
->>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
+
 
      <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -86,12 +84,7 @@ if (!empty($sql))
   </div>
 </div>
 
-=======
 
->>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
-=======
-
->>>>>>> a7bf82600c17491d3a03282ba2ec6e2278226c3d
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -478,7 +471,7 @@ if (!empty($sql))
 </div>
 </div>
     
-====
+
     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -498,7 +491,7 @@ if (!empty($sql))
   </div>
 </div>
      
->>>>>>> parent of b649b95... totals and dashboard
+
                 
             
 </form>
