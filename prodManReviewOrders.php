@@ -1,5 +1,12 @@
 <?php
 require_once('../mysql_connect.php');
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+//$orderID = $_GET['id'];
+=======
+>>>>>>> 5e23829e7feb088a1c8d2ae304c3e7b36caf2a8d
+>>>>>>> e4afaff200f20ca63637ee20c5c60ca153c408ad
 $sql = "";
 
 if (!empty($sql)){

@@ -1,23 +1,82 @@
 <?php
 
-require_once(__DIR__.'/../mysql_connect.php');
+require_once('../mysql_connect.php');
 
 session_start();
 
+$queryHair = "SELECT * FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID =
+             attributevalues.AttributeTypeID WHERE AttributeID=1;";
 
+$resultHair = mysqli_query($dbc, $queryHair);
+
+//while ($row=mysqli_fetch_array($resultHair)){
+//    $hair=$row['ValueName'];
+//    echo $hair;
+//}
+
+$flag=0;
+$cn=$ca=$cnum=$cea=$cfn=$cln=$crnum=$cra=$un=$pw=$crea=NULL;
+$empties=$invalid=0;
 
 $msg="";
 $message="";
 $count="";
 
+if(isset($_POST['add'])){
+//    $_newID = $_POST['newID'];
+//    $_newName = $_POST['new_name'];
+//    echo $_newID . $_newName;
+    
+    if (empty($_POST['new_name'])){
+            $new_name=FALSE;
+            $cn="<font color='red'>*</font>";
+            $empties++;
+            $message .= "Empty name \n";
+        } else {
+            $new_name=$_POST['new_name'];
+            echo $new_name;
+        }
+    
+    if (empty($_POST['new_desc'])){
+            $new_desc=FALSE;
+            $ca="<font color='red'>*</font>";
+            $empties++;
+            $message .= "Empty desc \n";
+        } else {
+            $new_desc=$_POST['new_desc'];
+            echo $new_desc;
+        }
+    
+    $doll_name = $new_name;
+    $doll_desc = $new_desc;
+    $doll_price= $_POST['price'];
+    $doll_hair = $_POST['doll_hair'];
+    $doll_eye  = $_POST['doll_eye'];
+    $doll_skin = $_POST['doll_skin'];
+    $doll_gen  = $_POST['doll_gen'];
+    $doll_size = $_POST['doll_size'];
+    
+    $imagename  = $_FILES["myimage"]["name"];
+    $imagetmp = addslashes(file_get_contents($_FILES['myimage']['tmp_name']));
+    
+    
+//    $file = addslashes(file_get_contents($_FILES["image"["tmp_name"]]));
+    
+    echo $doll_hair . $doll_eye . $doll_skin . $doll_gen . $doll_size . $doll_price;
+                       
+    $query = "INSERT INTO product  (ProductType, ProductName, ProductImage, ProductDescription, ProductPrice) 
+                            VALUES ('PreMade', '{$doll_name}', '{$imagetmp}', '{$doll_desc}', '{$doll_price}' )";
+    
+    if (mysqli_query($dbc, $query)){
+        echo "Added!";
+    } else {
+        echo "Error: " . mysqli_error($dbc);
+    }
+}
+
 if (isset($_POST['submit'])){
         $message=NULL;
 
-
-
-
-
-        
           $productType="PreMade";
           $dollName=$_POST['dollName'];
           //$dollImage=$_POST['dollImage'];
@@ -42,8 +101,6 @@ if (isset($_POST['submit'])){
            }
 
          }
-
-
 
       if(!isset($message)){
     
@@ -156,7 +213,7 @@ if (isset($_POST['submit'])){
 
 </head>
 <body>
-
+<form action="prodManDollCreation.php" method="post" enctype="multipart/form-data">
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -312,169 +369,157 @@ if (isset($_POST['submit'])){
         </nav>
 
 
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
+        
+        <div class="col-lg-8 col-md-7">
                         <div class="card">
                             <div class="header">
-                                <p class="category"><b>Create a new doll to add to product catalog by filling out the following details</b></p>
-                                <p> <?php echo "$message <br>"; ?></p>
+                                <h4 class="title">Doll Creation</h4>
                             </div>
-                            <br><br>
-                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label>&nbsp;&nbsp;<b>Doll Name</b></label>
-                          <input type="text" name="dollName" class="form-control" placeholder="Doll Name" required>
+                            <div class="content">
+                                
+                                    <div class="row">
+<!--
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>ID</label>
+                                                <input type="text" name="newID" class="form-control border-input" disabled placeholder="1" value="1">
+                                            </div>
+                                        </div>
+-->
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input type="text" name="new_name" value="<?php if (isset($_POST['new_name']) && !$flag) echo $_POST['new_name'];?>" class="form-control border-input" placeholder="e.g. Barbie">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Product Price</label>
+                                                <input type="number" name="price" class="form-control border-input" placeholder="e.g. 15.00" min=0.0 step=0.5 required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            
+                                            <div class="form-group">
+                                                <label>Hair</label>
+                                                
+                                                <select class="form-control" name="doll_hair">
+                                                <?php   
+                                                    $queryHair = "SELECT * FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID =
+                                                    attributevalues.AttributeTypeID WHERE AttributeID=1;";
+
+                                                    $resultHair = mysqli_query($dbc, $queryHair);
+                                                    while ($row=mysqli_fetch_array($resultHair)){
+                                                    $hair=$row['ValueName'];
+                                                        
+                                                    echo "<option value='".$row['ValueName']."'>{$row['ValueName']}</option>";
+                                                    } 
+                                                ?>
+                                                </select>
+                                            </div>
+<!--                                                <input type="text" class="form-control border-input" placeholder="Company" value="Chet">-->                                           
+                                            
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Eye Color</label>
+                                                <select class="form-control" name="doll_eye">
+                                                <?php   
+                                                    $queryEye = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=3;";
+                                                    
+                                                    $resultEye= mysqli_query($dbc,$queryEye);
+                                                    
+                                                    while ($row=mysqli_fetch_array($resultEye)){
+       
+                                                    echo "<option value='".$row['ValueName']."'>{$row['ValueName']}</option>";
+                                                    } 
+                                                ?>
+                                                </select>
+<!--                                                <input type="text" class="form-control border-input" placeholder="Last Name" value="Faker">-->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Skin Color</label>
+                                                <select class="form-control" name="doll_skin">
+                                                <?php   
+                                                    $querySkin = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=2;";
+                                                    $resultSkin = mysqli_query($dbc,$querySkin);
+                                                    
+                                                    while ($row=mysqli_fetch_array($resultSkin)){
+       
+                                                    echo "<option value='".$row['ValueName']."'>{$row['ValueName']}</option>";
+                                                    } 
+                                                ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Gender</label>
+                                                <select class="form-control" name="doll_gen">
+                                                <?php   
+                                                    $queryGen = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=5;";
+                                                    $resultGen = mysqli_query($dbc,$queryGen);
+                                                    
+                                                    while ($row=mysqli_fetch_array($resultGen)){
+       
+                                                    echo "<option value='".$row['ValueName']."'>{$row['ValueName']}</option>";
+                                                    } 
+                                                ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Size</label>
+                                                <select class="form-control" name="doll_size">
+                                                <?php   
+                                                    $querySize = "SELECT ValueName FROM appdev.attributevalues JOIN attribute ON attribute.AttributeID = attributevalues.AttributeTypeID WHERE AttributeID=4;";
+                                                    $resultSize = mysqli_query($dbc,$querySize);
+                                                    
+                                                    while ($row=mysqli_fetch_array($resultSize)){
+       
+                                                    echo "<option value='".$row['ValueName']."'>{$row['ValueName']}</option>";
+                                                    } 
+                                                ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <input type="text" name="new_desc" value="<?php if (isset($_POST['new_desc']) && !$flag) echo $_POST['new_desc'];?>" class="form-control border-input" placeholder="Doll Description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                        <input type="file" name="myimage" class="btn btn-info btn-fill btn">
+                                        
+                                        </div>
+                                        <div class="col-md-6">
+                                        <input type='submit' name='add' class='btn btn-success btn-fill' value='Update Profile'/>    
+<!--                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>-->
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label><b>Gender</b></label>
-                          <select name="dollGender" class="form-control input" onchange="showDiv(this)">
-                            <option value="Female">Female</option>
-                            <option value="Male">Male</option>
-                        </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label><b>Size</b></label>
-                          <select name="dollSize" class="form-control input" onchange="showDiv(this)">
-                        <option value="Small (6 inches)">Small (6 inches)</option>
-                        <option value="Medium (10 inches)">Medium (10 inches)</option>
-                        <option value="Large (12 inches)">Large (12 inches)</option>
-                        </select>
-                        </div>
-                      </div>
                     </div>
-                    Upload Display Image of Doll:<br><input type="file" name="dollImage" accept="image/*" onchange="readURL(this);"/>
-                    <br>
-                    <img id="display" src="#" alt="Display Image"/>
+        
 
-                    <script type="text/javascript">
-                      function readURL(input) {
-                          var $prev = $('#display'); // cached for efficiency
-
-                          if (input.files && input.files[0]) {
-                              var reader = new FileReader();
-
-                              reader.onload = function (e) {
-                                  $prev.attr('src', e.target.result);
-                              }
-
-                              reader.readAsDataURL(input.files[0]);
-
-                              $prev.show(); // this will show only when the input has a file
-                          } else {
-                              $prev.hide(); // this hides it when the input is cleared
-                          }
-                      }
-
-                    </script>
-
-                    
-
-<?php 
-
-                            $query = "SELECT  *
-                                      FROM    Attribute";
-                            $result=mysqli_query($dbc,$query);
-
-
-                            //Loop for attribute name
-                            while ($row = mysqli_fetch_array($result)) { 
-
-?>
-
-                    <div class="row">
-                     <div class="col-md-12">
-                        <div class="form-group">
-                          <!--Prints attribute name ex: Hairstyle,Haircolor-->
-                          <label>&nbsp;&nbsp;<b><?php echo $row["AttributeName"]; ?></b></label>
-
-                          <?php
-                            $attributeID = $row["AttributeID"];
-                           ?>
-
-                          <head>
-                            <style>
-                              table {width: 100%;}
-                              th,
-                              td {padding: 5px;text-align: left;}
-                              table#t01 tr:nth-child(even) {background-color: #FFFCF5;}
-                              table#t01 tr:nth-child(odd) {background-color: #FFFCF5;}
-                              table#t01 th {background-color: white;color: black;}
-                            </style>
-                          </head>
-                          <body>
-
-                            <?php 
-                            //loop for attribute values ex. Wavy,Straight,Curly hair, Green Hair,Black hair
-                            //radio buttons
-                            $query2 = "SELECT  *
-                                      FROM    AttributeValues
-                                      WHERE   AttributeTypeID = '$attributeID' AND AttributeValueType = 'PreMade'";
-                            $result2 = mysqli_query($dbc,$query2);
-                            ?>
-
-                            <table id="t01">
-                              <tr>
-
-
-
-
-                            <?php 
-                            //loop for attribute values ex. Wavy,Straight,Curly hair, Green Hair,Black hair
-                              while ($row2 = mysqli_fetch_array($result2)) { 
-                                //echo $row2["ValueName"];
-
-                            ?>
-                            <td>
-                              <center>
-                                <!--row2["value image"] shows the image-->
-                                <!--row2["value  valueName"] value of the selected radio button-->
-                                <img src=<?php  echo '"data:image/jpeg;base64,'.base64_encode( $row2['ValueImage'] ).'" '; ?>><br><input type="radio" name="<?php echo $row["AttributeName"]; ?>" value="<?php echo $row2["ValueID"]; ?>" >
-                              </center>
-                            </td>
-<?php
-                            }
-?>
-                              </tr>
-                            </table>
-                             </font>
-                          </body>
-                          </div>
-                      </div>
-                    </div>
-<?php
-
-                  }
-?>
-
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>&nbsp;&nbsp;<b>Doll Description</b></label>
-                          <textarea type="text" name="dollDescription" class="form-control" placeholder="Description" required></textarea> 
-                        </div>
-                          
-                        <button type="submit" class="btn btn-info btn-fill pull-right" Name="submit">CREATE DOLL</button>
-
-                      </div>
-                    </div>
-                      </div>
-                    </div>
-
-                    <hr>
-                  </form>
-                    </div>
-
-
-            </div>
+            
         </div>
 
         <footer class="footer">
@@ -485,11 +530,12 @@ if (isset($_POST['submit'])){
             </div>
         </footer>
 
-
-    </div>
+<!--DO THIS LATER
+USE VALUE ID INSTEAD OF VALUE NAME WHEN RETRIEVING DATA FROM DB AND INSERTING-->
+    
 </div>
 
-
+</form>
 </body>
 
     <!--   Core JS Files   -->
