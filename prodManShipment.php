@@ -1,14 +1,39 @@
-<!doctype html>
 <?php
-    require_once('../mysql_connect.php');
-    session_start();
+require_once('../mysql_connect.php');
+$sql = "";
+date_default_timezone_set('Asia/Manila');
+
+if (isset($_POST['ship'])){
+
+    $dates = $_POST['shipdate'];
+    echo"";
+    $id=$_POST['id'];
+    
+      echo"$id $dates";
+    $sql = "UPDATE Orders SET OShippedDate = $dates, OShipmentStatus = 'Shipped' WHERE OrderID = $id" ;
+    $qu = mysqli_query($dbc, $sql);
+    
+    if (mysqli_query($dbc, $sql)){
+        echo "Added!";
+    } else {
+        echo "Error: " . mysqli_error($dbc);
+    }
+    
+    
+}
+
+
+if (!empty($sql))
+    $qu = mysqli_query($dbc, $sql);
 ?>
+
+<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Completed Orders</title>
+	<title>Payment and Shipment</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -33,7 +58,7 @@
 
 </head>
 <body>
-
+ <form action="prodManShipment.php" method="post">
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -92,13 +117,13 @@
                         <p>Current Orders</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="prodManPaymentShipment.php">
                         <i class="ti-new-window"></i>
                         <p>Payment and Shipment</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="prodManCompletedOrders.php">
                         <i class="ti-agenda"></i>
                         <p>Completed Orders</p>
@@ -160,7 +185,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="prodManCompletedOrders.php">Completed Orders</a>
+                    <a class="navbar-brand" href="prodManPaymentShipment.php">Payment and Shipment</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -192,160 +217,85 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    
-                    <div class="col-md-12">
+                  
+ <div class="col-md-12">
                         <div class="card">
-                            <p class="category">
-                                <b>
-                                <br>    
-                                &nbsp;&nbsp;&nbsp;    
-                                <?php
-                                date_default_timezone_set('Asia/Manila');
-                                echo "<b>As of ".date('m/d/Y h:i A', time())."</b>";
-                                ?>
-                                </b>    
-                                </p>
-                            <center>
                             <div class="header">
-                                <h3 class="title"><b>DOLLJOY<br></b></h3>
-                                <h4 class="title"><b>INDIVIDUAL SALES REPORT</b></h4>
+                                <p class="category">*Needs INSTRUCTIONS</p>
                             </div>
-                            
-                                <div class="content table-responsive table-full-width">
+                               <div class="content table-responsive table-full-width"style='overflow:auto; max-height:500px;'>
                                 
-                                <table class="table table-hover">
-                           <?php
-                                     $id = $_GET['id'];
-                                  
-                            
-                            if (isset($_GET["id"])){
-                               
-                                $query = "SELECT *, FORMAT(OTotalAmount,2) AS OTotalAmount, FORMAT(OQuantity,0) AS OQuantity, FORMAT(OPrice,2) AS OPrice, ClientAccount.CName AS 'Name', Product.ProductType AS 'Type', Product.ProductName AS 'PName' FROM Orders O INNER JOIN ClientAccount ON O.OCompanyID=ClientAccount.CompanyID INNER JOIN ordersrefs ON O.orderid=ordersrefs.orderid
-inner join product on product.productid = ordersrefs.productid WHERE ordersrefs.OrderID =$id group by ordersrefs.productid";
-                                
-                                // ORDER DETAILS TABLE
+                                <table class="table table-hover" >
+                                    <thead>
+                                        <th><p class="category"><b>ORDER ID</b></p></th>
+                                        <th><p class="category"><b>COMPANY</b></p></th>
+                                        <th><p class="category"><b>QUANTITY</b></p></th>
+                                        <th><p class="category"><b>DATE ORDER</b></p></th>
+                                        <th><p class="category"><b>DATE REQUIRED</b></p></th>
+                    
+                                    </thead>
                                     
-                                $result=mysqli_query($dbc,$query);
-                                while ($row=mysqli_fetch_array($result)){
-                                    $productID = $row['ProductID'];
-                                    $name = $row['Name'];
-                                    $qty = $row['OQuantity'];
-                                    $price = $row['ProductPrice'];
-                                    $totalamt = $row['OTotalAmount'];
-                                    $odate = date_format(date_create($row['OOrderedDate']), 'F d, Y');
-                                    $pdate = date_format(date_create($row['OPaymentDate']), 'F d, Y');
-                                    $ptype = $row['Type'];
-                                    $pname = $row['PName'];
-                                    
-                                echo '<table width=50%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
-                                <tr bgcolor="black">
-                                <td colspan="2"><div align="center"><font color="white"><b>ORDER DETAILS</font>
-                                </div></b></td>
-                                </tr>';
-                                    
-                                    
-                                echo "<tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Order #</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"center\">$id
-                                </div></td>
-                                </tr>
-                                
-                                
-                                <tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Ordered by</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"center\">$name
-                                </div></td>
-                                </tr>
-                                
-                                <tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Date Ordered</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"center\">$odate
-                                </div></td>
-                                </tr>
-                                
-                                
-                                <tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Payment Date</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"center\">$pdate
-                                </div></td>
-                                </tr>
-                                    
-                                
-                                </table>
-                                <br><br>";
-                                    
-                                
-                                // ORDER PRICE AND QUANTITY    
-                                echo '<table width=50%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000">
-                                <tr bgcolor="black">
-                                <td colspan="2"><div align="center"><font color="white"><b>ORDER PRICE AND QUANTITY</font>
-                                </div></b></td>
-                                </tr>';
-                                    
-                                    
-                                echo "<tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Price per Doll (in PHP)</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"right\">$price
-                                </div></td>
-                                </tr>
-                                
-                                <tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Quantity Ordered</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"right\">$qty
-                                </div></td>
-                                </tr>
-                                
-                                <tr>
-                                <td width=\"10%\"><div align=\"center\"><b>Total Amount (in PHP)</b>
-                                </div></td>
-                                
-                                <td width=\"10%\"><div align=\"right\">PHP $totalamt
-                                </div></td>
-                                </tr>
-                                    
-                                
-                                </table>
-                                <br><br>";
-                            }
-                            }
-                            
-                            else{
-                                echo "No Order ID selected.";
-                            }
+<?php
 
-                                ?>
-                            <strong><center><b>------ END OF REPORT ------</b></center></strong>
-                            <br><br>
-                            <center>
-                            <a class="noprint" href="javascript:window.print()"><input type="submit" value="Print" class="btn btn-fill btn-info"></a>
-                            </center>
-                          
-                            <center>
-                                <form action="prodManCompletedOrderReport.php" method="post">
-                                    <input type="hidden" name="startDate" value="<?php echo $startDate; ?>">
-                                    <input type="hidden" name="endDate" value="<?php echo $endDate; ?>">
-                                    <br>
-                                    <input class="noprint btn btn-fill btn-default" type="submit" method="Back" name="Back" value="Back"></form></center>
+//SHIP
+$query="SELECT *, C.CName from Orders O join ClientAccount C on O.OCompanyID=C.CompanyID WHERE OShipmentStatus='Not shipped'  AND OrderStatus='Approved' AND CompanyID = OCompanyID";
+$result=mysqli_query($dbc,$query);
 
-                        <br>
-                        <br>
-                                </table>
+$numRows = mysqli_num_rows($result);
+                                    
+
+
+                             
+//PAID
+while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+
+$id=$row['OrderID'];
+
+echo 
+"
+<tr>
+
+<td><b><a href=\"prodManCurrentOrderID.php?id=$id \">{$row['OrderID']}</a></b></td>
+<td><b>{$row['CName']}</b></td>
+<td><b>{$row['OQuantity']}</b></td>
+<td><b>{$row['OOrderedDate']}</b></td>
+<td><b>{$row['ORequiredDate']}</b></td>
+
+
+
+<td>
+                           
+                            <input type = \"button\"  class=\"btn btn-fill btn-success\" value=\"SHIP\" data-toggle=\"modal\" data-target=\"#exampleModal\">
+                            <input type = \"hidden\" name =\"id\" class=\"\" value=\"$id\">
+                            </td></tr>
+";
+?>
+    <?php 
+}?>
+                                    
+                                    
+                                    </table>
+                                    
+    <center>
+    <label>
+        <?php 
+            if(isset($message)){
+                echo $message;
+            }
+        ?>
+            
+    </label>
+    </center>
+
                         </div>
+                        
+                        
+                        <br>
+                        
                     </div>
+                    
+                </div>
 
-                        </div>
 
 
                 </div>
@@ -364,7 +314,28 @@ inner join product on product.productid = ordersrefs.productid WHERE ordersrefs.
     </div>
 </div>
 
+<div></div>
+<div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Accept Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"> Shipment Date: <input type="date" name="shipdate" required>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" name ="ship"  class="btn btn-secondary">accept</button>
+            <button type="button"  class="btn btn-primary" data-dismiss="modal">cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+</form>
 </body>
 
     <!--   Core JS Files   -->

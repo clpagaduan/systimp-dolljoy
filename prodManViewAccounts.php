@@ -228,7 +228,7 @@ th {
                     
 
                     
-                                <div class="content table-responsive table-full-width">
+                                <div class="content table-responsive table-full-width"style='overflow:auto; height:500px;'>
                                 <table id="myTable" class="table table-hover">
                                     <thead>
 

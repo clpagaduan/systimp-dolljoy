@@ -377,24 +377,24 @@
                                     <span aria-hidden="true"><b><font color="black">No pending notifications</font></span>
                                 </div>';
                                   }
-                                
-                                if ($hair['Quantity'] < 500000000000){
-                    
+                                 $hper = $hair['Quantity']/100*100;
+                                if ($hair['Quantity'] < 5000){
+                                    
                                      echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManInventoryManagement.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Supplies - </b>  Low on Hair</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Supplies - </b>  Hair storage at '.$hper.'%</font></span></a>
                                         </div>';
                                 }
                                 
-                                
-                                
-                                if ($vinyl['Quantity'] < 500000000000){
-                    
+                                 $vper = $vinyl['Quantity']/1000*100;
+                               
+                                if ($vinyl['Quantity'] < 5000){
+                                    
                                      echo '
                                         <div class="alert alert-warning">
                                             <a href="prodManInventoryManagement.php"><button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                                            <span aria-hidden="true"><b><font color="black">Supplies - </b> Low on Vinyl</font></span></a>
+                                            <span aria-hidden="true"><b><font color="black">Supplies - </b> Vinyl storage at '.$vper.'% </font></span></a>
                                         </div>';
                                 }
                                   
@@ -436,13 +436,13 @@
                                    
                                    
                                    
-                                   $query2=
+                               $query2=
                                        
-                                       "UPDATE `appdev`.`suppliestotal`,supplies SET `Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Hair\" and supplies.datereceived is not null ) WHERE `TotalID`='2';";
+                                       "UPDATE `appdev`.`suppliestotal`,supplies SET session =1,`Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Hair\" and supplies.datereceived is not null ) WHERE `TotalID`='2' and session =0;";
                                        $result2=mysqli_query($dbc,$query2);
                                      $query3=
                                        
-                                       "UPDATE `appdev`.`suppliestotal`,supplies SET `Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Vinyl\" and supplies.datereceived is not null ) WHERE `TotalID`='1';";
+                                       "UPDATE `appdev`.`suppliestotal`,supplies SET session =1,`Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Vinyl\" and supplies.datereceived is not null ) WHERE `TotalID`='1' and session =0;";
                                        $result3=mysqli_query($dbc,$query3);
                                    
                                    

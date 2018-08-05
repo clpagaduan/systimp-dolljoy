@@ -215,9 +215,9 @@ if (!empty($sql))
                             <div class="header">
                                 <p class="category">*Needs INSTRUCTIONS</p>
                             </div>
-                                <div class="content table-responsive table-full-width">
+                                <div class="content table-responsive table-full-width"style='overflow:auto; max-height:500px;'>
                                 
-                                <table class="table table-hover">
+                                <table class="table table-hover" >
                                     <thead>
                                         <th><p class="category"><b>ORDER ID</b></p></th>
                                         <th><p class="category"><b>COMPANY</b></p></th>
@@ -259,15 +259,15 @@ echo
 <td><b>{$row['OQuantity']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-<td><b>{$row['OShippedDate']}</b></td>
 
 
 <td>
                             <form action=\"prodManPaymentShipment.php\" method=\"post\">
                             <input type = \"submit\" name =\"ship\" class=\"btn btn-fill btn-success\" value=\"SHIP\">
-                            <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
+                            <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\" />
                             </form></td></tr>
 ";
+   
     
 }
                                     
@@ -285,7 +285,7 @@ echo
 <td><b>{$row['OQuantity']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-<td><b>{$row['OShippedDate']}</b></td>
+$id
 
 
 <td>
@@ -294,8 +294,9 @@ echo
                             <input type = \"hidden\" name =\"id\" class=\"\" value=\"".$id."\">
                             </td></tr>
 ";
-?>
-    <?php 
+
+    
+    ;
 }?>
                                     
                                     
@@ -313,8 +314,14 @@ echo
     </center>
 
                         </div>
+                        
+                        
+                        <br>
+                        
                     </div>
+                    
                 </div>
+
 
 
 
@@ -351,6 +358,10 @@ echo
     </div>
   </div>
 </div>
+<div></div>
+
+
+
 </form>
 </body>
 

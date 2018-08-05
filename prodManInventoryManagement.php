@@ -45,11 +45,8 @@ if (!empty($sql))
 
 </head>
 <body>
-<form action ="prodManInventoryManagement.php" method="post">
-
-
-    <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    
+  <form action ="prodManInventoryManagement.php" method="post">
+   <div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -61,33 +58,13 @@ if (!empty($sql))
       <div class="modal-body"> Confirm RECEIVE supply?
       </div>
       <div class="modal-footer">
-          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">CONFIRM</button>
+          <button type="submit" name="accept" id ="accept"onclick="Alert()" class="btn btn-secondary">Yes</button>
         <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
-
-     <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    
-    <div class="modal-content">
-     
-      <div class="modal-body"> 
-            Confirm RECEIVE supply?
-      </div>
-      <div class="modal-footer">
-          
-            <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">  CONFIRM
-            </button>
-            <button type="submit" class="btn btn-secondary" data-dismiss="modal">   CANCEL
-            </button>
-
       </div>
     </div>
   </div>
 </div>
-
-
-=======
->>>>>>> parent of a7bf826... MODAL WORKING THANKS BYE
+<form action ="prodManInventoryManagement.php" method="post">
 <div class="wrapper">
 	<div class="sidebar" data-background-color="white" data-active-color="info">
 
@@ -248,22 +225,60 @@ if (!empty($sql))
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="header">                                
+                              <div class="header">                                
                         
+                             <div class="row">
+                             <div class="col-sm-5">
                             <p class="category">   Select a button to do a specific task</p>
 
-            <button type = "submit" name = "viewInventory" class = "btn btn-info">View Inventory</button>
-            <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
+
+
+            <button type = "submit" name = "viewStocks" class = "btn btn-info">View Stocks</button>
+
+           <button type = "submit" name = "receiveSupplies" class = "btn btn-info">Receive Supplies</button>
+                            </div> <div class="col-sm-7">
+                               <table class="table table-hover">
+                               <tr>
+                                   <th align="center"><div align="center" padding >Totals</div></th>
+                                    <th align="center"><div align="center" padding >Quantity</div></th></tr>
+                               <?php
+                                   
+                                   
+                                   
+                                   $query2=
+                                       
+                                       "UPDATE `appdev`.`suppliestotal`,supplies SET session =1,`Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Hair\" and supplies.datereceived is not null ) WHERE `TotalID`='2' and session =0;";
+                                       $result2=mysqli_query($dbc,$query2);
+                                     $query3=
+                                       
+                                       "UPDATE `appdev`.`suppliestotal`,supplies SET session =1,`Quantity`= (select sum(supplyquantity) from supplies join suppliers as s on s.SupplierID= supplies.SupplierID where s.SupplyType=\"Vinyl\" and supplies.datereceived is not null ) WHERE `TotalID`='1' and session =0;";
+                                       $result3=mysqli_query($dbc,$query3);
+                                   
+                                   
+                                   
+                                   
+                                   
 
 
 
-                                <br>
-
-                           
-
-                            <div class="content table-responsive table-full-width">
-                                <table id="myTable" class="table table-hover">
-
+                                   
+                                
+                                 $query="SELECT * FROM suppliestotal ";
+                            $result=mysqli_query($dbc,$query);
+                                while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                     
+                                
+                                
+                                echo"
+                               <tr><td align =\"center\">{$row['Supply']}</td><td align =\"center\">{$row['Quantity']}</td>
+                                ";}
+                               
+                                    
+                                    ?>
+                                </table>
+                                </div>
+                                </div>
+                                 <table id="myTable" class="table table-hover">
                                   <?php  
     
                                     if (isset($_POST['receiveSupplies']))
@@ -329,7 +344,7 @@ if (!empty($sql))
                             }
                         }// end if isset receive supplies
 
-                        elseif (isset($_POST['viewInventory']))
+                        if (isset($_POST['viewInventory']))
     
                                     { echo"
 
@@ -389,11 +404,67 @@ if (!empty($sql))
                                         
                                     } // end while MYSQLI
                   
-                             }       
+                             }     
+                                    
+                                    
+                                     if (isset($_POST['viewStocks']))
+                     {
+                            echo "  <center><p class=\"category\"><b>Listed below are RECEIVED stock supplies DOLLJOY has ordered. 
+                                <br>";
+
+
+
+                           
+                            $query="SELECT SupplyID, SupplyType, DateOrdered, DateReceived, SupplierCountry, SupplyQuantity, Suppliers.SupplierName AS 'Supplier', SupplierContactNum FROM Supplies S INNER JOIN Suppliers ON S.SupplierID=Suppliers.SupplierID WHERE `DateReceived` IS NOT NULL";
+                            $result=mysqli_query($dbc,$query);
+                            
+                            
+                            $query2="SELECT SupplyID FROM Supplies WHERE `DateReceived` IS NULL";
+                            $result2=mysqli_query($dbc,$query2);
+                            $result3 = $result2->num_rows;
+                            
+
+
+                            if ($result3>=0){
+                            echo 
+
+                             "<input id=\"myInput\" type=\"search\" onkeyup=\"search();\" name = \"searchSupply\" class=\"form-control col-sm-2\" placeholder=\"Looking for...\"> </div>
+                                    <tr>
+
+                                        <th onclick=\"sortTable(0)\"><p class=\"category\"><div align=\"center\"><b>DATE RECEIVED</b></p></div></th>
+                                        <th onclick=\"sortTable(1)\"><p class=\"category\"><div align=\"center\"><b>DATE ORDERED</b></p></div></th>
+                                        <th onclick=\"sortTable(2)\"><p class=\"category\"><div align=\"center\"><b>ITEM</b></p></div></th>
+                                        <th onclick=\"sortTable(3)\"><p class=\"category\"><div align=\"center\"><b>FROM </b></p></div></th>
+                                        <th onclick=\"sortTable(4)\"><p class=\"category\"><div align=\"center\"><b>SOURCE</b></p></div></th>
+                                        <th onclick=\"sortTable(5)\"><p class=\"category\"><div align=\"center\"><b>QUANTITY IN KG</b></p></div></th>
+
+                                    </tr>
+                                    ";
+                            
+                            while($row=mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                            $id=$row['SupplyID'];
+
+                                
+                            echo "
+
+                            <tr>
+
+                            <td><div align=\"center\"><b>{$row['DateReceived']}</b></div></td>
+                            <td><div align=\"center\"><b>{$row['DateOrdered']}</b></div></td>
+                            <td><div align=\"center\"><b>{$row['SupplyType']}</b></div></td>
+                            <td><div align=\"center\"><b>{$row['Supplier']}</b></div></td>
+                            <td><div align=\"center\"><b>{$row['SupplierCountry']}</b></div></td>
+                            <td><div align=\"center\"><b>{$row['SupplyQuantity']}</b></div></td>
+                          
+                            </tr>";
+                            }
+
+                           echo '</table>';
+                            }}
+                                    
                                     
                 ?> 
-                               </div> 
-                            </div>
+                               </div>
                             </div>
                                 <div class="content table-responsive table-full-width">
                                 
@@ -408,154 +479,26 @@ if (!empty($sql))
             </div>
         </div>
 
-    
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script> designed by <a href="http://www.creative-tim.com">Creative Tim</a>
+                </div>
+            </div>
+        </footer>
 
 
     </div>
 </div>
 </div>
     
-<<<<<<< HEAD
-
-    <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-=======
-     <div class="modal fade" id="exampleModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
->>>>>>> parent of f231254... [help wanted, read description] TWEAKS ON VIEW ACCS AND INVENTORY
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Inventory Management</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body"> Confirm RECEIVE supply?
-      </div>
-      <div class="modal-footer">
-          <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">Yes</button>
-        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-<<<<<<< HEAD
-     
-
-                
-            
-
-
-  <div class="modal fade" id="receiveModal" tabindex="-1"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    
-    <div class="modal-content">
-     
-      <div class="modal-body"> 
-            Confirm RECEIVE supply?
-      </div>
-      <div class="modal-footer">
-          
-            <button type="submit" name="accept" onclick="Alert()" class="btn btn-secondary">  CONFIRM
-            </button>
-            <button type="submit" class="btn btn-secondary" data-dismiss="modal">   CANCEL
-            </button>
-      </div>
-    </div>
-  </div>
-</div>
-    
-            
-
-=======
+ 
     
             
                 
             
         
     </form>
-
-
->>>>>>> parent of f231254... [help wanted, read description] TWEAKS ON VIEW ACCS AND INVENTORY
-<script>
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;
-  //Set the sorting direction to ascending:
-  dir = "asc"; 
-  /*Make a loop that will continue until
-  no switching has been done:*/
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.getElementsByTagName("TR");
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      //Each time a switch is done, increase this count by 1:
-      switchcount ++;      
-    } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-    
-    function search() {
-        // Declare variables 
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        th = table.getElementsByTagName("th");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 1; i < tr.length; i++) {
-            tr[i].style.display = "none";
-            for (var j = 0; j < th.length; j++) {
-                td = tr[i].getElementsByTagName("td")[j];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter.toUpperCase()) > -1) {
-                        tr[i].style.display = "";
-                        break;
-                    }
-                }
-            }
-        }
-    }
-</script>
 </body>
 
     <!--   Core JS Files   -->
