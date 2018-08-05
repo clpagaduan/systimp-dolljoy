@@ -218,7 +218,8 @@ if (!empty($sql))
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <p class="category"></p>
+                                <p class="category">1) Enter OR number to a payment to an order <br>
+2) Once the OR number is filled out, click 'PAID' to update the payment status</p>
                             </div>
                                 <div class="content table-responsive table-full-width"style='overflow:auto; max-height:250px;'>
                                 
@@ -266,7 +267,7 @@ echo
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
 
-<td><b><input type=\"number\" name=\"ORnum\" ></b></td>
+<td><b><input type=\"number\" name=\"ORnum\" required ></b></td>
 
 
 
@@ -311,7 +312,8 @@ echo
                     
                      <div class="card">
                             <div class="header">
-                                <p class="category"></p>
+                                <p class="category">    <p class="category">1) Select a Date to a Shipment Date to an order <br>
+2) Once the Shipment Date is selected, click 'SHIP' to update the shipment status</p>
                             </div>
                         <div class="content table-responsive table-full-width"style='overflow:auto; max-height:250px;'>
                                 
@@ -351,7 +353,7 @@ echo
 <td><b>{$row['OQuantity']}</b></td>
 <td><b>{$row['OOrderedDate']}</b></td>
 <td><b>{$row['ORequiredDate']}</b></td>
-<td><b><input type=\"date\" name=\"shipdate\" ></b></td>
+<td><b><input type=\"date\" name=\"shipdate\" required></b></td>
 
 
 
